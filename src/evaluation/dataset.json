@@ -1,0 +1,302 @@
+[
+  {
+    "query": "What types of rice and grains are recommended for consumption, and what type of salt is suggested for flavoring according to Charaka Samhita?",
+    "expected_id": "1a6bf12f-12f1-5c8b-a128-1c7a50fab833",
+    "evaluation_benchmark": "Shali rice, shashtika rice, common millet, and Indian millet are recommended as part of the diet, while rock salt is suggested for salting purposes."
+  },
+  {
+    "query": "What are the signs of imminent death in a poisoned patient, such as bluish lips, loose teeth, hair fall, body pain, and convulsions?",
+    "expected_id": "3981f3cd-c950-574d-a1c8-b321db690504",
+    "evaluation_benchmark": "Bluish lips, loose teeth, hair fall, body pain, and convulsions are signs of imminent death in a poisoned patient. Patients without these signs can be treated with specific therapeutic measures."
+  },
+  {
+    "query": "What is the prescribed herbal formulation for treating a viper snake bite, specifically from the mandali type?",
+    "expected_id": "137f0fb2-514b-5404-93d3-a0c47ea6b349",
+    "evaluation_benchmark": "The potion for a bite by the mandali (viper) type of snake includes Manjishta, madhuyashti, jeevaka, rishabaka, sita, kashmarya, and leaf buds of the banyan tree."
+  },
+  {
+    "query": "What are the adverse effects of Shirovirechana therapy when administered to individuals with specific pre-existing conditions or who have recently undergone other treatments?",
+    "expected_id": "144f5296-e4bd-5ecf-b9a4-cfcccb1dd23d",
+    "evaluation_benchmark": "Shirovirechana therapy can lead to various adverse effects depending on the patient's condition, including aggravation of doshas, visual disturbances, neurological issues, and complications in pregnant women. Individuals with indigestion, recent purgation, or certain seasonal/climatic conditions are contraindicated for this therapy."
+  },
+  {
+    "query": "What are the signs of departing life observed by a physician upon entering a patient's home, such as the departure of auspicious items like filled water pots, fire, ghee, seeds, bulls, brahmins, gems, and deity idols?",
+    "expected_id": "0b9bb14f-3a40-5a37-8605-606180f63e7c",
+    "evaluation_benchmark": "When a physician enters the home of a dying patient, they may observe the departure of auspicious items such as filled water pots, fire, sand, ghee, seeds, bulls, brahmins, gems, and idols of deities. The presence of fire pots with flames in multiple directions also indicates the patient's life is departing."
+  },
+  {
+    "query": "What are the clinical signs observed during the remission phase of fever, particularly when it is severe or chronic?",
+    "expected_id": "23129c1e-f019-50c7-9de0-57d88b7b500e",
+    "evaluation_benchmark": "The remission of fever can manifest with symptoms such as rumbling sounds, vomiting, abnormal movements, difficulty breathing, discolored skin, sweating, trembling, fainting, delirium, fluctuating body temperature, anger, and forceful loose stools. The difficulty of remission depends on the severity and chronicity of the fever and dosha involvement."
+  },
+  {
+    "query": "What is the Ayurvedic concept of doubt regarding the uncertainty of untimely death based on observed signs of longevity and treatment adherence?",
+    "expected_id": "179f5c9d-a4a1-5b42-a32b-78b8cbb56bff",
+    "evaluation_benchmark": "Samshaya, or doubt, is defined as indecision about concerned entities. It arises when observing individuals with signs of longevity or not, and whether they follow therapeutic measures or not, leading to uncertainty about untimely death."
+  },
+  {
+    "query": "What diagnostic considerations and treatment approaches are recommended for patients based on their ama status?",
+    "expected_id": "0d3656c9-8655-5c75-b916-ae1a8574a91e",
+    "evaluation_benchmark": "Patients should be assessed for the presence or absence of ama-related imbalances (samata or niramta) and then treated appropriately using methods such as pachana."
+  },
+  {
+    "query": "What are the risks to a fetus if a pregnant mother suppresses her intense cravings for potentially harmful substances, and how can these risks be mitigated?",
+    "expected_id": "1ac085fb-6955-5993-baad-b85f145243aa",
+    "evaluation_benchmark": "Suppressing intense cravings for harmful substances can cause vitiated vata, leading to fetal diseases, morphological abnormalities, or death. However, these harmful substances can be administered if mixed with beneficial counteracting agents."
+  },
+  {
+    "query": "What are the recommended preparations of ghee and milk for patients suffering from vatarakta, specifically involving decoctions of grape and madhuka, and juice of guduchi?",
+    "expected_id": "3943c7d5-9eb4-56b1-9280-db09cfe76abc",
+    "evaluation_benchmark": "For vatarakta patients, ghee should be prepared with a decoction of grape and madhuka, optionally with sugar candy. Alternatively, milk boiled with guduchi juice can be given."
+  },
+  {
+    "query": "What observations in newborns and their life circumstances suggest a theory of rebirth, such as differences in traits, birth status, and memory of past lives?",
+    "expected_id": "06826e26-a3c9-50f1-bc11-e74ef9800f0d",
+    "evaluation_benchmark": "The text posits that observations like dissimilar children born to the same parents, variations in birth status, differing life spans, and the presence of past life memories in some individuals serve as evidence for the theory of rebirth."
+  },
+  {
+    "query": "What are the causes and consequences of age-related sexual debility, including factors like nutritional status, physical and mental fatigue, and their impact on vital essence and susceptibility to illness?",
+    "expected_id": "2f487394-15f0-541c-b387-863e5bfe01b6",
+    "evaluation_benchmark": "Age-related sexual debility in men is caused by factors such as deficiency of vital fluids, consumption of non-aphrodisiac foods, gradual loss of strength, energy, and sensory functions, reduced lifespan, malnutrition, physical exertion, and mental exhaustion, leading to profound weakness, loss of complexion, and increased susceptibility to diseases."
+  },
+  {
+    "query": "How many Rasayana formulations are described in the section focusing on hand-picked amalaki fruits?",
+    "expected_id": "10d41158-82c3-585c-bfec-e8176a3a6814",
+    "evaluation_benchmark": "In the quarter on hand plucked amalaki fruits, sixteen Rasayana formulations have been described by the great sages."
+  },
+  {
+    "query": "What are the clinical manifestations of insect bites from dooshivisha, including skin changes and associated inflammatory conditions?",
+    "expected_id": "1426609d-803b-5782-8a62-c82bf0347f50",
+    "evaluation_benchmark": "Insect bites from dooshivisha can cause the affected area to become red, white, black, or blackish, and develop boils. This is often accompanied by itching, burning, spreading inflammation, and necrosis."
+  },
+  {
+    "query": "What is the initial treatment for a vata-type abdominal mass characterized by severe pain and constipation?",
+    "expected_id": "054d893a-21f2-51c3-be49-2eaffdc57b26",
+    "evaluation_benchmark": "For a vata-type abdominal mass that develops from excessive dryness and exercise, causing severe pain and retention of feces and flatus, the initial treatment should be unctuous therapy (snehana)."
+  },
+  {
+    "query": "How can the examination of an ulcer be performed, and what specific aspects are assessed through inspection, interrogation, and palpation according to Ayurvedic principles?",
+    "expected_id": "1e8510c5-dfa5-516e-a93e-e8068e85d31d",
+    "evaluation_benchmark": "Examination of an ulcer is performed through inspection, interrogation, and palpation. Inspection assesses age, complexion, body parts, and sense organs; interrogation reveals etiology, pain nature, suitability, and digestive power; palpation determines softness and coldness, along with their opposites."
+  },
+  {
+    "query": "What type of enema is recommended for patients experiencing conditions aggravated by heat or cold, and what principle guides the selection of enema ingredients?",
+    "expected_id": "0c2a627b-eaf2-531c-9a74-d097cdf29e4e",
+    "evaluation_benchmark": "For diseases caused by heat, cooling enemas should be administered, while for diseases caused by cold, warm enemas are recommended. In all situations, enemas should contain ingredients with properties opposite to the etiological factors of the disease."
+  },
+  {
+    "query": "What are the key factors a physician must understand before initiating treatment to ensure successful outcomes and avoid excessive effort?",
+    "expected_id": "06cf53d5-b5a6-59ce-822a-c5ea70335560",
+    "evaluation_benchmark": "Physicians should have prior knowledge of cause, instruments, origin of the action, action itself, its subsequent effects, the patient's condition, time, and methods of approach. Understanding these factors leads to achieving desired results with minimal effort."
+  },
+  {
+    "query": "How can misdiagnosis of disease severity lead to inappropriate purgation therapy and worsen the patient's condition?",
+    "expected_id": "00f987d3-ea9e-5054-888b-26f6118f1788",
+    "evaluation_benchmark": "Misdiagnosing a severe illness as mild and using mild purgatives can fail to expel doshas, while misdiagnosing a mild illness as severe and using strong purgatives can excessively eliminate doshas, leading to bodily weakness."
+  },
+  {
+    "query": "What is the origin of diseases and if they stem from the same source as humans, according to Punarvasu's discourse to the sages?",
+    "expected_id": "31070b3a-546f-539b-bd36-acb0996846bf",
+    "evaluation_benchmark": "The text describes King Kashipati Vamaka asking if diseases originate from the same source as humans. Lord Punarvasu then addresses the enlightened sages, suggesting they are capable of resolving this doubt."
+  },
+  {
+    "query": "What are the clinical presentations of the tongue when it is affected by deranged vata, kapha, or pitta doshas according to Sushruta Samhita?",
+    "expected_id": "630e02d4-fc3e-566d-a333-0b0f26d2b076",
+    "evaluation_benchmark": "Vata vitiation of the tongue leads to a furred appearance, loss of sensation, and bloody thorns. Kapha vitiation results in a heavy, thick tongue with muscular papillae and roughness. Pitta vitiation causes the tongue to become yellow with a burning sensation and thorn-like structures."
+  },
+  {
+    "query": "What are the prodromal symptoms associated with the development of piles, such as digestive issues, abdominal discomfort, and general malaise?",
+    "expected_id": "6c7c44c0-e061-557f-b50e-47025de7ba5a",
+    "evaluation_benchmark": "The prodromal features of piles include dislike for food, difficulty in digestion, sour eructations, burning pain, fullness of the abdomen, thirst, tiredness in the legs, meteorism, emaciation, excessive belching, swelling of the eyes, borborygmi, cutting pain around the anus, suspicion of anemia, sprue and consumption, cough, asthma, loss of strength, disorientation, drowsiness, sleepiness, and diminished perception of senses."
+  },
+  {
+    "query": "What are the clinical manifestations and underlying cause of a convulsive fit characterized by upward movement of vitiated vayu, affecting the heart, head, and temples, leading to limb bending, fixed eyes, listlessness, and loss of consciousness?",
+    "expected_id": "227a0161-1088-5509-a7f5-75713ecad116",
+    "evaluation_benchmark": "A convulsive fit, known as apatantraka, occurs when vitiated vayu moves upwards, causing pain in the heart, head, and temples, leading to convulsions, limb bending, fixed eyes, listlessness, and loss of consciousness. This condition arises when Kapha becomes mixed with vata."
+  },
+  {
+    "query": "What are the distinguishing features of oral lesions caused by aggravated Pitta and Kapha doshas, particularly regarding their appearance, pain, fever, and suppuration?",
+    "expected_id": "726ab623-8f5e-57fc-954f-b5e8cd5fbf3c",
+    "evaluation_benchmark": "Pitta-induced rohini presents with rapid muscular bud formation, burning pain, suppuration, and high fever. Kapha-induced rohini is characterized by obstructed channels, mild suppuration, heaviness, and localized presentation."
+  },
+  {
+    "query": "What are the clinical signs and symptoms associated with different types of joint dislocations, such as swelling, pain patterns, and bone displacement?",
+    "expected_id": "0db82c06-100d-5132-a2b9-2b452b92caa0",
+    "evaluation_benchmark": "Different types of dislocations present with specific symptoms: utpista causes bilateral swelling and nocturnal pain; vislista leads to mild swelling, persistent pain, and joint derangement; vivartita results in deformity and pain from lateral displacement; avaksipta involves joint separation and severe pain; atiksipta features pain and bone overriding; and tiryakksipta is characterized by oblique bone displacement and excessive pain."
+  },
+  {
+    "query": "What are the clinical signs and symptoms of a gum disease characterized by burning, bleeding, pain, swelling, loose teeth, discharge, and foul breath, and what doshas are implicated in its etiology?",
+    "expected_id": "6d6a3dac-179e-5bb1-8474-64790c768a42",
+    "evaluation_benchmark": "Upakusa, or suppurative gingivitis, is described by symptoms such as burning sensation, bleeding, mild pain on movement, gum inflammation, loose teeth, discharge of blood, and foetid breath. It is attributed to the vitiation of Pitta and Rakta doshas."
+  },
+  {
+    "query": "What are the premonitary symptoms associated with urinary calculi, including the characteristics of the urine and associated pains?",
+    "expected_id": "a3280bb1-681f-5871-9942-04582a1105d9",
+    "evaluation_benchmark": "Premonitory symptoms of urinary calculi include fever, bladder region pain, loss of appetite, dysuria, pain in the bladder neck, scrotum, and penis, exhaustion from pain, and a goat-like urine odor. During the prodromal stage, patients experience difficult urination which is viscid, turbid, and accompanied by pains and colors indicative of vitiated dosas."
+  },
+  {
+    "query": "What are the characteristic appearances and associated symptoms of 'vatika' type of piles as described in Ayurvedic texts, including changes in stool, urine, and skin color?",
+    "expected_id": "28b33b34-0119-5037-a429-746dc9d4acb1",
+    "evaluation_benchmark": "Vatika piles are described as dry, reddish, or discolored, with irregular centers resembling kadamba flowers or wild cotton. Associated symptoms include painful defecation, pain in the waist, back, sides, penis, rectum, and umbilical region, abdominal swelling, prostatic and splenic enlargements, and darkening of the skin, nails, eyes, teeth, face, urine, and stool."
+  },
+  {
+    "query": "What are the characteristics and etiological factors of facial boils resembling thorns, commonly seen in young individuals?",
+    "expected_id": "e142c42e-993a-59eb-ab3c-4c6e9a992b61",
+    "evaluation_benchmark": "Facial boils appearing in young people, resembling salmali thorns and caused by derangements of kapha, vata, and rakta, are termed mukhadusikäs."
+  },
+  {
+    "query": "What are the characteristics and causes of pidakas that resemble mudga and mãsa, are red, and are considered 'uttama' in nature?",
+    "expected_id": "fcdf783b-fb55-5f03-b6c2-b9696076e711",
+    "evaluation_benchmark": "Pidakas resembling mudga and mãsa, which are red and considered 'uttama', are caused by vitiated rakta and pitta and result from the prolonged use of süka."
+  },
+  {
+    "query": "What are the factors that aggravate doshas leading to the formation of piles, and how do these swellings develop and grow?",
+    "expected_id": "455210fc-d125-5f7e-8c5b-c5ad1d04d993",
+    "evaluation_benchmark": "Piles are caused by aggravated doshas that spread to the rectum, forming fleshy excrescences. Factors like improper diet, excessive sexual intercourse, squatting, riding animals, and suppressing natural reflexes can contribute to this condition. The swellings grow when they come into contact with irritants such as straw, wood, stone, clay, or cold water."
+  },
+  {
+    "query": "What are the characteristics and progression of swellings in the neck and armpit caused by fat and kapha, often presenting with mild pain and itching?",
+    "expected_id": "3adb9517-4dd9-56af-adf4-1397f27b7cd4",
+    "evaluation_benchmark": "Swellings in the mandible, axilla, clavicle, shoulder, and cervical regions, caused by medas and kapha, are described as granthis. These are fixed, extensive, circular, smooth, and mildly painful, varying in size and color, progressively increasing, and are called apaci."
+  },
+  {
+    "query": "What are the characteristics of skin eruptions caused by vata and pitta that are circular, raised, full of blood, and painful?",
+    "expected_id": "2ce18e88-ac4a-590a-966f-6f6eb4e27f96",
+    "evaluation_benchmark": "Eruptions known as gardabhiks are produced by vata and pitta. They are circular, raised spherically, full of blood, and cause pain."
+  },
+  {
+    "query": "What are the clinical manifestations of an abscess located in the rectum, bladder, or umbilical region?",
+    "expected_id": "00976daf-a603-5551-90be-142fa353f1d9",
+    "evaluation_benchmark": "An internal abscess in the rectum causes obstruction to flatus. If located in the bladder, it leads to dysuria and oliguria. Abscesses in the umbilical region are associated with hiccough and borborygmi."
+  },
+  {
+    "query": "What are the different prognoses for hemiplegia based on its underlying cause, according to Ayurvedic principles described in the Sushruta Samhita?",
+    "expected_id": "cffd692f-381e-5184-b864-4b5a8f756088",
+    "evaluation_benchmark": "Hemiplegia caused solely by aggravated vayu is difficult to cure. If it involves pitta and kapha, it is curable, and if it results from dhatu wasting, it is incurable."
+  },
+  {
+    "query": "What is the natural process of fetal expulsion from the uterus during labor, analogous to a ripe fruit falling from its stalk?",
+    "expected_id": "2e3450fd-75a8-517e-aee3-15622d808006",
+    "evaluation_benchmark": "The fetus naturally begins to exit the uterus for delivery when it has matured, similar to how a ripe fruit detaches from its stalk."
+  },
+  {
+    "query": "What are the ten types of urinary abnormalities caused by Kapha dosha, and what is their prognosis?",
+    "expected_id": "8b91e5a7-0efe-5249-8b8c-05eae7c037a7",
+    "evaluation_benchmark": "Ten urinary abnormalities, including Udakameha and iksuvalikameha, are caused by vitiated Kapha and are considered curable due to similar treatment approaches for both vitiated doshas and tissues."
+  },
+  {
+    "query": "What are the modes of transmission for contagious diseases like leprosy, fever, and consumption?",
+    "expected_id": "4a454781-5104-5c93-bab7-a0e6f8e028f7",
+    "evaluation_benchmark": "Contagious diseases such as Kustha (leprosy), fever, and consumption can spread from person to person through sexual intercourse, physical touch, breath, eating together, sharing beds, and contact with clothing, garlands, or cosmetics."
+  },
+  {
+    "query": "What are the clinical features of lip diseases caused by vitiated Vata, Pitta, and Kapha doshas?",
+    "expected_id": "86d69b2d-1ef1-5852-9f50-808a89a99438",
+    "evaluation_benchmark": "Lips afflicted by Vata are rough, hard, rigid, black, acutely painful, and have cracks. Pitta-afflicted lips present with mustard-like furuncles, burning, suppuration, discharge, and appear blue or yellow. Kapha-afflicted lips are painless, have vesicles of the same color as the lips, itching, edema, and are slimy, cold, and heavy."
+  },
+  {
+    "query": "What are the diagnostic considerations for various diseases in ancient Indian surgery as presented in the Nidana Sthana of Susruta Samhita?",
+    "expected_id": "d2910e93-c7ed-5842-a690-1c31f17472f4",
+    "evaluation_benchmark": "This document, based on the Nidana Sthana of Susruta Samhita, outlines diagnostic considerations for a range of conditions in ancient Indian surgery. It details diagnostic approaches for diseases such as Vatika diseases, piles, urinary calculi, fistulas, skin diseases, and more."
+  },
+  {
+    "query": "What are the therapeutic uses and indications for the Shyamadi Gana group of herbs in treating conditions like abdominal tumors, poisoning, anorexia, and specific types of pain?",
+    "expected_id": "9b5c2965-f3d1-5a0d-b467-501b69a7f1b9",
+    "evaluation_benchmark": "The Shyamadi Gana group of herbs is indicated for curing abdominal tumors, poison, anorexia, diseases of kapha, heart aches, and dysuria. These herbs can be formulated into various preparations for internal or external use to treat obstinate diseases."
+  },
+  {
+    "query": "How many combinations of tastes are there, and how are they counted based on their usage?",
+    "expected_id": "0cb8eb12-a9d3-5bd3-89b7-9bfd353ae741",
+    "evaluation_benchmark": "The text states that the combination of tastes will be fifty-seven, but their actual counting will be sixty-three based on their usage. It also details the number of combinations for two and three tastes."
+  },
+  {
+    "query": "What are the potential health consequences of suppressing belching, and what is the recommended treatment approach?",
+    "expected_id": "4c17200f-87ca-5ed7-adea-b21dda067af3",
+    "evaluation_benchmark": "Suppressing belching can lead to anorexia, tremors, constipation, chest stiffness, bloating, cough, and hiccups. The treatment for these conditions is the same as for the suppression of hiccups."
+  },
+  {
+    "query": "What factors contribute to the development of disease and the maintenance of health according to Ayurvedic principles?",
+    "expected_id": "5a5834ca-4367-5d07-a2c3-57c404ae2842",
+    "evaluation_benchmark": "Disease arises from the insufficient, excessive, or improper use of time, sensory input, and bodily functions. Conversely, health is achieved through the balanced and appropriate application of these three elements."
+  },
+  {
+    "query": "What foods are recommended for habitual consumption to maintain health and prevent diseases, according to Ayurvedic principles?",
+    "expected_id": "ecbcd52d-f521-5818-abfc-cb7762369da3",
+    "evaluation_benchmark": "Foods recommended for habitual consumption include rice, wheat, barley, meat of desert animals, certain herbs like Jivanti, young radish, Haritaki, Indian gooseberry, dry grapes, green gram, sugar, ghee, pure water, milk, honey, pomegranate, and rock salt. Additionally, Triphala with honey and ghee is advised nightly for eye health, and any food beneficial for health and disease prevention can be consumed regularly."
+  },
+  {
+    "query": "What are the effects of consuming sweet taste on the body, particularly for children and the aged, and what are the potential negative consequences of excessive consumption?",
+    "expected_id": "ad27c613-1187-5e52-811b-2d8934ef4b89",
+    "evaluation_benchmark": "Sweet taste promotes strength, is beneficial for children, the aged, and the wounded, and improves bodily attributes like skin and sense organs. However, excessive consumption can lead to conditions such as obesity, asthma, diabetes, and glandular swellings."
+  },
+  {
+    "query": "What are the clinical signs indicating insufficient nasal lubrication with oil or ghee?",
+    "expected_id": "26cc3350-f221-5090-a220-38acbda8b968",
+    "evaluation_benchmark": "Inadequate nasal lubrication is indicated by stiffness in eye movement, emaciation and dryness of the nose and mouth, and a sensation of emptiness within the head."
+  },
+  {
+    "query": "What are the eight branches of Ayurvedic medicine, including general medicine, pediatrics, psychiatry, head/ENT/eye diseases, surgery, toxicology, geriatrics, and aphrodisiac therapy?",
+    "expected_id": "29b67270-07b3-5ee0-bdd3-906816a3982a",
+    "evaluation_benchmark": "The eight branches of Ayurveda are Kaya Chikitsa (General medicine), Bala Chikitsa (Paediatrics), Graha Chikitsa (Psychiatry), Urdhvanga Chikitsa (diseases of the Ear, Nose, Throat, Eyes and Head), Shalya Chikitsa (Surgery), Damshrta Chikitsa (Toxicology), Jara Chikitsa (Geriatrics), and Vrushya Chikitsa (Aphrodisiac therapy)."
+  },
+  {
+    "query": "What is the recommended duration for holding gargle medication in the mouth and nose for Vata, Pitta, and Kapha imbalances, and how is this duration measured?",
+    "expected_id": "4b908ebf-d757-50b3-8396-2d4f6e07f472",
+    "evaluation_benchmark": "The medication should be held until fluid secretion appears in the mouth and nose. Specifically, it is recommended for 10,000 Matra Kala for Vata, 8,000 Matra Kala for Pitta, and 6,000 Matra Kala for Kapha, where 1 Matra Kala is the time taken to blink an eye once."
+  },
+  {
+    "query": "What are the post-administration procedures and timings for administering an oil enema (Anuvasana Vasti) to ensure proper retention and efficacy?",
+    "expected_id": "ce7b5f89-6283-55b0-b0c5-f9a9e801c20f",
+    "evaluation_benchmark": "After administering the oil enema, the patient's buttocks should be gently beaten, the cot's foot lifted thrice, and the body massaged to prevent premature expulsion of the oil. The maximum retention time is nine hours, after which interventions may be considered if it hasn't come out."
+  },
+  {
+    "query": "When is a mild, lubricating smoke inhalation indicated after specific bodily functions or activities?",
+    "expected_id": "a4fe9d05-3292-5a82-b7cc-96cf2556450d",
+    "evaluation_benchmark": "Mild, lubricating smoke inhalation is indicated after sneezing, yawning, defecation, urination, copulation, and surgical operations."
+  },
+  {
+    "query": "What are the recommended dimensions and materials for an instrument wallet used in Ayurvedic practice, and how should it be constructed to protect the instruments?",
+    "expected_id": "7866a872-a1fd-506f-a311-680e3ecc8714",
+    "evaluation_benchmark": "The instrument wallet should measure 9 Angula in width and 12 Angula in length. It should be constructed from materials such as jute, leaves, wood, silk, inner bark of trees, or soft leather, and be well-stitched with compartments to hold instruments wrapped in wool."
+  },
+  {
+    "query": "What are the 15 possible combinations of two distinct tastes according to Ayurvedic principles?",
+    "expected_id": "d181e7e0-708f-5e97-892b-c98c12350793",
+    "evaluation_benchmark": "There are 15 possible combinations when two distinct tastes are combined. These combinations include pairings such as sweet with sour, sweet with bitter, sour with salty, and bitter with pungent."
+  },
+  {
+    "query": "What are the adverse effects of consuming excessive salt taste, such as hair graying, wrinkles, and skin diseases?",
+    "expected_id": "4ef282be-2cf0-5ce4-a484-4a82f4796fb1",
+    "evaluation_benchmark": "Excessive consumption of salt taste can lead to vitiation of blood and Vata, causing baldness, graying of hair, skin wrinkles, increased thirst, skin diseases, and a decrease in bodily strength."
+  },
+  {
+    "query": "What are the clinical manifestations and potential causes for the depletion of Ojas, a vital essence in Ayurvedic physiology?",
+    "expected_id": "cec542fc-a54b-5382-be50-d1b6da21d2f3",
+    "evaluation_benchmark": "Depletion of Ojas can lead to fretfulness, debilitation, repeated worry, discomfort in sense organs, bad complexion, negative thoughts, and dryness. Causes include excessive exercise, prolonged fasting, insufficient food intake, alcohol consumption, improper food combinations, fear, staying awake at night, injury, assault by microorganisms, depletion of tissues, excessive elimination of bodily substances, and poisoning."
+  },
+  {
+    "query": "What are the therapeutic uses and properties of Mardvika, a wine prepared from grapes, specifically regarding its effects on bodily functions, diseases like anemia and diabetes, and its impact on Pitta and Vata?",
+    "expected_id": "5c2f2b43-0d38-5ce1-9fa5-48e35071a8bb",
+    "evaluation_benchmark": "Mardvika, a grape wine, is described as scraping, heart-beneficial, not excessively hot in potency, and sweet. It promotes natural fluid movement, can slightly increase Pitta and Vata, and is beneficial for anemia, diabetes, hemorrhoids, and intestinal worms."
+  },
+  {
+    "query": "What are the therapeutic uses and contraindications of Arista, a fermented decoction, in Ayurvedic medicine, particularly concerning digestive and skin ailments?",
+    "expected_id": "ce549f19-66a6-5e98-a1e5-ddc2f746b201",
+    "evaluation_benchmark": "Arista, a fermented decoction, is beneficial for duodenal diseases, anemia, skin diseases, hemorrhoids, dropsy, abdominal enlargement, fever, abdominal tumors, intestinal worms, and spleen disorders. It is astringent, pungent, and can aggravate Vata."
+  },
+  {
+    "query": "What are the effects of consuming curd (Dadhi) on fat, semen, strength, Kapha, and bleeding disorders?",
+    "expected_id": "4cf59b3e-9c06-5628-a4ee-8074d1008494",
+    "evaluation_benchmark": "Consumption of Dadhi (curd) is noted to increase Meda (fat), Shukra (semen), Bala (strength), Kapha, and Raktapitta (bleeding disorders)."
+  },
+  {
+    "query": "What are the therapeutic uses of the Vatsakadi Gana group of herbs in treating conditions like fever, colic, and rhinitis?",
+    "expected_id": "ad1b38c3-3b2e-59ff-a7e8-10fa2b5e6da3",
+    "evaluation_benchmark": "The Vatsakadi Gana group of herbs is indicated for treating disorders of Vata, Kapha, and medas. It is also beneficial for conditions such as rhinitis, abdominal tumors, fever, colic, and hemorrhoids."
+  },
+  {
+    "query": "What is the function of the Samiyantra instrument in Ayurvedic practice, particularly for conditions like piles?",
+    "expected_id": "7788b5bc-d35e-5932-8627-2592e37fcf7f",
+    "evaluation_benchmark": "The Samiyantra instrument is described as being similar to another instrument but lacking offices, and it is useful for squeezing pile masses."
+  }
+]
