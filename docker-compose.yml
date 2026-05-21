@@ -1,0 +1,29 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: chunking-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - ./qdrant_storage:/qdrant/storage:z
+    restart: always
+
+  embedding-gpu:
+    build:
+      context: .
+      dockerfile: Dockerfile.gpu
+    container_name: chunking-embedding-gpu
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - ./models:/models:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: always

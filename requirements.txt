@@ -1,0 +1,27 @@
+numpy<2.0.0
+qdrant-client
+huggingface_hub
+networkx
+pyvis
+matplotlib
+rank_bm25
+google-genai
+python-dotenv
+requests
+rich
+# --- Evaluation Stack ---
+arize-phoenix
+ragas
+openinference-instrumentation
+openinference-instrumentation-google-genai
+openinference-instrumentation-langchain
+langchain-google-genai
+pandas
+scikit-learn
+tqdm
+fastembed
+indic-transliteration
+transformers
+torch
+uvicorn
+fastapi

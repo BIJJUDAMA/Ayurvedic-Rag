@@ -1,0 +1,14 @@
+# Use a stable NVIDIA NGC container with Torch 2.5.1
+FROM nvcr.io/nvidia/pytorch:24.10-py3
+
+WORKDIR /app
+
+# Pin transformers to a version that doesn't require Torch 2.6 for weights loading
+RUN pip install --upgrade pip
+RUN pip install fastapi uvicorn "transformers<=4.47.1" sentence-transformers einops
+
+# Expose the inference port
+EXPOSE 8080
+
+# Command to run the server
+CMD ["python", "src/chunking/inference_server.py"]
