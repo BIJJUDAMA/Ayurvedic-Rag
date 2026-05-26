@@ -11,6 +11,8 @@ if project_root not in sys.path:
 import requests
 import numpy as np
 from src.chunking.remote_embedder import RemoteEmbedder
+from src.chunking.cross_linker import cross_link
+from src.chunking.uploader import AyurvedaUploader
 
 def check_environment():
     """Verify basic connectivity."""
@@ -60,6 +62,24 @@ def run_all(shared_model=None):
     print("\n--- Phase 3: Charaka Samhita ---")
     from src.chunking.charak_samhita_chunking.main import main as run_charaka
     run_charaka(model=shared_model)
+
+    print("\n--- Phase 4: Cross-Linking ---")
+    cross_link()
+
+    print("\n--- Phase 5: Upload to Qdrant ---")
+    uploader = AyurvedaUploader()
+    for book in ["shusrut_samhita", "astanga_hridaya", "charak_samhita"]:
+        uploader.upload_book(book)
+
+    print("\n--- Phase 6: Semantic Consolidation (Accordion) ---")
+    from src.chunking.semantic_merger import AyurvedaAccordion
+    accordion = AyurvedaAccordion()
+    candidates = accordion.run_dry_run(limit=5000) # Full scan for final deployment
+    if candidates:
+        print(f" >>> Found {len(candidates)} redundant chunk pairs. Merging...")
+        accordion.merge_and_upsert(candidates)
+    else:
+        print(" >>> No redundant boundaries detected. DB is lean.")
     
     print("\n>>> All tasks completed successfully.")
     sys.stdout.flush()
@@ -89,11 +109,13 @@ def menu():
         print("2. Run Susruta Samhita Pipeline")
         print("3. Run Astanga Hridaya Pipeline")
         print("4. Run ALL (Sequential)")
-        print("5. Exit")
+        print("5. Run Cross-Linker")
+        print("6. Upload to Qdrant")
+        print("7. Exit")
         sys.stdout.flush()
         
         try:
-            choice = input("\nSelect an option (1-5): ").strip()
+            choice = input("\nSelect an option (1-7): ").strip()
         except EOFError:
             print("\nNon-interactive mode detected. Use '--all' flag for background runs.")
             break
@@ -114,6 +136,14 @@ def menu():
         elif choice == "4":
             run_all(shared_model=shared_model)
         elif choice == "5":
+            print("\n>>> Running Cross-Linker...")
+            cross_link()
+        elif choice == "6":
+            print("\n>>> Uploading to Qdrant...")
+            uploader = AyurvedaUploader()
+            for book in ["shusrut_samhita", "astanga_hridaya", "charak_samhita"]:
+                uploader.upload_book(book)
+        elif choice == "7":
             print("Exiting.")
             break
         else:
