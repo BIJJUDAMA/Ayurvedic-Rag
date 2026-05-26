@@ -1,102 +1,65 @@
-import os
 import json
-from .config import BOOKS_DIR, TYPE_STHANA, SOURCE_TREATISE
-from .utils import SlugRegistry
+import os
+import sys
 from .parser import CharakaParser
-from src.chunking.unified_database import upload_to_qdrant
+from .utils import SlugRegistry
 
 def main(model=None):
-    registry = SlugRegistry()
-    parser = CharakaParser(registry)
-    all_chunks = []
-
-    # Pass 0: Create High-Level Hierarchy (Book & Sthanas)
-    print("Creating High-Level Hierarchy...")
+    print("Starting Charaka Samhita worker (Stitching fragments)...")
     
-    # 1. Treatise Root
-    treatise_root = {
+    dir_path = os.path.join("books", "charak_samhita")
+    registry = SlugRegistry()
+    parser = CharakaParser(registry, dir_path=dir_path)
+    
+    all_chunks = []
+    files = [f for f in os.listdir(dir_path) if f.endswith(".json")]
+    
+    # First pass: Register all slugs (Pre-scan)
+    print(f"Registering {len(files)} files...")
+    for filename in files:
+        with open(os.path.join(dir_path, filename), "r", encoding="utf-8") as f:
+            data = json.load(f)
+            registry.register(data["title"], data["url"])
+            
+    # Second pass: Parse and collect chunks
+    print("Parsing files...")
+    
+    # 0. Add Treatise Root Node
+    all_chunks.append({
         "id": parser.treatise_root_id,
         "level": "book",
         "parent_id": None,
         "title": "Charaka Samhita",
-        "content": "Charaka Samhita - The foundational text of Ayurveda.",
-        "url": "https://charakasamhita.com/",
-        "metadata": {"author": "Charaka / Agnivesha / Dridhabala"}
-    }
-    all_chunks.append(treatise_root)
-
-    # 2. Sthana Nodes
-    sthanas = [
-        ("Sutra Sthana", "Section on Fundamental Principles", "Sutra_Sthana"),
-        ("Nidana Sthana", "Section on Diagnosis", "Nidana_Sthana"),
-        ("Vimana Sthana", "Section on Specific Determination", "Vimana_Sthana"),
-        ("Sharira Sthana", "Section on Anatomy/Physiology", "Sharira_Sthana"),
-        ("Indriya Sthana", "Section on Prognosis", "Indriya_Sthana"),
-        ("Chikitsa Sthana", "Section on Therapeutics", "Chikitsa_Sthana"),
-        ("Kalpa Sthana", "Section on Pharmaceutics", "Kalpa_Sthana"),
-        ("Siddhi Sthana", "Section on Successful Treatment", "Siddhi_Sthana")
-    ]
-    
-    for name, desc, key in sthanas:
-        sid = parser.hierarchy.sthana_ids[key]
-        all_chunks.append({
-            "id": sid,
-            "level": TYPE_STHANA,
-            "parent_id": parser.treatise_root_id,
-            "title": name,
-            "content": f"{name}: {desc}",
-            "url": "https://charakasamhita.com/",
-            "metadata": {"section_name": name}
-        })
-
-    # 3. New Hub Nodes for Materia Medica and Appendices
-    all_chunks.append({
-        "id": parser.hierarchy.meta_hub_id,
-        "level": TYPE_STHANA,
-        "parent_id": parser.treatise_root_id,
-        "title": "Appendices & Meta",
-        "content": "Administrative and Meta information regarding the Charaka Samhita Project.",
-        "url": "https://charakasamhita.com/",
-        "metadata": {}
-    })
-    
-    all_chunks.append({
-        "id": parser.hierarchy.materia_medica_id,
-        "level": TYPE_STHANA,
-        "parent_id": parser.treatise_root_id,
-        "title": "Materia Medica",
-        "content": "Glossary of herbs and botanical identifiers in Charaka Samhita.",
-        "url": "https://charakasamhita.com/",
-        "metadata": {}
+        "content": "Charaka Samhita - Fundamental text on Internal Medicine (Kayachikitsa).",
+        "metadata": {"title": "Charaka Samhita"}
     })
 
-    # Pass 1: Discovery (Build Registry)
-    print("Starting Discovery Pass...")
-    files = [f for f in os.listdir(BOOKS_DIR) if f.endswith(".json")]
     for filename in files:
-        file_path = os.path.join(BOOKS_DIR, filename)
-        with open(file_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            registry.register(data["title"], data["url"])
-    print(f"Discovery complete. Registered {len(registry.title_to_id)} unique titles.")
-
-    # Pass 2: Indexing (Parse and Chunk)
-    print("Starting Indexing Pass...")
-    for filename in files:
-        file_path = os.path.join(BOOKS_DIR, filename)
-        print(f"Parsing {filename}...")
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(os.path.join(dir_path, filename), "r", encoding="utf-8") as f:
             data = json.load(f)
             chunks = parser.parse(data)
             all_chunks.extend(chunks)
-
-    print(f"Parsing complete. Generated {len(all_chunks)} chunks.")
-
-    # Pass 3: Upload to Qdrant
-    if all_chunks:
-        upload_to_qdrant(all_chunks, SOURCE_TREATISE, model=model)
-    else:
-        print("No chunks generated. Skipping upload.")
+            
+    # Note: Complex sequential sorting by hierarchy could be done here, 
+    # but for now we follow the file iteration order.
+    
+    output_dir = os.path.join("processed-books", "charak_samhita")
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # 1. Write Canonical Markdown
+    md_path = os.path.join(output_dir, "canonical.md")
+    with open(md_path, "w", encoding="utf-8") as f:
+        for chunk in all_chunks:
+            title = chunk.get('title') or "Untitled"
+            f.write(f"## {title}\n\n{chunk['content']}\n\n")
+            
+    # 2. Write Vectors JSONL
+    jsonl_path = os.path.join(output_dir, "vectors.jsonl")
+    with open(jsonl_path, "w", encoding="utf-8") as f:
+        for chunk in all_chunks:
+            f.write(json.dumps(chunk) + "\n")
+            
+    print(f"Artifacts generated in {output_dir}. Total chunks: {len(all_chunks)}")
 
 if __name__ == "__main__":
     main()

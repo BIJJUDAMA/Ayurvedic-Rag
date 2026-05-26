@@ -23,7 +23,6 @@ GLOSSARY_KEYWORDS = ["List_of_herbs", "Botanical", "Glossary"]
 def normalize_wiki_title(text: str) -> str:
     """Decode and normalize Wiki titles for consistent matching."""
     decoded = urllib.parse.unquote(text)
-    # Replace Wiki underscores and different dash types with spaces
     normalized = decoded.replace("_", " ").replace("–", "-").replace("—", "-")
     return re.sub(r'\s+', ' ', normalized).strip()
 
@@ -38,15 +37,11 @@ class CharakaHierarchyManager:
         self.root_id = generate_id("root_charaka_samhita")
 
     def _extract_title_from_link(self, link: str) -> str:
-        """Helper to extract and normalize a title from various Wiki link formats."""
         if "title=" in link:
-            # Extract from query parameter
             slug = link.split("title=")[-1].split("&")[0]
         elif "/wiki/" in link:
-            # Extract from path
             slug = link.split("/wiki/")[-1].split("#")[0]
         else:
-            # Fallback
             slug = link.split("/")[-1].split("#")[0]
         return normalize_wiki_title(slug)
 
@@ -55,7 +50,6 @@ class CharakaHierarchyManager:
         if not os.path.exists(self.dir_path): return
         files = [f for f in os.listdir(self.dir_path) if f.endswith(".json")]
         
-        # 1. Build ToC from Abstracts
         for filename in files:
             if "Abstracts" in filename:
                 sthana_key = None
@@ -75,7 +69,6 @@ class CharakaHierarchyManager:
                                     self.toc_map[title] = self.sthana_ids[sthana_key]
                     except: continue
 
-        # 2. Calculate Affinity for everything else
         for filename in files:
             try:
                 path = os.path.join(self.dir_path, filename)
@@ -97,18 +90,13 @@ class CharakaHierarchyManager:
                         self.affinity_map[norm_title] = self.toc_map[norm_title]
                         continue
 
-                    # Link Affinity Scoring (Higher weights for direct Sthana links)
                     scores = {sid: 0 for sid in self.sthana_ids.values()}
                     for link in links:
                         link_title = self._extract_title_from_link(link)
                         if not link_title: continue
-                        
-                        # Direct Sthana Link (Massive weight)
                         for k, sid in self.sthana_ids.items():
                             if k.replace("_", " ") in link_title:
                                 scores[sid] += 10
-                        
-                        # Neighbor Link (Strong weight)
                         if link_title in self.toc_map:
                             scores[self.toc_map[link_title]] += 2
                     
@@ -164,8 +152,6 @@ class CharakaParser:
     def parse(self, data: Dict[str, Any]) -> List[Dict[str, Any]]:
         doc_type = self.classify_document(data)
         canonical_id = self.registry.register(data["title"], data["url"])
-        
-        # Use hierarchy manager for parenting based on title
         sthana_parent_id = self.hierarchy.get_parent(data["title"])
         
         chunks = []
@@ -189,15 +175,21 @@ class CharakaParser:
         
         return chunks
 
-    def create_chunk(self, cid: str, clevel: str, title: str, content: str, data: Dict[str, Any], metadata: Dict[str, Any] = None, parent_id: str = None) -> Dict[str, Any]:
-        if metadata is None:
-            metadata = {}
-        if parent_id is None:
-            parent_id = self.treatise_root_id
+    def create_chunk(self, cid: str, clevel: str, title: str, content: str, data: Dict[str, Any], metadata: Dict[str, Any] = None, parent_id: str = None, override_id: str = None) -> Dict[str, Any]:
+        if metadata is None: metadata = {}
+        if parent_id is None: parent_id = self.treatise_root_id
 
-        # Use a more robust stable ID for chunks
-        content_hash = generate_id(content[:100] if content else "empty")
-        chunk_id = generate_id(f"{cid}_{clevel}_{title}_{content_hash}")
+        # Aggressive Noise Removal
+        content = re.sub(r'Contents\n+(.*?)\n\n', '\n\n', content, flags=re.DOTALL)
+        content = re.sub(r'Contents\s+1\s+.*?\n', '', content, flags=re.DOTALL)
+        content = content.replace("Send us your suggestions", "").strip()
+        content = content.split("This article has been accessed")[0].strip()
+
+        if override_id:
+            chunk_id = override_id
+        else:
+            content_hash = generate_id(content[:100] if content else "empty")
+            chunk_id = generate_id(f"{cid}_{clevel}_{title}_{content_hash}")
 
         return {
             "id": chunk_id,
@@ -213,54 +205,82 @@ class CharakaParser:
         }
 
     def parse_botanical(self, data: Dict[str, Any], cid: str, sthana_parent_id: str) -> List[Dict[str, Any]]:
-        content = data["text"]
-        content = re.sub(r'Contents\n.*?\n(?=[A-Z])', '', content, flags=re.DOTALL)
-        content = content.split("Send us your suggestions")[0].strip()
-        return [self.create_chunk(cid, TYPE_BOTANICAL, data["title"], content, data, parent_id=sthana_parent_id)]
+        return self.parse_article(data, cid, TYPE_BOTANICAL, sthana_parent_id)
 
     def parse_glossary(self, data: Dict[str, Any], cid: str, sthana_parent_id: str) -> List[Dict[str, Any]]:
         return [self.create_chunk(cid, TYPE_GLOSSARY, data["title"], data["text"], data, parent_id=sthana_parent_id)]
 
     def parse_sthana(self, data: Dict[str, Any], cid: str) -> List[Dict[str, Any]]:
-        return [self.create_chunk(cid, TYPE_STHANA, data["title"], data["text"], data, parent_id=self.treatise_root_id)]
+        norm_title = normalize_wiki_title(data["title"])
+        override_id = None
+        for k, sid in self.hierarchy.sthana_ids.items():
+            if k.replace("_", " ") in norm_title:
+                override_id = sid
+                break
+        
+        return [self.create_chunk(cid, TYPE_STHANA, data["title"], data["text"], data, parent_id=self.treatise_root_id, override_id=override_id)]
 
     def parse_article(self, data: Dict[str, Any], cid: str, doc_type: str, sthana_parent_id: str) -> List[Dict[str, Any]]:
         chunks = []
         text = data["text"]
         title = data["title"]
         
-        lede_match = re.search(r'Contents\n\n(.*?)\n\n', text, re.DOTALL)
+        # Try to find "Contents" block
+        lede_match = re.search(r'Contents\n+(.*?)\n\n', text, re.DOTALL)
         if lede_match:
             toc_lines = lede_match.group(1).strip().split('\n')
-            section_titles = [re.sub(r'^\d+(\.\d+)*\s+', '', line).strip() for line in toc_lines if re.match(r'^\d+', line)]
+            # Extract section titles from the TOC
+            section_titles = []
+            for line in toc_lines:
+                m = re.match(r'^\d+(\.\d+)*\s+(.*)', line.strip())
+                if m:
+                    section_titles.append(m.group(2).strip())
             
             if section_titles:
+                # Find the start of the first section in the main text
                 first_section = section_titles[0]
-                lede_end = text.find(f"\n\n{first_section}\n\n")
+                # Spacing could be anything, so we search for the title as a standalone line
+                lede_end = -1
+                for match in re.finditer(re.escape(first_section), text):
+                    # Check if it looks like a heading (surrounded by newlines)
+                    start = match.start()
+                    if start > 0 and text[start-1] == '\n':
+                        lede_end = start
+                        break
+                
                 if lede_end != -1:
                     lede_content = text[:lede_end].strip()
                     chunks.append(self.create_chunk(cid, doc_type, title, lede_content, data, parent_id=sthana_parent_id))
                     article_root_id = chunks[-1]["id"]
-                    text = text[lede_end:].strip()
+                    text_rem = text[lede_end:].strip()
                 
                     for i, st in enumerate(section_titles):
                         next_st = section_titles[i+1] if i+1 < len(section_titles) else None
-                        start_idx = text.find(st)
+                        
+                        start_idx = text_rem.find(st)
                         if start_idx == -1: continue
                         
-                        end_idx = text.find(next_st) if next_st else len(text)
-                        section_body = text[start_idx:end_idx].strip()
+                        if next_st:
+                            end_idx = text_rem.find(next_st, start_idx + len(st))
+                            if end_idx == -1: end_idx = len(text_rem)
+                        else:
+                            end_idx = len(text_rem)
+                            
+                        section_body = text_rem[start_idx:end_idx].strip()
                         section_content = section_body[len(st):].strip()
                         
-                        chunks.append(self.create_chunk(
-                            f"{cid}_{mediawiki_slugify(st)}", 
-                            TYPE_SECTION, 
-                            f"{title} - {st}", 
-                            section_content, 
-                            data,
-                            {"section_title": st, "anchor": mediawiki_slugify(st)},
-                            parent_id=article_root_id
-                        ))
+                        if section_content:
+                            chunks.append(self.create_chunk(
+                                f"{cid}_{mediawiki_slugify(st)}", 
+                                TYPE_SECTION, 
+                                f"{title} - {st}", 
+                                section_content, 
+                                data,
+                                {"section_title": st, "anchor": mediawiki_slugify(st)},
+                                parent_id=article_root_id
+                            ))
+                else:
+                    chunks.append(self.create_chunk(cid, doc_type, title, text, data, parent_id=sthana_parent_id))
             else:
                 chunks.append(self.create_chunk(cid, doc_type, title, text, data, parent_id=sthana_parent_id))
         else:
@@ -282,98 +302,7 @@ class CharakaParser:
             chunks.append(self.create_chunk(cid, TYPE_CHAPTER, title, f"Chapter: {title}", data, parent_id=sthana_parent_id))
             chapter_root_id = chunks[-1]["id"]
 
-        verse_pattern = re.compile(r'([\u0900-\u097F]{10,}.*?\[(\d+[-–\d,\s]*)\])(?=\n\n|$)', re.DOTALL)
-        matches = list(verse_pattern.finditer(text))
-        for match in matches:
-            verse_content = match.group(1).strip()
-            verse_ref = match.group(2).strip()
-            sanskrit_parts = re.findall(r'[\u0900-\u097F].*?\|\|\d+\|\|', verse_content, re.DOTALL)
-            
-            chunks.append(self.create_chunk(
-                f"{cid}_verse_{verse_ref}",
-                TYPE_VERSE,
-                f"{title} Verse {verse_ref}",
-                verse_content,
-                data,
-                {
-                    "verse_ref": verse_ref,
-                    "sanskrit_count": len(sanskrit_parts),
-                    "is_tripartite": "||" in verse_content and "[" in verse_content
-                },
-                parent_id=chapter_root_id
-            ))
-        return chunks
-
-    def parse_botanical(self, data: Dict[str, Any], cid: str, sthana_parent_id: str) -> List[Dict[str, Any]]:
-        content = data["text"]
-        content = re.sub(r'Contents\n.*?\n(?=[A-Z])', '', content, flags=re.DOTALL)
-        content = content.split("Send us your suggestions")[0].strip()
-        return [self.create_chunk(cid, TYPE_BOTANICAL, data["title"], content, data, parent_id=sthana_parent_id)]
-
-    def parse_glossary(self, data: Dict[str, Any], cid: str, sthana_parent_id: str) -> List[Dict[str, Any]]:
-        return [self.create_chunk(cid, TYPE_GLOSSARY, data["title"], data["text"], data, parent_id=sthana_parent_id)]
-
-    def parse_sthana(self, data: Dict[str, Any], cid: str) -> List[Dict[str, Any]]:
-        return [self.create_chunk(cid, TYPE_STHANA, data["title"], data["text"], data, parent_id=self.treatise_root_id)]
-
-    def parse_article(self, data: Dict[str, Any], cid: str, doc_type: str, sthana_parent_id: str) -> List[Dict[str, Any]]:
-        chunks = []
-        text = data["text"]
-        title = data["title"]
-        
-        lede_match = re.search(r'Contents\n\n(.*?)\n\n', text, re.DOTALL)
-        if lede_match:
-            toc_lines = lede_match.group(1).strip().split('\n')
-            section_titles = [re.sub(r'^\d+(\.\d+)*\s+', '', line).strip() for line in toc_lines if re.match(r'^\d+', line)]
-            
-            if section_titles:
-                first_section = section_titles[0]
-                lede_end = text.find(f"\n\n{first_section}\n\n")
-                if lede_end != -1:
-                    lede_content = text[:lede_end].strip()
-                    chunks.append(self.create_chunk(cid, doc_type, title, lede_content, data, parent_id=sthana_parent_id))
-                    article_root_id = chunks[-1]["id"]
-                    text = text[lede_end:].strip()
-                
-                    for i, st in enumerate(section_titles):
-                        next_st = section_titles[i+1] if i+1 < len(section_titles) else None
-                        start_idx = text.find(st)
-                        if start_idx == -1: continue
-                        
-                        end_idx = text.find(next_st) if next_st else len(text)
-                        section_body = text[start_idx:end_idx].strip()
-                        section_content = section_body[len(st):].strip()
-                        
-                        chunks.append(self.create_chunk(
-                            f"{cid}_{mediawiki_slugify(st)}", 
-                            TYPE_SECTION, 
-                            f"{title} - {st}", 
-                            section_content, 
-                            data,
-                            {"section_title": st, "anchor": mediawiki_slugify(st)},
-                            parent_id=article_root_id
-                        ))
-            else:
-                chunks.append(self.create_chunk(cid, doc_type, title, text, data, parent_id=sthana_parent_id))
-        else:
-            chunks.append(self.create_chunk(cid, doc_type, title, text, data, parent_id=sthana_parent_id))
-            
-        return chunks
-
-    def parse_chapter(self, data: Dict[str, Any], cid: str, sthana_parent_id: str) -> List[Dict[str, Any]]:
-        chunks = []
-        text = data["text"]
-        title = data["title"]
-        
-        abstract_match = re.search(r'Abstract\n\n(.*?)\n\nKeywords', text, re.DOTALL)
-        if abstract_match:
-            abstract_content = abstract_match.group(1).strip()
-            chunks.append(self.create_chunk(cid, TYPE_CHAPTER, title, abstract_content, data, parent_id=sthana_parent_id))
-            chapter_root_id = chunks[-1]["id"]
-        else:
-            chunks.append(self.create_chunk(cid, TYPE_CHAPTER, title, f"Chapter: {title}", data, parent_id=sthana_parent_id))
-            chapter_root_id = chunks[-1]["id"]
-
+        # Parse verses (Devanagari blocks with bracketed numbers)
         verse_pattern = re.compile(r'([\u0900-\u097F]{10,}.*?\[(\d+[-–\d,\s]*)\])(?=\n\n|$)', re.DOTALL)
         matches = list(verse_pattern.finditer(text))
         for match in matches:

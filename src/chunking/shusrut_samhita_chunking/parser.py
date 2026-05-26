@@ -2,9 +2,10 @@ import re
 import uuid
 from typing import List, Dict, Any, Optional
 from enum import Enum, auto
+from .noise_manifest import clean_noise
 from .utils import (
     is_indological_truths, is_citation_marker, is_base64_image,
-    clean_text, extract_verse_info, get_chapter_title_from_intro,
+    extract_verse_info, get_chapter_title_from_intro,
     split_long_section
 )
 
@@ -15,25 +16,25 @@ class ParserState(Enum):
     CHAPTER_BODY = auto()
     APPARATUS = auto()
 
+def clean_text(text: str) -> str:
+    text = clean_noise(text)
+    import html
+    return html.unescape(text).strip()
+
 def generate_stable_id(content_seed: str) -> str:
     """Generate a deterministic UUID from content."""
     return str(uuid.uuid5(uuid.NAMESPACE_DNS, content_seed))
 
 def is_section_heading(line: str) -> bool:
-    """
-    Detects if a line is likely a section heading.
-    Headings in this file either start with ## or with a verse number/range.
-    """
+    """Detects if a line is likely a section heading."""
     stripped = line.strip()
     if not stripped: return False
     if stripped.startswith("##"): 
-        # Exclude metadata-only markers
         if is_indological_truths(stripped) or is_citation_marker(stripped):
             return False
         return True
     
-    # Match verse numbers at start of line: "1.", "16, 17/1.", "20/2, 21/1.", "22/2, 23/1."
-    # We look for digits followed by optional punctuation/ranges and then a space + capital letter
+    # Match verse numbers at start of line: "1.", "16, 17/1.", "20/2, 21/1."
     if re.match(r'^\d+([\s,/-]+\d+([/\.]\d+)?)?[\.\s]+[A-Z]', stripped):
         return True
         
@@ -47,8 +48,6 @@ def parse_shusrut_samhita(file_path: str) -> List[Dict[str, Any]]:
     sthana_id = generate_stable_id("sthana_nidana_susruta")
     
     state = ParserState.FRONTMATTER
-    
-    # State-based buffers
     intro_buffer = []
     summary_buffer = []
     section_buffer = []
@@ -85,38 +84,28 @@ def parse_shusrut_samhita(file_path: str) -> List[Dict[str, Any]]:
             continue
 
         # 3. Chapter Transition Trigger
-        # Matches "CHAPTER ONE NIDÃNA-STHANA" or "CHAPTER TWO NIDANA STHANA"
         if "CHAPTER" in stripped.upper() and ("NIDANA" in stripped.upper() or "NIDÃNA" in stripped.upper()):
             if "THUS ENDS" in stripped.upper():
                 line_idx += 1
                 continue
 
-            # Flush previous chapter
             if section_buffer:
                 flush_sections(chunks, section_buffer, current_chapter_id, current_chapter_num, get_chapter_title_from_intro(current_chapter_num))
                 section_buffer = []
             
-            # Identify chapter number
-            # Look for word numbers or digits
             match = re.search(r'CHAPTER\s+([A-Z]+|\d+)', stripped, re.I)
             if match:
                 raw_num = match.group(1).title()
-                # Try to map words, otherwise try int
                 if raw_num in num_map:
                     current_chapter_num = num_map[raw_num]
                 elif raw_num.upper() in [k.upper() for k in num_map.keys()]:
-                    # Case insensitive map lookup
                     for k, v in num_map.items():
                         if k.upper() == raw_num.upper():
                             current_chapter_num = v
                             break
                 elif raw_num.isdigit():
                     current_chapter_num = int(raw_num)
-                else:
-                    # Fallback or keep previous? Better to keep previous if we can't identify
-                    pass
             
-            # Set state and reset buffers
             state = ParserState.CHAPTER_HEADER
             summary_buffer = []
             chapter_title = get_chapter_title_from_intro(current_chapter_num)
@@ -126,33 +115,27 @@ def parse_shusrut_samhita(file_path: str) -> List[Dict[str, Any]]:
             continue
 
         # 4. State Management
-        
-        # State: FRONTMATTER
         if state == ParserState.FRONTMATTER:
             if "INTRODUCTION" in stripped.upper():
-                state = ParserState.FRONTMATTER # Stay in frontmatter but start collecting
+                state = ParserState.FRONTMATTER
             intro_buffer.append(line)
             
-        # State: Transition from Header/Preamble to Body
         if stripped == "## SUMMARY":
             state = ParserState.CHAPTER_PREAMBLE
             line_idx += 1
             continue
             
-        # If we see a section heading or "## Chapter X", we move to BODY
         if state in [ParserState.CHAPTER_HEADER, ParserState.CHAPTER_PREAMBLE]:
             if stripped.startswith("## Chapter") or is_section_heading(line):
-                # Flush summary if we were in PREAMBLE
-                summary_text = clean_text("\n".join(summary_buffer))
+                # Add Chapter Chunk
                 chapter_title = get_chapter_title_from_intro(current_chapter_num)
-                
-                # Check if chapter chunk already exists (avoid duplicates)
                 if not any(c["id"] == current_chapter_id for c in chunks):
                     chunks.append({
                         "id": current_chapter_id,
                         "level": "chapter",
                         "parent_id": sthana_id,
-                        "content": summary_text or f"Chapter {current_chapter_num}: {chapter_title}",
+                        "title": f"Chapter {current_chapter_num}: {chapter_title}",
+                        "content": f"Full diagnosis and etiology in Chapter {current_chapter_num}.",
                         "metadata": {
                             "chapter_number": current_chapter_num,
                             "chapter_title": chapter_title,
@@ -160,14 +143,25 @@ def parse_shusrut_samhita(file_path: str) -> List[Dict[str, Any]]:
                         }
                     })
                 
+                # If we had a summary, flush it as a special child
+                if summary_buffer:
+                    summary_text = clean_text("\n".join(summary_buffer))
+                    chunks.append({
+                        "id": generate_stable_id(f"ss_ch_{current_chapter_num}_summary"),
+                        "level": "section",
+                        "parent_id": current_chapter_id,
+                        "title": "Chapter Summary",
+                        "content": summary_text,
+                        "metadata": {"chapter_number": current_chapter_num, "is_summary": True}
+                    })
+                    summary_buffer = []
+
                 state = ParserState.CHAPTER_BODY
-                # Fall through to CHAPTER_BODY collection
             elif state == ParserState.CHAPTER_PREAMBLE:
                 summary_buffer.append(line)
                 line_idx += 1
                 continue
 
-        # State: CHAPTER_BODY
         if state == ParserState.CHAPTER_BODY:
             if "SUGGESTED RESEARCH PROBLEMS" in stripped.upper():
                 if section_buffer:
@@ -181,123 +175,69 @@ def parse_shusrut_samhita(file_path: str) -> List[Dict[str, Any]]:
             else:
                 section_buffer.append(line)
 
-        # State: APPARATUS
-        elif state == ParserState.APPARATUS:
-            # Just ignore or collect if needed. For now, we skip.
-            pass
-
         line_idx += 1
 
     # Final flush
     if section_buffer and state == ParserState.CHAPTER_BODY:
         flush_sections(chunks, section_buffer, current_chapter_id, current_chapter_num, get_chapter_title_from_intro(current_chapter_num))
 
-    # Add Book Root and Sthana Node at the beginning
-    # 1. Treatise Root
+    # Add Root Nodes
     chunks.insert(0, {
         "id": treatise_root_id,
         "level": "book",
         "parent_id": None,
-        "content": "Susruta Samhita - One of the foundational surgical texts of Ayurveda.",
+        "title": "Susruta Samhita",
+        "content": "Susruta Samhita - Foundation text of Ancient Indian Surgery.",
         "metadata": {"title": "Susruta Samhita"}
     })
 
-    # 2. Sthana Node
     chunks.insert(1, {
         "id": sthana_id,
         "level": "sthana_index",
         "parent_id": treatise_root_id,
-        "content": "Nidana Sthana: Section on Etiology and Pathogenesis.",
+        "title": "Nidana Sthana",
+        "content": "Nidana Sthana: Etiology and Pathogenesis.",
         "metadata": {"title": "Nidana Sthana"}
     })
 
-    # 3. Intro / Preamble (Links to Sthana)
-    book_content = clean_text("\n".join(intro_buffer))
-    if book_content:
-        chunks.append({
-            "id": generate_stable_id("ss_nidana_intro"),
-            "level": "section",
-            "parent_id": sthana_id,
-            "content": book_content,
-            "metadata": {"title": "Nidana Sthana Introduction"}
-        })
-
-    # Link sequential edges (prev_id/next_id)
-    link_sequential_edges(chunks)
-    
     return chunks
 
 def flush_sections(chunks, buffer, chapter_id, chapter_num, chapter_title):
     if not buffer: return
     
     heading = buffer[0]
-    body_lines = buffer[1:]
-    
     verse_start, verse_end, title = extract_verse_info(heading)
     content = clean_text("\n".join(buffer))
     
-    # Handle orphan headings (## 12.)
-    derived_title = False
-    if not title and body_lines:
-        first_sentence = re.split(r'[\.\?!]', body_lines[0])[0].strip()
-        if len(first_sentence) < 100:
-            title = first_sentence
-            derived_title = True
+    if not title:
+        title = heading.strip()[:100]
 
-    # Split long sections
-    parts = split_long_section(content)
-    for i, part in enumerate(parts):
-        suffix = f"_part{i+1}" if len(parts) > 1 else ""
-        # Stable ID based on chapter and section title/content
-        # Add content hash to ID to ensure uniqueness for sections with same title
-        content_hash = str(hash(part))[:8]
-        node_id = generate_stable_id(f"ss_{chapter_num}_{title}_{i}_{content_hash}")
-        
-        chunks.append({
-            "id": node_id,
-            "level": "section",
-            "parent_id": chapter_id,
-            "content": part,
-            "metadata": {
-                "chapter_number": chapter_num,
-                "chapter_title": chapter_title,
-                "section_title": title + suffix if title else None,
-                "derived_title": derived_title,
-                "verse_start": verse_start,
-                "verse_end": verse_end,
-                "has_footnotes": bool(re.search(r'\n\s*\d+\.\s', part)),
-                "word_count": len(part.split())
-            }
-        })
+    # Node ID based on chapter and title
+    node_id = generate_stable_id(f"ss_{chapter_num}_{title}_{hash(content)}")
+    
+    chunks.append({
+        "id": node_id,
+        "level": "section",
+        "parent_id": chapter_id,
+        "title": title,
+        "content": content,
+        "metadata": {
+            "chapter_number": chapter_num,
+            "chapter_title": chapter_title,
+            "section_title": title,
+            "verse_start": verse_start,
+            "verse_end": verse_end
+        }
+    })
 
-    # VIRTUAL GLOSSARY: Promote header to a glossary stub
-    if title and not derived_title and len(title) > 3:
+    # VIRTUAL GLOSSARY: Promote to a glossary stub
+    if len(title) > 3 and not title.isdigit():
         glossary_id = generate_stable_id(f"glossary_ss_{chapter_num}_{title}")
         chunks.append({
             "id": glossary_id,
             "level": "stub_glossary",
-            "parent_id": chapter_id,
-            "content": f"Topic: {title}. Surgical/Pathological entry in Susruta Samhita, Chapter {chapter_num}.",
-            "metadata": {
-                "title": title,
-                "source": "shusrut_samhita",
-                "context": "promoted_header"
-            }
+            "parent_id": node_id,
+            "title": title,
+            "content": f"Term: {title}. Susruta Samhita, Chapter {chapter_num}.",
+            "metadata": {"source": "shusrut_samhita"}
         })
-
-def link_sequential_edges(chunks):
-    for i in range(len(chunks)):
-        if chunks[i]["level"] == "section":
-            ch_num_i = chunks[i]["metadata"].get("chapter_number")
-            if ch_num_i is None: continue
-
-            # Prev
-            for j in range(i - 1, -1, -1):
-                if chunks[j]["level"] == "section" and chunks[j]["metadata"].get("chapter_number") == ch_num_i:
-                    chunks[i]["prev_id"] = chunks[j]["id"]
-                    break
-            # Next
-            for j in range(i + 1, len(chunks)):
-                if chunks[j]["level"] == "section" and chunks[j]["metadata"].get("chapter_number") == ch_num_i:
-                    chunks[i]["next_id"] = chunks[j]["id"]
-                    break

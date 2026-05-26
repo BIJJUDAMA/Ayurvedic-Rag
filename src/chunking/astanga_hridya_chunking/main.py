@@ -1,12 +1,28 @@
+import json
+import os
 from .parser import parse_astanga_hridaya
-from src.chunking.unified_database import upload_to_qdrant
 from .config import FILE_PATH, SOURCE_TREATISE
 
 def main(model=None):
-    print("Starting Astanga Hridaya parsing process...")
-    processed_chunks = parse_astanga_hridaya(FILE_PATH)
-    print(f"Parsing complete. Found {len(processed_chunks)} chunks.")
-    upload_to_qdrant(processed_chunks, SOURCE_TREATISE, model=model)
+    print("Starting Astanga Hridaya worker...")
+    chunks = parse_astanga_hridaya(FILE_PATH)
+    
+    output_dir = os.path.join("processed-books", SOURCE_TREATISE)
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # 1. Write Canonical Markdown
+    md_path = os.path.join(output_dir, "canonical.md")
+    with open(md_path, "w", encoding="utf-8") as f:
+        for chunk in chunks:
+            f.write(f"## {chunk['title']}\n\n{chunk['content']}\n\n")
+    
+    # 2. Write Vectors JSONL
+    jsonl_path = os.path.join(output_dir, "vectors.jsonl")
+    with open(jsonl_path, "w", encoding="utf-8") as f:
+        for chunk in chunks:
+            f.write(json.dumps(chunk) + "\n")
+            
+    print(f"Artifacts generated in {output_dir}")
 
 if __name__ == "__main__":
     main()
