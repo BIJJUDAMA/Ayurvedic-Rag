@@ -105,6 +105,16 @@ Every chunk dict contains:
 
 After each `parse()` call, chunks within a document are linked: `chunks[i]["next_id"] = chunks[i+1]["id"]` and reverse for prev.
 
+## Artifact Generation
+
+The Charaka worker (`src/chunking/charak_samhita_chunking/main.py`) performs a two-pass process:
+1. **Pre-scan**: Registers all 641 JSON slugs to ensure cross-document links can be resolved.
+2. **Parsing**: Processes every file and accumulates all chunks.
+
+Outputs to `processed-books/charak_samhita/`:
+- **`canonical.md`**: A sequential Markdown file containing all chunks in the order they were parsed. Useful for human review.
+- **`vectors.jsonl`**: The raw chunk data used as input for Phase 4 (Cross-Linking) and Phase 5 (Uploading).
+
 ## Named Vectors Produced
 
 Per chunk in `AyurvedaDatabaseManager.upload_chunks()`:

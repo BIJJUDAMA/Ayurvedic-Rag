@@ -145,7 +145,15 @@ If a heading like `## 12.` has no title text (empty after `extract_verse_info`),
 
 `link_sequential_edges()` traverses all chunks and sets `prev_id` / `next_id` for consecutive sections WITHIN the same chapter (by `chapter_number`). Cross-chapter linking is NOT done.
 
-## Edge Cases
+## Artifact Generation
+
+The Susruta worker (`src/chunking/shusrut_samhita_chunking/main.py`) processes the single source Markdown file and outputs results to `processed-books/shusrut_samhita/`:
+
+- **`canonical.md`**: A sequential Markdown file where each heading corresponds to a chunk title.
+- **`vectors.jsonl`**: The source of truth for the vector database, containing all metadata and hierarchy fields.
+
+## Named Vectors Produced
+
 
 - **Base64 images** in markdown: lines containing `data:image/png;base64,` are filtered out.
 - **Indological Truths marker**: `## Indological Truths` lines are excluded.

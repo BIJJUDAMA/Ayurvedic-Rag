@@ -7,6 +7,20 @@
                              |
                              v
               +------------------------------+
+              |       AyurvedaRouter         |
+              | - Extracts LLM Intent        |
+              | - Parses Direct Citations    |
+              | - Extracts Technical Terms   |
+              +------------------------------+
+                             |
+                             v
+              +------------------------------+
+              |     AyurvedaRetriever        |
+              |  (LLM Agent w/ Routing Hint) |
+              +------------------------------+
+                             |
+                             v
+              +------------------------------+
               |  AyurvedaSearchEngine        |
               |  hybrid_search(text_query)   |
               +------------------------------+
@@ -33,7 +47,7 @@
          +-----------+ +-----------+ +---------------+
          | PREFETCH  | | PREFETCH  | | PREFETCH      |
          | dense_eng | | dense_san | | sparse_splade |
-         | limit=60  | | limit=60  | | limit=60      |
+         | limit=100 | | limit=100 | | limit=50      |
          +-----+-----+ +-----+-----+ +-------+-------+
                |             |               |
                +------+------+------+-------+
@@ -42,35 +56,42 @@
                +--------------------+
                | RRF FUSION         |
                | FusionQuery(RRF)   |
-               | limit=60           |
+               | limit=400          |
+               | w/ Metadata Filters|
                +---------+----------+
                          |
                          v
                +--------------------+
-               | 60 CANDIDATES     |
+               | CROSS-ENCODER      |
+               | RERANK (BGE)       |
+               | RemoteEmbedder     |
+               | .rerank()          |
                +---------+----------+
                          |
                          v
                +--------------------+
-               | CROSS-ENCODER     |
-               | RERANK (BGE)      |
-               | RemoteEmbedder    |
-               | .rerank()         |
+               | SCORE BOOST & MMR  |
+               | exp(score * 3)     |
+               | diversity filter   |
                +---------+----------+
                          |
                          v
                +--------------------+
-               | SCORE FILTER      |
-               | threshold >= 0.15 |
-               | boost: (s+1)^2   |
-               +---------+----------+
-                         |
-                         v
-               +--------------------+
-               | TOP 5 RESULTS     |
-               | sorted descending |
+               | TOP 5 RESULTS      |
+               | context expanded   |
                +--------------------+
 ```
+
+## Agentic Metadata Routing (Self-Querying)
+
+Before hitting the vector database, the query is pre-processed by `AyurvedaRouter`:
+1. **Direct Citation Parsing**: RegEx traps specific verse requests (e.g., `CS Su 1.1`).
+2. **LLM Intent Classification**: Gemini Flash-Lite analyzes the query to output:
+   - `intent`: (Chikitsa, Nidana, Sharira, Sutra, Sloka)
+   - `technical_terms`: Core Sanskrit terms.
+   - `treatise_preference`: Implied Samhita preference.
+
+The Router generates "Routing Advice" which is injected into the Vaidya Agent's system prompt. The Agent then uses these parameters when calling the `search_treatises` tool to apply strict Qdrant `models.Filter` conditions (e.g., locking search to `source_treatise="shusrut_samhita"`).
 
 ## Hybrid Search Construction
 
@@ -87,7 +108,6 @@ Performed in `AyurvedaSearchEngine.hybrid_search()`:
    ```python
    normalized_query = self._normalize_query(text_query)
    # Expands query with both Devanagari and IAST forms
-   # e.g., "agni" -> "agni अग्नि"
    translit_query_vector = self.model.encode(f"query: {normalized_query}").tolist()
    ```
 
@@ -100,9 +120,8 @@ Performed in `AyurvedaSearchEngine.hybrid_search()`:
 ### Query Normalization
 
 `_normalize_query()` in `search_engine.py`:
-- If query contains Devanagari (`\u0900-\u097F`): transliterates to IAST and concatenates: `f"{query} {iast}"`
-- If query is IAST/Latin: transliterates to Devanagari: `f"{query} {dev}"`
-- Falls back to original query on error.
+- If query contains Devanagari: transliterates to IAST and concatenates.
+- If query is IAST/Latin: transliterates to Devanagari.
 
 ### Prefetch + RRF Fusion
 
@@ -110,88 +129,48 @@ Three parallel prefetches are sent to Qdrant via `client.query_points()`:
 
 ```python
 prefetch = [
-    models.Prefetch(query=semantic_vec, using="dense_english", limit=60),
-    models.Prefetch(query=translit_vec, using="dense_sanskrit", limit=60),
-    models.Prefetch(query=sparse_vec, using="sparse_splade", limit=60)
+    models.Prefetch(query=semantic_vec, using="dense_english", limit=100),
+    models.Prefetch(query=translit_vec, using="dense_sanskrit", limit=100),
+    models.Prefetch(query=sparse_vec, using="sparse_splade", limit=50)
 ]
 query = models.FusionQuery(fusion=models.Fusion.RRF)
-limit = 60  # fused candidate pool
+limit = 400  # Broad candidate pool for reranker
 ```
 
-Optional `treatise_filter` adds a `Filter(must=[FieldCondition(key="source_treatise", match=MatchValue(value=treatise))])` to all prefetches.
-
-RRF (Reciprocal Rank Fusion) merges the three ranked lists. A chunk appearing at rank 1 in all three lists gets the highest fused score.
+RRF (Reciprocal Rank Fusion) merges the three ranked lists, applying `treatise_filter` and `intent_filter` to ensure precision.
 
 ### Reranking Step
 
-After RRF fusion, the 60 candidates are reranked by a Cross-Encoder:
+After RRF fusion, the 400 candidates are reranked by a Cross-Encoder:
 
 ```python
-candidate_texts = [f"[Source: {p.payload.get('source_treatise')}] Content: {p.payload.get('content')}" for p in candidates]
+candidate_texts = [f"[Source: {p.payload.get('source')}] Content: {p.payload.get('content')}" for p in candidates]
 rerank_scores = self.model.rerank(text_query, candidate_texts)
 ```
 
-The reranker is **BAAI/bge-reranker-base** running on the GPU sidecar.
+The reranker is **BAAI/bge-reranker-base** running on the GPU sidecar. Cross-encoders process the query and chunk *together*, scoring their exact logical relationship, dramatically boosting Context Precision.
 
-### Scoring and Filtering
+### Scoring and MMR
 
 ```python
-SCORE_THRESHOLD = 0.15
-boosted_score = np.power(raw_score + 1.0, 2)
-
-# Filter: raw_score >= 0.15
-# Then sort by boosted_score descending
-# Return top_k = 5
+boosted_score = np.exp(raw_score * 3.0)
 ```
-
-The threshold of 0.15 filters out low-relevance results. The boost `(score + 1)^2` amplifies differences for the agent's ranking view.
+The raw cross-encoder score is exponentially boosted to widen the margins for the LLM agent. 
+An MMR (Maximal Marginal Relevance) diversity filter (`lambda=0.7`) is then applied to ensure the Top 5 results are not mathematically redundant (e.g., heavily penalizing chunks from the exact same chapter if they overlap too much).
 
 ## Agent's Use of Retrieval Results
 
 In `AyurvedaRetriever.search_treatises()`:
 1. Calls `self.search_engine.search()` which delegates to `hybrid_search()`.
-2. Results are formatted with SOURCE_ID, RELEVANCE_SCORE, HIERARCHICAL_PATH (breadcrumb), VERSE_CONTENT.
-3. Results are printed in a Rich Panel for the human operator.
-4. The LLM agent receives the formatted string and decides:
-   - Whether results are sufficient (rules in tool docstring).
-   - Whether to call `get_verse_context` for anaphoric verses.
+2. Results are natively expanded with `context_manager.expand_context()` (fetching preceding/succeeding verses and hierarchical breadcrumb).
+3. The LLM agent receives the formatted string and decides:
+   - Whether results are sufficient.
+   - Whether to call `get_verse_context` for deeper sequential logic.
    - Whether to call `lookup_glossary` to resolve terms.
-   - Whether to discard contextually irrelevant results (e.g., "stiff eyes" vs "stiff body").
-
-### Tool-Specific Retrieval: `lookup_glossary`
-
-The `lookup_glossary` tool uses a different query pattern:
-- Same 3-vector prefetch + RRF.
-- Filter restricts to `level = "stub_glossary"` OR `level = "stub_botanical"`.
-- Lower prefetch limits (10 per vector).
-- Returns TERM_ENTRY and DEFINITION.
-
-### Tool-Specific Retrieval: `get_verse_context`
-
-Not a search — uses `client.retrieve()` by ID:
-- Fetches the target point's payload.
-- Calls `AyurvedaContextManager.expand_context()` which:
-  - Walks `parent_id` chain recursively for breadcrumb.
-  - Walks `prev_id` chain (window=1) for preceding verse.
-  - Walks `next_id` chain (window=1) for succeeding verse.
-
-## Context Manager
-
-`AyurvedaContextManager` in `context_manager.py`:
-- `get_breadcrumb(payload)`: Recursively follows `parent_id` from child to root, returns reversed list (root → child).
-- `get_contiguous_block(payload, window=1)`: Follows `prev_id` and `next_id` chains with configurable window size.
-- `expand_context(doc_id, payload)`: Combines both into a single dict.
 
 ## Query Expansion (Non-LLM)
 
-Before retrieval, the only query expansion is the IAST/Devanagari transliteration bridge in `_normalize_query()`. There is NO:
-- Query rewriting using LLM.
-- Query decomposition.
-- Synonym expansion beyond transliteration.
-- Back-translation.
-
-## E5 Prefix Convention
-
-Following the `intfloat/multilingual-e5-large` convention:
-- **Indexing**: `"passage: "` prefix added to chunk text before embedding (in `unified_database.py`).
-- **Retrieval**: `"query: "` prefix added to user query before embedding (in `search_engine.py`).
+Currently, query expansion occurs via:
+1. The IAST/Devanagari transliteration bridge in `_normalize_query()`.
+2. The LLM Router extracting `technical_terms` and feeding them to the search engine as supplementary context strings during RRF.
+*(Future capability: Query Translation/HyDE via LLM - See Roadmap).*

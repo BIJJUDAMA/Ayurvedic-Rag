@@ -15,30 +15,37 @@ Step 2  Parser class/function
           Returns List[Dict] with keys: id, level, parent_id, content, 
           metadata, prev_id, next_id.
 
-Step 3  main.py calls upload_to_qdrant(chunks, source_treatise, model)
-          from src.chunking.unified_database
+Step 3  main.py calls book workers (Phase 1-3)
+          Generates artifacts in processed-books/<treatise>/
+          - canonical.md (sequential text)
+          - vectors.jsonl (raw chunks)
 
-Step 4  AyurvedaDatabaseManager.upload_chunks(chunks, source_treatise)
-          For each chunk:
+Step 4  Phase 4: Semantic Cross-Linking (src/chunking/cross_linker.py)
+          a) Loads all vectors.jsonl files.
+          b) Extracts technical terms from glossary stubs and metadata.
+          c) Builds inverted index: term -> [node_ids].
+          d) Injects 'related_nodes' into chunk metadata sharing the same terms.
+          e) Overwrites vectors.jsonl with enriched metadata.
+
+Step 5  Phase 5: Unified Upload (src/chunking/uploader.py)
+          AyurvedaUploader.upload_book(book_dir):
+          For each chunk in enriched vectors.jsonl:
             a) content = chunk["content"]
-            b) title = chunk.get("section_title") or chapter_title or ""
+            b) title = chunk.get("title") or ""
             c) indexing_prefix = "passage: "
 
-Step 5  Vector generation via RemoteEmbedder (GPU Sidecar HTTP POST):
+Step 6  Vector generation via RemoteEmbedder (GPU Sidecar HTTP POST):
           a) dense_english = RemoteEmbedder.encode("passage: " + title + content)
           b) sanskrit_context = _normalize_sanskrit(title + content)
-                        [Devanagari+IAST combined]
           c) dense_sanskrit = RemoteEmbedder.encode("passage: " + sanskrit_context)
           d) sparse_dict = RemoteEmbedder.encode_sparse(title + content)
-          e) sparse_vec = SparseVector(indices=sparse_dict.keys(), values=sparse_dict.values())
 
-Step 6  Build PointStruct:
-          id = chunk["id"] (UUID v5 string)
+Step 7  Build PointStruct:
+          id = chunk["id"]
           vector = { dense_english, dense_sanskrit, sparse_splade }
-          payload = { source_treatise, level, content, parent_id, prev_id, 
-                     next_id, **metadata }
+          payload = { source, level, content, parent_id, prev_id, next_id, metadata }
 
-Step 7  Client.upsert() in batches of 50
+Step 8  Client.upsert() in batches of 32
           collection_name = "ayurveda_rag"
 ```
 
@@ -47,13 +54,18 @@ Step 7  Client.upsert() in batches of 50
 ```
 Step 1  src/retriever/vaidya_engine.py::AyurvedaRetriever.generate_answer(query)
           Resets session_hits = {}
-          Creates chat with Gemini, exposes tools
+          Calls AyurvedaRouter.route(query) to analyze query intent.
 
-Step 2  LLM calls search_treatises(query, intent, treatise)
+Step 2  AyurvedaRouter Analysis
+          a) Extracts direct citations (e.g. CS Su 1.1)
+          b) Uses LLM (gemini-2.5-flash-lite) to extract intent (Chikitsa, Nidana, etc.)
+          c) Extracts technical_terms (Sanskrit core concepts)
+          d) Determines treatise_preference
+          e) Returns structured routing advice.
+
+Step 3  Agent receives routing advice, calls search_treatises(query, intent, treatise)
           Inside AyurvedaRetriever.search_treatises():
-            Calls AyurvedaSearchEngine.search(original_query, ...)
-
-Step 3  AyurvedaSearchEngine.search() calls hybrid_search(text_query, top_k=5)
+            Calls AyurvedaSearchEngine.hybrid_search(original_query, ...)
 
 Step 4  AyurvedaSearchEngine.hybrid_search(text_query):
           a) query_prefix = "query: "
@@ -65,38 +77,38 @@ Step 4  AyurvedaSearchEngine.hybrid_search(text_query):
 
 Step 5  Qdrant client.query_points():
           prefetch = [
-            (query=semantic_vec, using="dense_english", limit=60),
-            (query=translit_vec, using="dense_sanskrit", limit=60),
-            (query=sparse_vec, using="sparse_splade", limit=60)
+            (query=semantic_vec, using="dense_english", limit=100),
+            (query=translit_vec, using="dense_sanskrit", limit=100),
+            (query=sparse_vec, using="sparse_splade", limit=50)
           ]
           query = FusionQuery(fusion=RRF)
-          limit = 60
-          (treatise_filter applied if provided)
+          limit = 400 (broad candidate pool for reranker)
+          (treatise_filter and intent filters applied to all prefetches if provided)
 
 Step 6  Reranking via RemoteEmbedder.rerank(text_query, candidate_texts):
           candidate_texts = ["[Source: X] Content: Y" for each candidate]
           scores = BGE CrossEncoder predict
 
-Step 7  Filter: score >= 0.15 (SCORE_THRESHOLD)
-          Boost: boosted_score = np.power(raw_score + 1.0, 2)
-          Sort descending, return top_k=5
+Step 7  Score Boosting & Filtering
+          boosted_score = np.exp(raw_score * 3.0)
+          Sort descending, take top_k * 2
+          Apply MMR (Maximal Marginal Relevance) diversity filter -> Top 5
 ```
 
 ## 3. Agent Reasoning Flow (Retrieved Chunks to Final Answer)
 
 ```
 Step 1  AyurvedaRetriever.generate_answer(query):
-          session_hits = {}
-          tools = [search_treatises, get_verse_context, lookup_glossary]
-          system_instruction = "Vaidya - senior Ayurvedic scholar, Tikakara..."
+          Creates chat with Gemini, exposes tools
+          system_instruction = "Vaidya - senior Ayurvedic scholar, Tikakara..." + routing_advice
 
 Step 2  Gemini 2.5-flash-lite agentic loop:
-          a) If query is descriptive English -> MUST call lookup_glossary first
-          b) Once Sanskrit term resolved -> call search_treatises
-          c) Check HIERARCHICAL_PATH and VERSE_CONTENT of results
-          d) If anaphoric verses -> call get_verse_context
-          e) After tool returns, agent decides if sufficient or needs more search
-          f) Max ~3 search queries, ~2 context retrievals
+          a) Reads routing advice (e.g. "Focus on Chikitsa contexts", "DIRECT CITATION DETECTED")
+          b) If query is descriptive English -> MUST call lookup_glossary first
+          c) Once Sanskrit term resolved -> call search_treatises with intent/treatise filters
+          d) Check HIERARCHICAL_PATH and VERSE_CONTENT of results
+          e) If anaphoric verses -> call get_verse_context
+          f) After tool returns, agent decides if sufficient or needs more search
 
 Step 3  Synthesis into Siddhanta format:
           - PRIMARY VERSE: Sanskrit + English
@@ -141,7 +153,10 @@ Step 3  run_ragas_evaluation(wrapper, dataset.json)
           Run Ragas evaluate() with:
             - context_precision
             - context_recall (if ground_truth available)
+            - faithfulness
+            - answer_relevancy
           Uses LangchainLLMWrapper(ChatGoogleGenerativeAI("gemini-2.5-flash-lite"))
+          Uses robust retry logic for API congestion (503s).
 
 Step 4  print_final_health_report():
           Status: EXCELLENT (MRR>0.4 and precision>0.6)

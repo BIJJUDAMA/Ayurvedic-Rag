@@ -106,6 +106,13 @@ After all lines are processed and the final section is flushed, the parser does 
 
 Note: The chapter intro section (created at chapter boundary) is included in this sequential chain.
 
+## Artifact Generation
+
+The Astanga worker (`src/chunking/astanga_hridya_chunking/main.py`) processes the source Markdown and outputs results to `processed-books/astanga_hridaya/`:
+
+- **`canonical.md`**: A clean Markdown version of the Samhita, stripped of noise and structured into canonical headings.
+- **`vectors.jsonl`**: The chunked data format ready for the enrichment and upload phases.
+
 ## Unique Behavioral Points
 
 ### Verse-Commentary Pair Preservation
