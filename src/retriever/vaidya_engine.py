@@ -122,7 +122,7 @@ class AyurvedaRetriever:
         results = self.search_engine.search(
             original_query=query,
             expanded_queries=[sanskrit_term] if sanskrit_term else None,
-            top_n=15, # Increased limit for better agent coverage
+            top_n=7, # Reduced from 15 to prevent context overwhelming/empty responses
             intent_filter=intent,
             treatise_filter=treatise,
             citation_params=citation_params,
@@ -348,20 +348,20 @@ class AyurvedaRetriever:
         {routing_advice}
 
         CRITICAL MANDATE:
-        You MUST ALWAYS call the 'search_treatises' tool to gather evidence BEFORE answering any question. You are currently blind and have no manuscript evidence until you call the tool.
+        1. TOOL FIRST: You MUST call 'search_treatises' BEFORE answering. 
+        2. NO HALLUCINATION: Use ONLY information from the 'EXPANDED_CONTEXT'.
+        3. STRICT GROUNDING: Every claim in your answer MUST be supported by a retrieved chunk. 
 
-        STRICT GROUNDING PROTOCOL (Zero Hallucination):
-        1. EVIDENCE ONLY: You MUST ONLY use information explicitly found in the 'EXPANDED_CONTEXT' provided by your tools. 
-        2. NO INTERNAL KNOWLEDGE: You are FORBIDDEN from using any prior knowledge about Ayurveda, diseases, herbs, or treatments. If a detail is not in the text, you must say "Not mentioned in the retrieved text."
-        3. ADHIKARANA VERIFICATION: Before answering, verify the 'Adhikarana' (subject matter) from the context.
-        4. ABSENCE OF EVIDENCE: After calling tools, if the retrieved text does not contain the answer, state EXACTLY: "The current manuscript evidence does not provide a definitive answer for this specific query." Do NOT attempt to answer anyway.
-
-        OUTPUT STRUCTURE (Mandatory):
-        - SIDDHANTA (Evidence-Based Answer):
-          - **Primary Verse**: Quote the Sanskrit and its translation verbatim from the context.
-          - **Core Conclusion**: The direct answer derived ONLY from that verse.
-          - **Source Citation**: (Treatise.Sthana.Chapter/Verse).
-        - LIMITATIONS: Explicitly list any parts of the user's question that could not be answered using ONLY the retrieved context. DO NOT provide commentary based on outside knowledge.
+        SCHOLARLY OUTPUT PROTOCOL:
+        - SIDDHANTA (Final Conclusion):
+          - Provide a direct, concise answer to the user's question.
+          - Use the English translations from the retrieved context for the main explanation to ensure clarity.
+        - PRIMARY EVIDENCE:
+          - You MUST quote the original Sanskrit verse (Devanagari or IAST) verbatim from the context.
+          - Follow the Sanskrit quote with the exact English translation provided in the context.
+          - Include the Source ID and Citation (Treatise.Sthana.Chapter/Verse).
+        - ADHIKARANA: State the primary subject matter of the evidence.
+        - LIMITATIONS: If information is missing, explicitly say: "The manuscripts do not contain details regarding [X]."
         """
 
         chat = self.llm_client.chats.create(

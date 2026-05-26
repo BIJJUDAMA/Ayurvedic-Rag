@@ -94,31 +94,40 @@ def main():
                 
                 # 3. Restore Raw Source Data (The Evidence Trail)
                 if results:
-                    console.print("\n" + "========== PRIMARY SOURCE EVIDENCE TRAIL ==========")
-                    for i, (doc_id, score) in enumerate(results):
-                        payload = retriever.search_engine.id_to_payload.get(doc_id)
-                        if not payload: continue
-                        
-                        treatise = payload.get('source_treatise', 'Unknown')
-                        
-                        # Graph Context Breadcrumb
-                        ctx = retriever.context_manager.expand_context(doc_id, payload)
-                        breadcrumb = " > ".join([b["title"] for b in ctx["breadcrumb"]])
-                        
-                        # Structured evidence panel
-                        evidence_content = (
-                            f"[bold info]PATH:[/] {treatise} > {breadcrumb}\n"
-                            f"[bold info]SCORE:[/] {score:.4f}  [bold info]ID:[/] [dim]{doc_id}[/]\n"
-                            f"[rule dim]\n"
-                            f"{payload.get('content', '')}"
-                        )
+                    # Only show sources that the LLM actually cited in its answer
+                    used_results = [(doc_id, hit_data) for doc_id, hit_data in results if answer and doc_id in answer]
+                    
+                    if used_results:
+                        console.print("\n" + "========== PRIMARY SOURCE EVIDENCE TRAIL ==========")
+                        for i, (doc_id, hit_data) in enumerate(used_results):
+                            payload = hit_data.get("metadata", {})
+                            if not payload: continue
+                            
+                            score = hit_data.get("score", 0.0)
+                            treatise = payload.get('source_treatise', 'Unknown')
+                            
+                            # Graph Context Breadcrumb
+                            ctx = retriever.context_manager.expand_context(doc_id, payload)
+                            breadcrumb = " > ".join([str(b.get("title") or "Untitled") for b in ctx["breadcrumb"]])
+                            
+                            # Structured evidence panel
+                            evidence_content = (
+                                f"[bold info]PATH:[/] {treatise} > {breadcrumb}\n"
+                                f"[bold info]SCORE:[/] {score:.4f}  [bold info]ID:[/] [dim]{doc_id}[/]\n"
+                                f"[rule dim]\n"
+                                f"{payload.get('content', '')}"
+                            )
 
-                        console.print(Panel(
-                            evidence_content,
-                            title=f"[bold source]SOURCE {i+1}[/]",
-                            border_style="source",
-                            padding=(1, 2)
-                        ))
+                            console.print(Panel(
+                                evidence_content,
+                                title=f"[bold source]SOURCE {i+1}[/]",
+                                border_style="source",
+                                padding=(1, 2)
+                            ))
+                    else:
+                        # Fallback if there was a valid answer but no IDs were cited
+                        if answer and "stopped without generating text" not in answer and "failed to provide" not in answer:
+                            console.print("\n[dim]No primary sources were explicitly cited by ID in the final response.[/]")
                 
                 console.print("="*50 + "\n")
                         

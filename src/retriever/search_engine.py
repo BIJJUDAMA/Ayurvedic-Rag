@@ -42,6 +42,83 @@ class AyurvedaSearchEngine:
         except:
             return query
 
+    def _expand_context(self, results: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Stitches adjacent chunks and prioritizes Sanskrit text.
+        Moves Devanagari blocks to the top of the content for higher density.
+        """
+        if not results: return results
+        
+        # Only expand the top 3 most relevant results to save latency
+        top_n_to_expand = 3
+        
+        for i, res in enumerate(results[:top_n_to_expand]):
+            next_id = res.get("metadata", {}).get("next_id")
+            prev_id = res.get("metadata", {}).get("prev_id")
+            
+            neighbor_ids = [nid for nid in [prev_id, next_id] if nid]
+            if not neighbor_ids: continue
+            
+            try:
+                neighbors = self.client.retrieve(
+                    collection_name=self.collection_name,
+                    ids=neighbor_ids,
+                    with_payload=True
+                )
+                
+                neighbor_texts = {str(n.id): n.payload.get("content", "") for n in neighbors}
+                
+                parts = []
+                if prev_id and str(prev_id) in neighbor_texts:
+                    parts.append(neighbor_texts[str(prev_id)])
+                parts.append(res["text"])
+                if next_id and str(next_id) in neighbor_texts:
+                    parts.append(neighbor_texts[str(next_id)])
+                
+                # Sanskrit-Priority Logic: Move Devanagari parts to the top
+                san_parts = [p for p in parts if bool(re.search(r'[\u0900-\u097F]', p))]
+                eng_parts = [p for p in parts if not bool(re.search(r'[\u0900-\u097F]', p))]
+                
+                res["text"] = "\n---\n".join(san_parts + eng_parts)
+                res["metadata"]["is_context_expanded"] = True
+            except Exception as e:
+                logger.warning(f"Context expansion failed for {res['id']}: {e}")
+                
+        return results
+
+    def _apply_mmr(self, results: List[Dict[str, Any]], lambda_param: float = 0.5) -> List[Dict[str, Any]]:
+        """
+        Maximal Marginal Relevance (MMR) for diversity filtering.
+        Ensures the Top-K results aren't redundant.
+        """
+        if len(results) <= 1: return results
+        
+        # We use a simple cross-similarity penalty for now 
+        # (Ideal MMR uses full vector similarity, but this is a high-speed heuristic)
+        selected = [results[0]]
+        candidates = results[1:]
+        
+        while len(selected) < len(results) and candidates:
+            best_mmr = -1e9
+            best_idx = -1
+            
+            for i, cand in enumerate(candidates):
+                # Max similarity to already selected nodes
+                max_sim = 0
+                for sel in selected:
+                    # Heuristic: simple overlap or metadata similarity
+                    if sel["source"] == cand["source"] and sel["metadata"].get("chapter_title") == cand["metadata"].get("chapter_title"):
+                        max_sim = max(max_sim, 0.8) # High penalty for same chapter
+                
+                mmr_score = lambda_param * cand["score"] - (1 - lambda_param) * max_sim
+                if mmr_score > best_mmr:
+                    best_mmr = mmr_score
+                    best_idx = i
+            
+            selected.append(candidates.pop(best_idx))
+            
+        return selected
+
     def hybrid_search(self, 
                       text_query: str, 
                       expanded_queries: Optional[List[str]] = None,
@@ -93,6 +170,14 @@ class AyurvedaSearchEngine:
         query_prefix = "query: "
         prefetch_queries = []
         
+        # Dynamic Weighting Logic: Detect Sanskrit presence in search variations
+        has_sanskrit_input = any(bool(re.search(r'[\u0900-\u097F]', q)) or bool(re.search(r'[āīūṛṝḷḹṅñṭḍṇśṣḥṃ]', q, re.IGNORECASE)) for q in search_variations)
+        
+        # If Sanskrit is detected, we boost the Sanskrit prefetch limit to ensure it survives fusion
+        sanskrit_limit = 100 if has_sanskrit_input else 30
+        english_limit = 100
+        sparse_limit = 50
+
         for q in search_variations:
             norm_q = self._normalize_query(q)
             # Dense English
@@ -104,9 +189,9 @@ class AyurvedaSearchEngine:
             v_sparse = models.SparseVector(indices=[int(k) for k in sparse_dict.keys()], values=[float(v) for v in sparse_dict.values()])
             
             # Weighted Prefetch
-            prefetch_queries.append(models.Prefetch(query=v_eng, using="dense_english", limit=100, filter=query_filter))
-            prefetch_queries.append(models.Prefetch(query=v_san, using="dense_sanskrit", limit=30, filter=query_filter))
-            prefetch_queries.append(models.Prefetch(query=v_sparse, using="sparse_splade", limit=50, filter=query_filter))
+            prefetch_queries.append(models.Prefetch(query=v_eng, using="dense_english", limit=english_limit, filter=query_filter))
+            prefetch_queries.append(models.Prefetch(query=v_san, using="dense_sanskrit", limit=sanskrit_limit, filter=query_filter))
+            prefetch_queries.append(models.Prefetch(query=v_sparse, using="sparse_splade", limit=sparse_limit, filter=query_filter))
 
         try:
             # Increased limit to 400 for maximum candidate coverage during reranking
@@ -148,7 +233,9 @@ class AyurvedaSearchEngine:
                 "metadata": point.payload
             })
         
-        return sorted(final_results, key=lambda x: x["score"], reverse=True)[:top_k]
+        results = sorted(final_results, key=lambda x: x["score"], reverse=True)[:top_k * 2] # Fetch more for diversity
+        diverse_results = self._apply_mmr(results, lambda_param=0.7)[:top_k]
+        return self._expand_context(diverse_results)
 
     def search(self, 
                original_query: str, 
