@@ -106,11 +106,13 @@ def main():
         def __init__(self, retriever):
             self.retriever = retriever
         
-        def search(self, query, top_k=20):
+        def search(self, query, top_n=20, **kwargs):
             """
             Executes the full agentic loop (Router + Tool Calls + Synthesis).
             Returns (hits, answer) to satisfy both classical and Ragas metrics.
             """
+            # Ensure top_n is respected by the retriever search tool if applicable,
+            # though generate_answer handles its own tool orchestration.
             hits, answer = self.retriever.generate_answer(query)
             # generate_answer returns sorted_hits as List[Tuple[doc_id, hit_dict]]
             # We return just the hit_dicts for compatibility with existing metrics logic

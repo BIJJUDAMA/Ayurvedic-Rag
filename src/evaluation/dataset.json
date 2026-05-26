@@ -1,302 +1,692 @@
 [
   {
-    "query": "What types of rice and grains are recommended for consumption, and what type of salt is suggested for flavoring according to Charaka Samhita?",
-    "expected_id": "1a6bf12f-12f1-5c8b-a128-1c7a50fab833",
-    "evaluation_benchmark": "Shali rice, shashtika rice, common millet, and Indian millet are recommended as part of the diet, while rock salt is suggested for salting purposes."
-  },
-  {
-    "query": "What are the signs of imminent death in a poisoned patient, such as bluish lips, loose teeth, hair fall, body pain, and convulsions?",
-    "expected_id": "3981f3cd-c950-574d-a1c8-b321db690504",
-    "evaluation_benchmark": "Bluish lips, loose teeth, hair fall, body pain, and convulsions are signs of imminent death in a poisoned patient. Patients without these signs can be treated with specific therapeutic measures."
-  },
-  {
-    "query": "What is the prescribed herbal formulation for treating a viper snake bite, specifically from the mandali type?",
-    "expected_id": "137f0fb2-514b-5404-93d3-a0c47ea6b349",
-    "evaluation_benchmark": "The potion for a bite by the mandali (viper) type of snake includes Manjishta, madhuyashti, jeevaka, rishabaka, sita, kashmarya, and leaf buds of the banyan tree."
-  },
-  {
-    "query": "What are the adverse effects of Shirovirechana therapy when administered to individuals with specific pre-existing conditions or who have recently undergone other treatments?",
-    "expected_id": "144f5296-e4bd-5ecf-b9a4-cfcccb1dd23d",
-    "evaluation_benchmark": "Shirovirechana therapy can lead to various adverse effects depending on the patient's condition, including aggravation of doshas, visual disturbances, neurological issues, and complications in pregnant women. Individuals with indigestion, recent purgation, or certain seasonal/climatic conditions are contraindicated for this therapy."
-  },
-  {
-    "query": "What are the signs of departing life observed by a physician upon entering a patient's home, such as the departure of auspicious items like filled water pots, fire, ghee, seeds, bulls, brahmins, gems, and deity idols?",
-    "expected_id": "0b9bb14f-3a40-5a37-8605-606180f63e7c",
-    "evaluation_benchmark": "When a physician enters the home of a dying patient, they may observe the departure of auspicious items such as filled water pots, fire, sand, ghee, seeds, bulls, brahmins, gems, and idols of deities. The presence of fire pots with flames in multiple directions also indicates the patient's life is departing."
-  },
-  {
-    "query": "What are the clinical signs observed during the remission phase of fever, particularly when it is severe or chronic?",
-    "expected_id": "23129c1e-f019-50c7-9de0-57d88b7b500e",
-    "evaluation_benchmark": "The remission of fever can manifest with symptoms such as rumbling sounds, vomiting, abnormal movements, difficulty breathing, discolored skin, sweating, trembling, fainting, delirium, fluctuating body temperature, anger, and forceful loose stools. The difficulty of remission depends on the severity and chronicity of the fever and dosha involvement."
-  },
-  {
-    "query": "What is the Ayurvedic concept of doubt regarding the uncertainty of untimely death based on observed signs of longevity and treatment adherence?",
+    "query": "Doctor, I'm so worried. I've seen people who seem perfectly healthy, who eat right, exercise, and then suddenly they're gone. And then there are others who are frail, who don't seem to take care of themselves at all, and they just keep going on and on. It makes me question everything. I'm feeling this constant unease, this uncertainty about… well, about life and death. Is there something inherently predetermined about how long we live, or is it all just random chance? What’s going on here?",
     "expected_id": "179f5c9d-a4a1-5b42-a32b-78b8cbb56bff",
-    "evaluation_benchmark": "Samshaya, or doubt, is defined as indecision about concerned entities. It arises when observing individuals with signs of longevity or not, and whether they follow therapeutic measures or not, leading to uncertainty about untimely death."
+    "samhita": "Charaka",
+    "strategy": "CLINICAL_CASE",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "संशयोनामसन्देहलक्षणानुसन्दिग्धेष्वर्थेष्वनिश्चयः  ; यथा- दृष्टाह्यायुष्मल्लक्षणैरुपेताश्चानुपेताश्चतथासक्रियाश्चाक्रियाश्चपुरुषाःशीघ्रभङ्गाश्चिरजीविनश्च, एतदुभयदृष्टत्वात्संशयः- किमस्तिखल्वकालमृत्युरुतनास्तीति||४३||\n\nathasaṁśayaḥ-saṁśayō nāma sandēhalakṣaṇānusandigdhēṣvarthēṣvaniścayaḥ; yathā- dr̥ṣṭā hyāyuṣmallakṣaṇairupētāścānupētāśca tathā sakriyāścākriyāśca puruṣāḥ śīghrabhaṅgāścirajīvinaśca, ētadubhayadr̥ṣṭatvāt saṁśayaḥ- kimasti khalvakālamr̥tyuruta nāstīti ||43||\n\natha saMshayaH- saMshayo nAma sandehalakShaNAnusandigdheShvartheShvanishcayaH [1] ; yathA-dRuShTA hyAyuShmallakShaNairupetAshcAnupetAshca tathA sakriyAshcAkriyAshca puruShAHshIghrabha~ggAshcirajIvinashca, etadubhayadRuShTatvAt saMshayaH- kimasti khalvakAlamRutyurutanAstIti||43||\n\nSamshayaḥ is the state of indecision about the concerned entity. For instance, on observing that both types of persons having signs of longevity or not and they adopting the therapeutic measures or not – die early or live long life, therefore doubt arises as whether there is untimely death or not .[43]"
   },
   {
-    "query": "What diagnostic considerations and treatment approaches are recommended for patients based on their ama status?",
-    "expected_id": "0d3656c9-8655-5c75-b916-ae1a8574a91e",
-    "evaluation_benchmark": "Patients should be assessed for the presence or absence of ama-related imbalances (samata or niramta) and then treated appropriately using methods such as pachana."
+    "query": "What are the potential therapeutic implications of employing particulate biomaterials derived from different species' bodily excretions and calcified structures in topical applications for wound healing or tissue regeneration?",
+    "expected_id": "13963fb7-aa8a-5789-96e0-97141ae1bfcf",
+    "samhita": "Charaka",
+    "strategy": "SYNONYM_TRAP",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "जलौकःशकृता तद्वद्दग्धैर्वा बस्तरोमभिः| खरास्थिभिर्हस्तिनखैस्तथा गोपुच्छलोमभिः||४०||\n\njalaukaḥśakr̥tā tadvaddagdhairvā bastarōmabhiḥ| kharāsthibhirhastinakhaistathā gōpucchalōmabhiḥ||40||\n\njalaukaHshakRutA tadvaddagdhairvA bastaromabhiH| kharAsthibhirhastinakhaistathA gopucchalomabhiH||40||\n\nSimilarly, unction should be done with the help of the following:\n\nstool of leeches;\n\nashes of the small hair of the goat.\n\nashes of the bone of ass;\n\nashes of the nails of elephant; and\n\nashes of the hair in the tail of the cow.  [40]"
   },
   {
-    "query": "What are the risks to a fetus if a pregnant mother suppresses her intense cravings for potentially harmful substances, and how can these risks be mitigated?",
-    "expected_id": "1ac085fb-6955-5993-baad-b85f145243aa",
-    "evaluation_benchmark": "Suppressing intense cravings for harmful substances can cause vitiated vata, leading to fetal diseases, morphological abnormalities, or death. However, these harmful substances can be administered if mixed with beneficial counteracting agents."
+    "query": "Given Charaka's recipe for a potent aphrodisiac involving pork pills cooked in a soup containing ghee, spices, curd, and pomegranate, how can the Astanga Hridaya's extensive list of incompatibilities, particularly its warnings against combining pork with certain meats, chicken with curd, and the general contraindication of sour substances with milk, inform the physician's preparation and administration of this specific Charaka formula to ensure optimal efficacy and avoid potential adverse effects?",
+    "expected_id": "03e0f550-16ca-5505-b329-3639e55c5268",
+    "samhita": "Charaka",
+    "strategy": "CROSS_REFERENCE",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "वराहमांसानि दत्त्वा मरिचसैन्धवे|\n\nकोलवद्गुलिकाः कृत्वा तप्ते सर्पिषि वर्तयेत् [१] ||११||\n\nवर्तनस्तम्भितास्ताश्च [२] प्रक्षेप्याः कौक्कुटे रसे|\n\nघृताढ्ये गन्धपिशुने दधिदाडिमसारिके||१२||\n\nयथा न भिन्द्याद्गुलि(टि)कास्तथा तं साधयेद्रसम्|\n\nतं पिबन् भक्षयंस्ताश्च लभते शुक्रमक्षयम्||१३||\n\nमांसानामेवमन्येषां मेद्यानां कारयेद्भिषक्|\n\nगुटिकाः सरसास्तासं प्रयोगः शुक्रवर्धनः||१४||\n\n(इति वृष्या मांसगुटिकाः)\n\npiṣṭvā varāhamāṁsāni dattvā maricasaindhavē|\n\nkōlavadgulikāḥ kr̥tvā taptē sarpiṣi vartayēt [1] ||11||\n\nvartanastambhitāstāśca [2] prakṣēpyāḥ kaukkuṭē rasē|\n\nghr̥tāḍhyē gandhapiśunē dadhidāḍimasārikē||12||\n\nyathā na bhindyādguli(ṭi)kāstathā taṁ sādhayēdrasam|\n\ntaṁ piban bhakṣayaṁstāśca labhatē śukramakṣayam||13||\n\nmāṁsānāmēvamanyēṣāṁ mēdyānāṁ kārayēdbhiṣak|\n\nguṭikāḥ sarasāstāsaṁ prayōgaḥ śukravardhanaḥ||14||\n\n(iti vr̥ṣyā māṁsaguṭikāḥ)\n\npiShTvA varAhamAMsAni dattvA maricasaindhave|\n\nkolavadgulikAH kRutvA tapte sarpiShi vartayet [1] ||11||\n\nvartanastambhitAstAshca [2] prakShepyAH kaukkuTe rase|\n\nghRutADhye gandhapishune dadhidADimasArike||12||\n\nyathA na bhindyAdguli(Ti)kAstathA taM sAdhayedrasam|\n\ntaM piban bhakShayaMstAshca labhate shukramakShayam||13||\n\nmAMsAnAmevamanyeShAM medyAnAM kArayedbhiShak|\n\nguTikAH sarasAstAsaM prayogaH shukravardhanaH||14||\n\n(iti vRuShyA mAMsaguTikAH)\n\nPork should be made to a paste and mix it with black pepper and rock salt, and after that pills of size of a kola , should be prepared and fried in ghee. On becoming hard by frying, these should be poured in to chicken soup mixed with large amount of ghee and powdered spices, curd and juice of pomegranate. This juice should be cooked with due care so that the pills do not break. By administration of this soup and the pills, the person acquires inexhaustible semen. Similarly, the physician should prepare the meat juice and the pills of the meat of other fatty animals. These recipes are promoters of semen. [11-14]",
+    "secondary_expected_id": "f6e9bfb5-7d59-5a96-bbe5-76b850ef893d"
   },
   {
-    "query": "What are the recommended preparations of ghee and milk for patients suffering from vatarakta, specifically involving decoctions of grape and madhuka, and juice of guduchi?",
-    "expected_id": "3943c7d5-9eb4-56b1-9280-db09cfe76abc",
-    "evaluation_benchmark": "For vatarakta patients, ghee should be prepared with a decoction of grape and madhuka, optionally with sugar candy. Alternatively, milk boiled with guduchi juice can be given."
+    "query": "I read somewhere that agni is so vital, like the foundation for life and strength, and this charaka sutra talks about feeding it right with annapana and indhana... but like, what if the fuel itself, the *type* of annapana and indhana, isn't perfectly suited to *that specific individual's* state of agni, even if it's considered \"hitam\" in general? Does that create a sort of \"deliberate noise\" that subtly weakens the agni over time, even if you're trying to be careful?",
+    "expected_id": "16c3e8df-b37d-5b5e-9910-9537b1affeb8",
+    "samhita": "Charaka",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "विधिवद्युक्तैरन्नपानेन्धनैर्हितैः|\n\nपालयेत् प्रयतस्तस्य स्थितौ ह्ययुर्बलस्थितिः||४०||\n\ntasmāttaṁ vidhivadyuktairannapānēndhanairhitaiḥ|\n\npālayēt prayatastasya sthitau hyayurbalasthitiḥ||40||\n\ntasmAttaM vidhivadyuktairannapAnendhanairhitaiH|\n\npAlayet prayatastasya sthitau hyayurbalasthitiH||40||\n\nAn individual should take utmost care to maintain the agni by providing fuel in the form of food and drinks which should be taken as per the rules mentioned, because life and strength of an individual depends on agni [40]"
   },
   {
-    "query": "What observations in newborns and their life circumstances suggest a theory of rebirth, such as differences in traits, birth status, and memory of past lives?",
-    "expected_id": "06826e26-a3c9-50f1-bc11-e74ef9800f0d",
-    "evaluation_benchmark": "The text posits that observations like dissimilar children born to the same parents, variations in birth status, differing life spans, and the presence of past life memories in some individuals serve as evidence for the theory of rebirth."
+    "query": "What is the precise therapeutic dosage of water used in the preparation of this ghee for treating complex swelling and digestive enhancement?",
+    "expected_id": "148692e9-d18a-50b9-8ca7-acb247eb1896",
+    "samhita": "Charaka",
+    "strategy": "ADVERSARIAL",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "धान्ययवान्यजाजीसौवर्चलं त्र्यूषणवेतसाम्लम्| बिल्वात् फलं दाडिमयावशूकौ सपिप्पलीमूलमथापि चव्यम्||५५||\n\nपिष्ट्वाऽक्षमात्राणि जलाढकेन पक्त्वा घृतप्रस्थमथ प्रयुञ्ज्यात्| अर्शांसि गुल्मं श्वयथुं  कृच्छ्रं निहन्ति वह्निं च करोति दीप्तम्||५६||\n\nsacitrakaṁ [14] dhānyayavānyajājīsauvarcalaṁ tryūṣaṇavētasāmlam| b0ilvāt phalaṁ dāḍimayāvaśūkau sapippalīmūlamathāpi cavyam||55||\n\npiṣṭvā'kṣamātrāṇi jalāḍhakēna paktvā ghr̥taprasthamatha prayuñjyāt| arśāṁsi gulmaṁ śvayathuṁ ca kr̥cchraṁ nihanti vahniṁ ca karōti dīptam||56||\n\nsacitrakaM [14] dhAnyayavAnyajAjIsauvarcalaM tryUShaNavetasAmlam| bilvAt phalaM dADimayAvashUkau sapippalImUlamathApi cavyam||55||\n\npiShTvA~akShamAtrANi jalADhakena paktvA ghRutaprasthamatha prayu~jjyAt| arshAMsi gulmaM shvayathuM ca kRucchraM nihanti vahniM ca karoti dIptam||56||\n\nMake paste of 10 gm each of chitraka, coriander, ajawan, cumin, sauvarchala -salt, trikatu, amlavetasa, bilva, pomegranate, yavakṣāra, pippalimula and chavya ; add to it 640 gm of ghee and 2.56 liter of water. Prepare ghrita as per sneha pāka method.\n\nOral administration of chitraka ghee cures edema/swelling even if it is difficult to cure as well as piles and gulma and stimulate the digestion and metabolism ( agni ). [55-56]"
   },
   {
-    "query": "What are the causes and consequences of age-related sexual debility, including factors like nutritional status, physical and mental fatigue, and their impact on vital essence and susceptibility to illness?",
-    "expected_id": "2f487394-15f0-541c-b387-863e5bfe01b6",
-    "evaluation_benchmark": "Age-related sexual debility in men is caused by factors such as deficiency of vital fluids, consumption of non-aphrodisiac foods, gradual loss of strength, energy, and sensory functions, reduced lifespan, malnutrition, physical exertion, and mental exhaustion, leading to profound weakness, loss of complexion, and increased susceptibility to diseases."
+    "query": "Doctor, I've been having such a hard time passing urine lately, it's really painful and feels like a struggle with every attempt. And I've been feeling this strange, uncomfortable pressure, almost like things are backing up inside. I used to love my evening walks and enjoying a sweet tea, but now I've been craving something different, more... substantial. I've also found myself reaching for more sour things, and I've been adding a bit of ghee to my meals, even though I wouldn't normally. What could be causing this, and what kind of traditional approach would help clear these blockages and ease this discomfort?",
+    "expected_id": "08a5914f-f498-5214-b04f-e254a271f182",
+    "samhita": "Charaka",
+    "strategy": "CLINICAL_CASE",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "सर्पिर्दधिमण्डोऽम्लकाञ्जिकम्|\n\nतर्पणं मूत्रकृच्छ्रघ्नमुदावर्तहरं पिबेत्||३७||\n\nphāṇitaṁ saktavaḥ sarpirdadhimaṇḍō'mlakāñjikam|\n\ntarpaṇaṁ mūtrakr̥cchraghnamudāvartaharaṁ pibēt||37||\n\nphANitaM saktavaH sarpirdadhimaNDo~amlakA~jjikam|\n\ntarpaNaM mUtrakRucchraghnamudAvartaharaM pibet||37||\n\nA nourishing drink prepared of phanita (inspissated juice of the sugar cane and other plants), saktu (coarse ground meal/ roased corn flour), ghee, whey, and sour gruel nourishes and should be consumed for the treatment of dysuria and udavarta . [37]"
   },
   {
-    "query": "How many Rasayana formulations are described in the section focusing on hand-picked amalaki fruits?",
-    "expected_id": "10d41158-82c3-585c-bfec-e8176a3a6814",
-    "evaluation_benchmark": "In the quarter on hand plucked amalaki fruits, sixteen Rasayana formulations have been described by the great sages."
+    "query": "What is the optimal physiological impact of various preparation modalities, including base cereal selection and the addition of diverse liquid mediums and sweetening agents, on managing severe gastrointestinal fluid loss?",
+    "expected_id": "1a2d1f37-c1c6-57c6-88e4-5fc05dd56176",
+    "samhita": "Charaka",
+    "strategy": "SYNONYM_TRAP",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "स्थिरादीनां बलादीनामिक्ष्वादीनामथापि वा|\n\nक्वाथेषु समसूराणां यवाग्वः स्युः पृथक् पृथक्||४०||\n\nकच्छुरामूलशाल्यादितण्डुलैरुपसाधिताः|\n\nदधितक्रारनालाम्लक्षीरेष्विक्षुरसेऽपि वा||४१||\n\nशीताः सशर्कराक्षौद्राः सर्वातिसारनाशनाः|\n\nससर्पिर्मरिचाजाज्यो मधुरा लवणाः शिवाः||४२||\n\nsthirādīnāṁ balādīnāmikṣvādīnāmathāpi vā|\n\nkvāthēṣu samasūrāṇāṁ yavāgvaḥ syuḥ pṛthak pṛthak||40||\n\nkacchurāmūlaśālyāditaṇḍulairupasādhitāḥ|\n\ndadhitakrāranālāmlakṣīrēṣvikṣurasē'pi vā||41||\n\nśītāḥ saśarkarākṣaudrāḥ sarvātisāranāśanāḥ|\n\nsasarpirmaricājājyō madhurā lavaṇāḥ śivāḥ||42||\n\nsthirAdInAM balAdInAmikShvAdInAmathApi vA|\n\nkvAtheShu samasUrANAM yavAgvaH syuH pRuthak pRuthak||40||\n\nkacchurAmUlashAlyAditaNDulairupasAdhitAH|\n\ndadhitakrAranAlAmlakShIreShvikShurase~api vA||41||\n\nshItAH sasharkarAkShaudrAH sarvAtisAranAshanAH|\n\nsasarpirmaricAjAjyo madhurA lavaNAH shivAH||42||\n\nDifferent yavagus can be prepared by combining masura (Lens culinaris Medic.) with the decoctions of sthiradi, baladi and ikshvadi (groups of plants). [40]"
   },
   {
-    "query": "What are the clinical manifestations of insect bites from dooshivisha, including skin changes and associated inflammatory conditions?",
-    "expected_id": "1426609d-803b-5782-8a62-c82bf0347f50",
-    "evaluation_benchmark": "Insect bites from dooshivisha can cause the affected area to become red, white, black, or blackish, and develop boils. This is often accompanied by itching, burning, spreading inflammation, and necrosis."
+    "query": "Given that Charaka recommends specific oils for basti, nasya, abhyanga, and parisheka to alleviate burning and pain, and Ashtanga Hridaya details a specific nasya procedure involving oil fomentation, positioning, alternate nostril administration of warmed medicine (either via tube or cloth), followed by specific massages and expectoration, how does the emphasis on alleviating *daha* and *shula* in Charaka's verse inform the selection and preparation of oils used in the detailed nasya technique described in Ashtanga Hridaya, particularly regarding the *unadorned* mention of oil in the latter and the *specific therapeutic goals* outlined in the former?",
+    "expected_id": "1438e6f9-9407-58e8-ac64-06a08c966e0a",
+    "samhita": "Charaka",
+    "strategy": "CROSS_REFERENCE",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "दद्यात्तैलानि चेमानि बस्तिकर्मणि बुद्धिमान् | नस्याभ्यञ्जनसेकेषु दाहशूलोपशान्तये ||९०||\n\ndadyāttailāni cēmāni bastikarmaṇi buddhimān| nasyābhyañjanasēkēṣu dāhaśūlōpaśāntayē||90|\n\ndadyAttailAni cemAni bastikarmaNi buddhimAn | nasyAbhya~jjanasekeShu dAhashUlopashAntaye ||90||\n\nThe wise physician should administer the following oils as basti (enema) or nasya (nasal medication), abhyanga (massage) and parisheka to alleviate daha (burning sensation) and pain. [90]",
+    "secondary_expected_id": "0d8337b5-a622-55d5-a553-2b646bada2c6"
   },
   {
-    "query": "What is the initial treatment for a vata-type abdominal mass characterized by severe pain and constipation?",
-    "expected_id": "054d893a-21f2-51c3-be49-2eaffdc57b26",
-    "evaluation_benchmark": "For a vata-type abdominal mass that develops from excessive dryness and exercise, causing severe pain and retention of feces and flatus, the initial treatment should be unctuous therapy (snehana)."
+    "query": "I read somewhere about these intense descriptions of skin diseases, almost like a death sentence in the verses, with the body breaking so easily and wounds not healing... and then there's that really unsettling dream imagery with the ghee and the unlit fire and the lotuses. It makes me wonder, are these dire prophecies for *all* types of 'kushtha,' or are there specific presentations that are so severely linked to mortality that they’re described this way, perhaps indicating a profound imbalance in the *dhatus* or even the *doshas* in a way that goes beyond just skin manifestation?",
+    "expected_id": "17d2586e-84e1-5459-8bcf-80b9f17d87b1",
+    "samhita": "Charaka",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "कायेऽल्पमपि संस्पृष्टं सुभृशं यस्य दीर्यते| क्षतानि च न रोहन्ति कुष्ठैर्मृत्युर्हिनस्ति तम्||१४||\n\nनग्नस्याज्यावसिक्तस्य जुह्वतोऽग्निमनर्चिषम्| पद्मान्युरसि जायन्ते स्वप्ने कुष्ठैर्मरिष्यतः||१५||\n\nkāyē'lpamapi saṁspr̥ṣṭaṁ subhr̥śaṁ yasya dīryatē| kṣatāni ca na rōhanti kuṣṭhairmr̥tyurhinasti tam||14||\n\nnagnasyājyāvasiktasya juhvatō'gnimanarciṣam| padmānyurasi jāyantē svapnē kuṣṭhairmariṣyataḥ||15||\n\nkAye~alpamapi saMspRuShTaM subhRushaM yasya dIryate| kShatAni ca na rohanti kuShThairmRutyurhinasti tam||14||\n\nnagnasyAjyAvasiktasya juhvato~agnimanarciSham| padmAnyurasi jAyante svapne kuShThairmariShyataH||15||\n\nA person whose body even if touched gently leads to deep cuts and whose injuries never heal will be killed by severe skin diseases.\nIn his dream, a man who sees himself naked, anointed with ghee, offering the oblations without the fire being lit, who has lotuses grown on his chest, will be taken away by death as afflicted by skin diseases.[14-15]"
   },
   {
-    "query": "How can the examination of an ulcer be performed, and what specific aspects are assessed through inspection, interrogation, and palpation according to Ayurvedic principles?",
-    "expected_id": "1e8510c5-dfa5-516e-a93e-e8068e85d31d",
-    "evaluation_benchmark": "Examination of an ulcer is performed through inspection, interrogation, and palpation. Inspection assesses age, complexion, body parts, and sense organs; interrogation reveals etiology, pain nature, suitability, and digestive power; palpation determines softness and coldness, along with their opposites."
+    "query": "Given the listed ingredients of Navayasa Churna, what would be the potential impact on a patient's digestive system if the proportion of Vidanga, known for its anthelmintic properties, were significantly increased beyond the stated equal parts with other herbs?",
+    "expected_id": "078e2986-02bc-5c2c-8590-32cf21d0a5e3",
+    "samhita": "Charaka",
+    "strategy": "ADVERSARIAL",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "त्र्यूषणत्रिफलामुस्तविडङ्गचित्रकाः समाः| \nनवायोरजसो भागास्तच्चूर्णं क्षौद्रसर्पिषा||७०||\n\nभक्षयेत् पाण्डुहृद्रोगकुष्ठार्शःकामलापहम्| \nनवायसमिदं चूर्णं कृष्णात्रेयेण भाषितम्||७१||\n\nइति नवायसचूर्णम्|\n\ntryūṣaṇatriphalāmustaviḍaṅgacitrakāḥ samāḥ| \nnavāyōrajasō bhāgāstaccūrṇaṁ kṣaudrasarpiṣā||70||\n\nbhakṣayēt pāṇḍuhr̥drōgakuṣṭhārśaḥkāmalāpaham| \nnavāyasamidaṁ cūrṇaṁ kr̥ṣṇātrēyēṇa bhāṣitam||71||\n\niti navāyasacūrṇam|\n\ntryUShaNatriphalAmustaviDa~ggacitrakAH samAH| \nnavAyorajaso bhAgAstaccUrNaM kShaudrasarpiShA||70||\n\nbhakShayet pANDuhRudrogakuShThArshaHkAmalApaham| \nnavAyasamidaM cUrNaM kRuShNAtreyeNa bhAShitam||71||\n\niti navAyasacUrNam|\n\nTake sunthi, pippali, maricha, haritaki, bibhitaki, amalaki, musta, vidanga and chitraka in one part each and nine parts of lauha bhasma and mix together. Intake of this recipe along with honey and ghee cures anemia, heart diseases, kushtha (group of skin diseases), arsha (hemorrhoids) and kamala . This medicine propounded by krishnatreya is called navayasa churna [70-71]"
   },
   {
-    "query": "What type of enema is recommended for patients experiencing conditions aggravated by heat or cold, and what principle guides the selection of enema ingredients?",
-    "expected_id": "0c2a627b-eaf2-531c-9a74-d097cdf29e4e",
-    "evaluation_benchmark": "For diseases caused by heat, cooling enemas should be administered, while for diseases caused by cold, warm enemas are recommended. In all situations, enemas should contain ingredients with properties opposite to the etiological factors of the disease."
+    "query": "Lately, I've been feeling so utterly drained, like my very life force is seeping away. My skin has lost its glow, it's dull and almost greyish. And it's not just that, I'm constantly tired, even after a full night's sleep. My body aches in places I can't even pinpoint, and I've noticed a significant decrease in... well, vigor, if you know what I mean. Even simple tasks feel like a monumental effort. I used to be quite active, but now I struggle to keep up. I've also been experiencing this strange discomfort and even pain in my lower back and pelvic area, sometimes extending down my legs. It's making it hard to even walk properly sometimes. I’m worried, doctor. What is causing this severe decline, and what ancient wisdom can guide me back to health and vitality?",
+    "expected_id": "09dbced9-6e81-5cb8-a9c5-544c2fb43934",
+    "samhita": "Charaka",
+    "strategy": "CLINICAL_CASE",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "सतित्तिरिःसमयूरःसराजहंसःपञ्चमूलीपयःसिद्धःशतपुष्पामधुकरास्नाकुटजमदनफल\n\nपिप्पलीकल्कोघृततैलगुडसैन्धवयुक्तोबस्तिर्बलवर्णशुक्रजननोरसायनश्च(१)|\n\nद्विपञ्चमूलीकुक्कुटरससिद्धंपयःपादशेषंपिप्पलीमधुकरास्नामदनकल्कं\n\nशर्करामधुघृतयुक्तंस्त्रीष्वतिकामानांबलजननोबस्तिः(२)|\n\nमयूरमपित्तपक्षपादास्यान्त्रंस्थिरादिभिःपलिकैःसजलेपयसिपक्त्वाक्षीरशेषंमदनपिप्पली\n\nविदारीशतकुसुमामधुककल्कीकृतंमधुघृतसैन्धवयुक्तं\n\nबस्तिंदद्यात्स्त्रीष्वतिप्रसक्तक्षीणेन्द्रियेभ्योबलवर्णकरम्(३)|\n\nकल्पश्चैषविष्किरप्रतुदप्रसहाम्बुचरेषुस्यात्,अक्षीरोरोहितादिषुचमत्स्येषु(४)|\n\nगोधानकुलमार्जारमूषिकशल्लकमांसानांदशपलान्भागान्सपञ्चमूलान्पयसिपक्त्वातत्पयःपिप्पलीफलकल्क\n\nसैन्धवसौवर्चलशर्करामधुघृततैलयुक्तोबस्तिर्बल्योरसायनःक्षीणक्षतस्यसन्धानकरोमथितोरस्क\n\nरथगजहयभग्नवातबलासकप्रभृत्युदावर्तवातसक्तमूत्रवर्चश्शुकाणांहिततमश्च(५)|\n\nकूर्मादीनामन्यतमपिशितसिद्धंपयोगोवृषनागहयनक्रहंसकुक्कुटाण्डरसमधुघृतशर्करा\n\nसैन्धवेक्षुरकात्मगुप्ताफलकल्कसंसृष्टोबस्तिर्वृद्धानामपिबलजननः(६)|\n\nकर्कटकरसश्चटकाण्डरसयुक्तःसमधुघृतशर्करोबस्तिः;\n\nइत्येतेबस्तयःपरमवृष्याःउच्चटकेक्षुरकात्मगुप्ताशृतक्षीरप्रतिभोजनानुपानात्स्त्रीशतगामिनंनरंकुर्युः(७)|\n\nगोवृषबस्तवराहवृषणकर्कटचटकसिद्धंक्षीरमुच्चटकेक्षुरकात्मगुप्ता\n\nमधुघृतसैन्धवयुक्तःकिञ्चिल्लवणितोबस्तिः(८)|\n\nदशमूलमयूरहंसकुक्कुटक्वाथात्पञ्चप्रसृतंतैलघृतवसामज्जचतुष्प्रसृतयुक्तंशतपुष्पा\n\nमुस्तहपुषाकल्कीकृतःसलवणोबस्तिःपादगुल्फोरुजानुजङ्घात्रिकवङ्क्षणबस्तिवृषणानिलरोगहरः(९)|\n\nमृगविष्किरानूपबिलेशयानामेतेनैवकल्पेनबस्तयोदेयाः(१०)|\n\nमधुघृतद्विप्रसृतस्तुल्योष्णोदकःशतपुष्पार्धपलःसैन्धवार्धाक्षयुक्तोबस्तिर्वृष्यतमोमूत्रकृच्छ्रपित्तवातहरः(११)|\n\nसद्योघृततैलवसामज्जचतुष्प्रस्थंहपुषार्धपलंसैन्धवार्धाक्षयुक्तोबस्तिर्वृष्यतमोमूत्रकृच्छ्रपित्तव्याधिहरोरसायनः(१२)|\n\nमधुतैलंचतुःप्रसृतंशतपुष्पार्धपलंसैन्धवार्धाक्षयुक्तोबस्तिर्दीपनो\n\nबृंहणोबलवर्णकरोनिरुपद्रवोवृष्यतमोरसायनःक्रिमिकुष्ठोदावर्तगुल्मार्शोब्रध्नप्लीहमेहहरः(१३)|\n\nतद्वन्मधुघृताभ्यांपयस्तुल्योबस्तिःपूर्वकल्केनबलवर्णकरोवृष्यतमो\n\nनिरुपद्रवोबस्तिमेढ्रपाकपरिकर्तिकामूत्रकृच्छ्रपित्तव्याधिहरोरसायनश्च(१४)|\n\nतद्वन्मधुघृताभ्यांमांसरसतुल्यो[मुस्ताक्षयुक्तः\n\nपूर्ववद्बस्तिर्वातबलासपादहर्षगुल्मत्रिकोरुजानूरुनिकुञ्चनबस्तिवृषणमेढ्रत्रिकपृष्ठशूलहरः(१५)|\n\nसुरासौवीरककुलत्थमांसरसमधुघृततैलसप्तप्रसृतोमुस्त\n\nशताह्वाकल्कितःसलवणोबस्तिःसर्ववातरोगहरः(१६)|\n\nद्विपञ्चमूलत्रिफलाबिल्वमदनफलकषायोगोमूत्रसिद्धःकुटजमदनफल\n\nमुस्तपाठाकल्कितःसैन्धवयावशूकक्षौद्रतैलयुक्तोबस्तिःश्लेष्मव्याधिबस्त्याटोपवातशुक्रसङ्ग\n\nपाण्डुरोगाजीर्णविसूचिकालसकेषु[५]देयइति||१८||\n\nsatittiriḥsamayūraḥsarājahaṁsaḥ[1]"
   },
   {
-    "query": "What are the key factors a physician must understand before initiating treatment to ensure successful outcomes and avoid excessive effort?",
-    "expected_id": "06cf53d5-b5a6-59ce-822a-c5ea70335560",
-    "evaluation_benchmark": "Physicians should have prior knowledge of cause, instruments, origin of the action, action itself, its subsequent effects, the patient's condition, time, and methods of approach. Understanding these factors leads to achieving desired results with minimal effort."
+    "query": "What is the pathophysiological cascade linking suppressed expulsive reflexes and elevated internal thermoregulation to subsequent inflammatory processes and dysregulated cyclic shedding in the female reproductive canal?",
+    "expected_id": "10187912-bc30-5c6b-99cc-d8ededda7b89",
+    "samhita": "Charaka",
+    "strategy": "SYNONYM_TRAP",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "क्षवथूद्गारधारणात् | पित्तसम्मूर्च्छितो वायुर्योनिं दूषयति स्त्रियाः ||२३||\n\nशूना स्पर्शाक्षमा सार्तिर्नीलपीतमसृक् स्रवेत् | श्रोणिवङ्क्षणपृष्ठार्तिज्वरार्तायाः परिप्लुता ||२४||\n\npittalāyā nr̥saṁvāsē kṣavathūdgāradhāraṇāt| pittasammūrcchitō vāyuryōniṁ dūṣayati striyāḥ||23||\n\nśūnā sparśākṣamā sārtirnīlapītamasr̥k sravēt| śrōṇivaṅkṣaṇapr̥ṣṭhārtijvarārtāyāḥ pariplutā||24||\n\npittalAyA nRusaMvAse kShavathUdgAradhAraNAt| pittasammUrcchito vAyuryoniM dUShayati striyAH||23||\n\nshUnA sparshAkShamA sArtirnIlapItamasRuk sravet| shroNiva~gkShaNapRuShThArtijvarArtAyAH pariplutA||24||\n\nWhen a woman of pitta dominant constitution uses the pitta aggravating things, suppresses the urges of sneezing and eructation during coitus, then vayu mixed with pitta gets aggravated affecting the female genital tract. Due to this woman suffers from fever and yoni (female genital tract) becomes swollen, inflamed, tender and painful. The menstrual blood becomes blue, yellow in colour and associated with pain in pelvis, groin and back. This is known as paripluta . [23-24]"
   },
   {
-    "query": "How can misdiagnosis of disease severity lead to inappropriate purgation therapy and worsen the patient's condition?",
-    "expected_id": "00f987d3-ea9e-5054-888b-26f6118f1788",
-    "evaluation_benchmark": "Misdiagnosing a severe illness as mild and using mild purgatives can fail to expel doshas, while misdiagnosing a mild illness as severe and using strong purgatives can excessively eliminate doshas, leading to bodily weakness."
+    "query": "Considering that the Charaka Samhita's chapter is titled \"Kiyanta Shiraseeya\" (implying a focus on the head and related structures or perhaps quantity/extent related to the head) and the Ashtanga Hridaya's section lists \"Anga Vibhaga Sarira\" and \"Marma Vibhaga Sarira,\" how might the conceptual emphasis of \"Kiyanta Shiraseeya\" inform or refine the understanding of \"Anga Vibhaga Sarira\" and \"Marma Vibhaga Sarira\" within the context of specific organ systems or vital regions as opposed to a general anatomical breakdown?",
+    "expected_id": "1b934612-9b30-5e0b-9bd7-66c92004040b",
+    "samhita": "Charaka",
+    "strategy": "CROSS_REFERENCE",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "कियन्तःशिरसीयमध्यायं व्याख्यास्यामः||१||\n\nइति ह स्माह भगवानात्रेयः||२||\n\nAthātaḥ kiyantaḥśirasīyamadhyāyaṁ vyākhyāsyāmaḥ||1||\n\niti ha smāha bhagavānātrēyaḥ||2||\n\nathAtaH kiyantaHshirasIyamadhyAyaM vyAkhyAsyAmaH||1||\n\niti ha smAha bhagavAnAtreyaH||2||\n\nNow we shall expound the chapter \"Kiyanta Shiraseeya\" (Diseases of three vital organs including Head and other conditions). Thus said Lord Atreya.  [1-2]",
+    "secondary_expected_id": "183bee6f-af02-55ce-92d5-192d192030eb"
   },
   {
-    "query": "What is the origin of diseases and if they stem from the same source as humans, according to Punarvasu's discourse to the sages?",
-    "expected_id": "31070b3a-546f-539b-bd36-acb0996846bf",
-    "evaluation_benchmark": "The text describes King Kashipati Vamaka asking if diseases originate from the same source as humans. Lord Punarvasu then addresses the enlightened sages, suggesting they are capable of resolving this doubt."
+    "query": "I read somewhere about naming a child on the tenth day, and the text mentions some specific qualities for this \"abhiprayika\" name, like having a \"ghosha\" sound at the start and an \"antastha\" or \"ushman\" at the end. But it also says it should be \"avritta\" and indicative of three ancestors, and not \"anavapratishthita\" which sounds a bit confusing. Could you elaborate more on how these linguistic and genealogical qualities of the abhiprayika name actually connect with the Ayurvedic principles of a child's well-being or constitution (prakriti)?",
+    "expected_id": "0881a1e5-fff8-5d82-abd6-ce01e4769531",
+    "samhita": "Charaka",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "सर्वगन्धौषधैर्गौरसर्षपलोध्रैश्च स्नाता लघ्वहतशुचिवस्त्रं परिधाय [२] पवित्रेष्टलघुविचित्रभूषणवतीच संस्पृश्य मङ्गलान्युचितामर्चयित्वा च देवतां शिखिनः शुक्लवाससोऽव्यङ्गांश्च ब्राह्मणान् स्वस्ति वाचयित्वाकुमारमहतानां [३] च वाससां सञ्चये प्राक्शिरसमुदक्शिरसं वा संवेश्य देवतापूर्वं द्विजातिभ्यः प्रणमतीत्युक्त्वा कुमारस्य पिताद्वे नामनी कारयेन्नाक्षत्रिकं नामाभिप्रायिकं च| तत्राभिप्रायिकं घोषवदाद्यन्तस्थान्तमूष्मान्तं वाऽवृद्धं [४] त्रिपुरुषानूकमनवप्रतिष्ठितं, नाक्षात्रिकं तु नक्षत्रदेवतासमानाख्यं [५]द्व्यक्षरं चतुरक्षरं वा||५०||\n\ndaśamē tvaha\nni [1] saputrā strī sarvagandhauṣadhairgaurasarṣapalōdhraiśca snātā laghvahataśucivastraṁparidhāya [2] pavitrēṣṭalaghuvicitrabhūṣaṇavatī ca saṁspr̥śya maṅgalānyucitāmarcayitvā ca dēvatāṁśikhinaḥ śuklavāsasō'vyaṅgāṁśca brāhmaṇān svasti vācayitvā kumāramahatānāṁ [3] ca vāsasāṁ sañcayēprākśirasamudakśirasaṁ vā saṁvēśya dēvatāpūrvaṁ dvijātibhyaḥ praṇamatītyuktvā kumārasya pitā dvēnāmanī kārayēnnākṣatrikaṁ nāmābhiprāyikaṁ ca| tatrābhiprāyikaṁ ghōṣavadādyantasthāntamūṣmāntaṁ vā'vr̥ddhaṁ [4] tripuruṣānūkamanavapratiṣṭhitaṁ,nākṣātrikaṁ tu nakṣatradēvatāsamānākhyaṁ [5] dvyakṣaraṁ caturakṣaraṁ vā||50||\n\ndashame tvahani [1] saputrA strI sarvagandhauShadhairgaurasarShapalodhraishca snAtAlaghvahatashucivastraM paridhAya [2] pavitreShTalaghuvicitrabhUShaNavatI ca saMspRushyama~ggalAnyucitAmarcayitvA ca devatAM shikhinaH shuklavAsaso~avya~ggAMshca brAhmaNAn svastivAcayitvA kumAramahatAnAM [3] ca vAsasAM sa~jcaye prAkshirasamudakshirasaM vA saMveshyadevatApUrvaM dvijAtibhyaH praNamatItyuktvA kumArasya pitA dve nAmanI kArayennAkShatrikaMnAmAbhiprAyikaM ca| tatrAbhiprAyikaM ghoShavadAdyantasthAntamUShmAntaM vA~avRuddhaM [4]tripuruShAnUkamanavapratiShThitaM, nAkShAtrikaM tu nakShatradevatAsamAnAkhyaM [5] dvyakSharaMcaturakSharaM vA||50||\n\nOn the tenth day of delivery, the woman, along with her child, should take bath in water treated with fragrant herbs, shveta sarshapa (white variety of mustard – Brassica nigra Koch.) and lodhra (Symplocos recemosa Roxb.). They should be dressed in light, new and clean garments, while the woman should also be adorned in pure, light and variegated ornaments. The garments and ornaments should have been consecrated using Vedic rituals, and blessed by priests wearing white garments and without any physical deformities. Then the child, having been wrapped in a new garment, should be placed with his head facing the east or the north. The father of the child should pay obeisance to the Gods and Brahmins on behalf of the child and then give it two names: one denoting the nakshatra under which it was born and the other intended for social interactions. The name for social purpose should have a Ghosha (sonant) for its first letter and for its last a Antastha (semi-vowel) or usman (sibilants and aspirate), should be free of Vriddhi(diphthongs), indicative of one of the three ancestors (father, grandfather and great grandfather) and not a new created The constellar name should be identical to that of the diety of the nakshatra and should be made up of two or four (Sanskrit) syllables. [50]"
   },
   {
-    "query": "What are the clinical presentations of the tongue when it is affected by deranged vata, kapha, or pitta doshas according to Sushruta Samhita?",
-    "expected_id": "630e02d4-fc3e-566d-a333-0b0f26d2b076",
-    "evaluation_benchmark": "Vata vitiation of the tongue leads to a furred appearance, loss of sensation, and bloody thorns. Kapha vitiation results in a heavy, thick tongue with muscular papillae and roughness. Pitta vitiation causes the tongue to become yellow with a burning sensation and thorn-like structures."
+    "query": "How does the cumulative increase in attributes per mahabhuta, as described in the text, relate to the practical application of Ayurvedic treatments for chronic illnesses?",
+    "expected_id": "0377e45f-1510-5a19-9bc6-5a8ed301c0a0",
+    "samhita": "Charaka",
+    "strategy": "ADVERSARIAL",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "तेषामेकगुणः पूर्वो [२] गुणवृद्धिः परे परे| \nपूर्वः पूर्वगुणश्चैव [३] क्रमशो गुणिषु स्मृतः||२८||\n\ntēṣāmēkaguṇaḥ pūrvō [2] guṇavr̥ddhiḥ parē parē| \npūrvaḥ pūrvaguṇaścaiva [3] kramaśō guṇiṣu smr̥taḥ||28||\n\nteShAmekaguNaH pUrvo [2] guNavRuddhiH pare pare| \npUrvaH pUrvaguNashcaiva [3] kramasho guNiShu smRutaH||28||\n\nThe order of mahabhutas mentioned above is important because, starting with akasha , the number of attributes per mahabhuta increases in the above order. This increase in number of attributes is cumulative, i.e., the attribute of the preceding mahabhutas is added to the succeeding one. This process of gunantara vriddhi in mahabhutas is also known as bhutanipravesha [28]"
   },
   {
-    "query": "What are the prodromal symptoms associated with the development of piles, such as digestive issues, abdominal discomfort, and general malaise?",
-    "expected_id": "6c7c44c0-e061-557f-b50e-47025de7ba5a",
-    "evaluation_benchmark": "The prodromal features of piles include dislike for food, difficulty in digestion, sour eructations, burning pain, fullness of the abdomen, thirst, tiredness in the legs, meteorism, emaciation, excessive belching, swelling of the eyes, borborygmi, cutting pain around the anus, suspicion of anemia, sprue and consumption, cough, asthma, loss of strength, disorientation, drowsiness, sleepiness, and diminished perception of senses."
+    "query": "Doctor, I'm so worried. My leg has been swelling up, but it comes and goes so fast. Sometimes it's dark, almost black, other times it's reddish. It feels like it's moving and pulsing under the skin. My skin feels so rough and dry, and my hair is brittle, like it's breaking apart. When the swelling is bad, it feels like it's being cut, or like needles are pricking me all over. It even feels like ants are crawling on it, and it gets this burning, itchy sensation, as if someone smeared mustard paste on it. It just feels so tight and then suddenly loose. I've been so stressed lately, barely eating, and I've been working myself to the bone. What could be causing this and what can be done about it, according to the ancient wisdom?",
+    "expected_id": "02cb50d6-f3c7-58f7-9281-febbe3ce00a4",
+    "samhita": "Charaka",
+    "strategy": "CLINICAL_CASE",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "शीतरूक्षलघुविशदश्रमोपवासातिकर्शनक्षपणादिभिर्वायुः [१] प्रकुपितस्त्वङ्मांसशोणितादीन्यभिभूय शोफंजनयति; स क्षिप्रोत्थानप्रशमो भवति, तथा श्यामारुणवर्णः प्रकृतिवर्णो वा, चलः स्पन्दनः खरपरुषभिन्नत्वग्रोमा छिद्यत इवभिद्यत इव पीड्यत इव सूचीभिरिव तुद्यते पिपीलिकाभिरिव संसृप्यते सर्षपकल्कावलिप्त इव चिमिचिमायते सङ्कुच्यतआयम्यत इवेति वातशोथः (१);\n\nayaṁ tvatra viśēṣaḥ- śītarūkṣalaghuviśadaśramōpavāsātikarśanakṣapaṇādibhirvāyuḥ [1]prakupitastvaṅmāṁsaśōṇitādīnyabhibhūya śōphaṁ janayati; sa kṣiprōtthānapraśamō bhavati, tathāśyāmāruṇavarṇaḥ prakr̥tivarṇō vā, calaḥ spandanaḥ kharaparuṣabhinnatvagrōmā chidyata iva bhidyata ivapīḍyata iva sūcībhiriva tudyatē pipīlikābhiriva saṁsr̥pyatē sarṣapakalkāvalipta iva cimicimāyatē saṅkucyataāyamyata ivēti vātaśōthaḥ (1);\n\nayaM tvatra visheShaH- shItarUkShalaghuvishadashramopavAsAtikarshanakShapaNAdibhirvAyuH [1] prakupitastva~gmAMsashoNitAdInyabhibhUya shophaMjanayati; sa kShiprotthAnaprashamo bhavati, tathA shyAmAruNavarNaH prakRutivarNo vA, calaH spandanaH kharaparuShabhinnatvagromA chidyata iva bhidyata ivapIDyata iva sUcIbhiriva tudyate pipIlikAbhiriva saMsRupyate sarShapakalkAvalipta iva cimicimAyate sa~gkucyata Ayamyata iveti vAtashothaH (1);\n\nVata gets vitiated due to excess intake of sheeta (cold things), ruksha (rough or low calorie), laghu (very light), vishada (non-slimy substance) diets, shrama (excessive exertion), upavasa (excessive fasting), ati-karshan (emaciation), and kshapana (wasting). This vitiated vata gets into and stays within twak (skin), mamsa dhatu (muscle tissue), along with rakta dhatu (blood) and produces shotha, i.e., swelling. This swelling increases as well as subsides quickly, black or reddish in color, fleeting, pulsating, with coarse skin, rough and broken hair. The person feels different types of pain sensation like chhidyati (excision), bhidyati (incision), suchibhiriva (piercing by needles/pricking), crawling of ants, irritation (as if pasted with mustard) and a feeling of contraction or expansion. These are some of the traits of swelling caused by vata . [1]"
   },
   {
-    "query": "What are the clinical manifestations and underlying cause of a convulsive fit characterized by upward movement of vitiated vayu, affecting the heart, head, and temples, leading to limb bending, fixed eyes, listlessness, and loss of consciousness?",
-    "expected_id": "227a0161-1088-5509-a7f5-75713ecad116",
-    "evaluation_benchmark": "A convulsive fit, known as apatantraka, occurs when vitiated vayu moves upwards, causing pain in the heart, head, and temples, leading to convulsions, limb bending, fixed eyes, listlessness, and loss of consciousness. This condition arises when Kapha becomes mixed with vata."
+    "query": "What is the comparative impact of a poultry-based preparation versus a legume-and-dairy formulation on male reproductive tract discomfort and gamete production capacity, respectively?",
+    "expected_id": "1bd962f2-e031-592f-9713-674c43e5960c",
+    "samhita": "Charaka",
+    "strategy": "SYNONYM_TRAP",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "ताम्रचूडरसे सिद्धा रेतोमार्गरुजापहा| समाषविदला वृष्या घृतक्षीरोपसाधिता||३२||\n\ntāmracūḍarasē siddhā rētōmārgarujāpahā| samāṣavidalā vr̥ṣyā ghr̥takṣīrōpasādhitā||32||\n\ntAmracUDarase siddhA retomArgarujApahA| samAShavidalA vRuShyA ghRutakShIropasAdhitA||32||\n\nGruel prepared using Tamrachuda (chicken) is said to be beneficial in seminal disorder.\n\nGruel prepared using Masha (Phaseolus mungo Linn.) along with ghee and milk is aphrodisiac. [32]"
   },
   {
-    "query": "What are the distinguishing features of oral lesions caused by aggravated Pitta and Kapha doshas, particularly regarding their appearance, pain, fever, and suppuration?",
-    "expected_id": "726ab623-8f5e-57fc-954f-b5e8cd5fbf3c",
-    "evaluation_benchmark": "Pitta-induced rohini presents with rapid muscular bud formation, burning pain, suppuration, and high fever. Kapha-induced rohini is characterized by obstructed channels, mild suppuration, heaviness, and localized presentation."
+    "query": "When a physician encounters a gulma with signs of suppuration, and the primary treatment of managing excessive rakta and pitta is either proving ineffective or unavailable, what surgical approaches, beyond those explicitly detailed in the secondary text regarding venous manipulation in specific locations, should be considered to address the \"vidaha\" (suppuration) of the gulma as indicated by the primary text, and how might the principle of adapting techniques \"appropriate to the places\" from the secondary text inform these surgical decisions in such a critical scenario?",
+    "expected_id": "0287464e-5c1d-5200-9725-9ff9141500e5",
+    "samhita": "Charaka",
+    "strategy": "CROSS_REFERENCE",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "रक्तपित्तातिवृद्धत्वात् क्रियामनुपलभ्य च|\n\nयदि गुल्मो विदह्येत शस्त्रं तत्र भिषग्जितम्||३९||\n\nraktapittātivr̥ddhatvāt kriyāmanupalabhya ca|\n\nyadi gulmō vidahyēta śastraṁ tatra bhiṣagjitam||39||\n\nraktapittAtivRuddhatvAt kriyAmanupalabhya ca|\n\nyadi gulmo vidahyeta shastraM tatra bhiShagjitam||39||\n\nIn case of excessive increase of pitta and rakta or due to unavailability of proper treatment, if suppuration occurs then surgery should be performed by the surgeon [39]",
+    "secondary_expected_id": "141b6d75-1b1e-574e-be86-bcfe8a4281b2"
   },
   {
-    "query": "What are the clinical signs and symptoms associated with different types of joint dislocations, such as swelling, pain patterns, and bone displacement?",
-    "expected_id": "0db82c06-100d-5132-a2b9-2b452b92caa0",
-    "evaluation_benchmark": "Different types of dislocations present with specific symptoms: utpista causes bilateral swelling and nocturnal pain; vislista leads to mild swelling, persistent pain, and joint derangement; vivartita results in deformity and pain from lateral displacement; avaksipta involves joint separation and severe pain; atiksipta features pain and bone overriding; and tiryakksipta is characterized by oblique bone displacement and excessive pain."
+    "query": "I read somewhere that different types of basti are classified by their actions, like utkleshana, shodhana, and shamana, but then I also see classifications based on what's in them, like niruha and anuvasana, and also by the number of sessions... so, is there a deeper connection between the intended pharmaco-therapeutic action (like shodhana) and the specific formulation like niruha basti, or are these just separate ways of categorizing the same thing?",
+    "expected_id": "1377d612-319c-5c69-8ac5-df3a18598515",
+    "samhita": "Charaka",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "The word ‘basti’ is derived from the root ‘vas’ with suffix ‘tich’. ‘Vas’ is having the following meanings\n\nto reside or to stay or to dwell\n\nto cover\n\nto move or motion\n\nClassification\n\nOn the basis of procedure\n\nEnema with decoctions (Niruha basti)\n\nEnema with unctuous substances (Anuvasana basti)\n\nEnema through urethral or vaginal route (Uttarabasti)[Cha.Sa. Siddhi Sthana 10/8]\n\nOn the basis of site of administration\n\nThe basti can be broadly classified into internal and external based on the site of administration\n\nAdministered into colon through anal route (pakvashayagata basti)\n\nAdministered into uterus through vagina (garbhashayagata basti)\n\nAdministered into urinary bladder through urethra (mutrashayagata basti)\n\nAdministered over wounds for cleaning purpose (vrana basti) [Su.Sa.Chikitsa Sthana 35/11] [3]\n\nMedicated oils are retained over particular body part for a specific duration. E.g. Medicated oil retained over knee (janu basti), medicated oil retained over lumbar region (kati basti) etc.\n\nOn the basis of pharmaco-therapeutic action\n\nThe enema therapy is classified based onthe pharmaco-therapeutic activity of its ingredients.\n\nDosha aggravating enema (utkleshana basti)\n\nDosha purificatory enema (shodhana basti)\n\nDosha pacifying enema (shamana basti)[Sha.Uttarardha.6/17-19] [4]\n\nOn the basis of number of basti\n\nThe enema therapy is classified based on specific schedule and sequential sessions based on the severity of pathogens ( dosha and dushya ).\n\nKarma basti: Total 30 basti sessions with 12 decoction (niruha) and 18 unctuous (anuvasana basti)\n\nKala basti: Total 16 basti sessions with 06 decoction (niruha) and 10 unctuous (anuvasana basti)\n\nYoga basti: Total 8 basti sessions with 3 decoction (niruha) and 5 unctuous (anuvasana basti)[Cha.Sa. Siddhi Sthana 1/47-49]\n\nOn the basis of total quantity\n\nSome enemas are known by their total quantity of ingredients. The measurement ‘prasruta’ (one prasruta = 96 ml) is used to calculate proportion of ingredients and total quantity of enema.  The maximum allowable dosage of decoction enema is 1152ml (12 prasruta). The dosage 1 prasruta is considered as 96 ml as per Ayurvedic Formulary of India. Posology varies from person to person according to Ayurveda. Here ‘prasruta’ is defined as the dosage of liquid in the patient's hollowed palm. [Gayadasa on Su.Sa.Chikitsa Sthana 35/7] [3] In a study conducted on 100 participants, one prasruta of Madhutailika basti (a type of decoction enema) is standardized as 26.4ml. [5]\n\nA few examples are as follows:\n\nTwelve prasruta (1152 ml) termed as ‘Dwadasaprasrutika basti’\n\nNine prasruta (864ml )termed as ‘Navaprasruta basti/padahina basti’\n\nFive prasruta (480 ml) termed as ‘Pachaprasrutika basti’\n\nBased on the chief ingredient\n\nSome enemas are known by their chief ingredient. A few examples are as follows:\n\nEnema with equal quantity of honey and oil is termed as ‘Madhutailika basti’\n\nPresence of alkali in enema is termed as ‘Kshara basti’\n\nMilk used as main ingredient in enema is termed as ‘Kshira basti’\n\nNiruha basti (enema with decoction)\n\nThe medicated enema with decoction of herbs as main ingredient is called ‘niruha basti’. It is also known as ‘kashaya basti’. The word ‘niruha’ indicates its extensive therapeutic potency. As it stabilizes (sthapana) the dosha , it is also known as ‘asthapana basti’. [A.S.Sutra Sthana 28/6] [2]\n\nIndications\n\nAggravated conditions of vata dosha\n\nAggravation of vata associated with other dosha [A.H.Sutra Sthana 19/1] [6]\n\nConditions of accumulation of dosha in large intestine (pakwashaya) in a completely metabolized (pakwa) state [Cha.Sa. Chikitsa Sthana 3/171-72]\n\nContraindications\n\nNiruha basti is contraindicated in following conditions:\n\nExtremely weak and debilitated patients[Cha.Sa. Siddhi Sthana 1/37]\n\nImmediately after any other purificatory procedure like therapeutic emesis or purgation [Cha.Sa. Siddhi Sthana 1/37]\n\nBreathing difficulty, cough, skin diseases (kushtha), diabetes (madhumeha) etc.[Cha.Sa. Siddhi Sthana 2/14]\n\nIngredients of niruha basti formulation\n\nThe predominant content of niruha basti is a decoction of herbs. It also contains honey, rock salt, unctuous substance (usually oil or ghee) and medicinal paste (kalka). In some conditions, cow’s urine, fermented liquid preparation out of grains (dhanyamla), meat soup, milk etc. are used instead of decoction.\n\nQuantity of ingredients\n\nThe general dosage of ingredients for 1152 ml (dvadasha prasruta) basti are as follows. While preparation, the ingredients are mixed in the specific sequence and quantity as given below:\n\nHoney:  192 ml (2 prasruta)\n\nRock salt (saindhava): 12 gram (1 karsha)\n\nOil/ghee/unctuous substance (sneha): 288 ml (3 prasruta)\n\nMedicinal paste (kalka): 96 gram (1 prasruta)\n\nDecoction (kwatha): 384 ml (4 prasruta) to 480 ml (5 prasruta)*\n\nAdditives (aavapadravya): 192 ml (2 prasruta)\n\n[Su.Sa.Chikitsa Sthana 38/37-39] [3] *[Cha.Sa. Siddhi Sthana 3/30]\n\nThe proportion of unctuous substance and honey changes based on the predominance of dosha in diseases. It is as shown below in table 1.\n\n[Cha.Sa. Siddhi Sthana 3/30]\n\nDose of niruha basti in different age groups\n\nThe dose of basti formulation changes as per the age. It is shown in table 2.\n\n[Cha.Sa. Siddhi Sthana 3/31-32]\n\nMethod of preparation of niruha basti (decoction enema)\n\nThe decoction enema is a combination of many ingredients as mentioned above. These ingredients should be mixed in a specific sequence to formulate homogenous mixture and achieve maximum therapeutic efficacy. The sequence of mixing of decoction enema is as follows. \nHoney and rock salt should be mixed first. Then unctuous substance such as oil or ghee is added and mixed. Medicinal paste is added next to it and finally the decoction is added.[Cha.Sa. Siddhi Sthana 3/23] This process acquires the state of emulsion. Honey is a natural emulsifying agent and is preferred for the preparation of basti because of its stability and therapeutic properties. [7]\n\nTherapeutic procedure of administration\n\nThe procedure of niruha basti is done as a daily session of administration of enema. Procedure of a single session is described as below:\n\nPre therapeutic procedure (purva karma)\n\nTherapeutic procedure (pradhana karma)\n\nPost therapeutic procedure (pashchat karma)\n\nOn the day of administration, patient is advised to pass natural urges and should not be hungry. [Cha.Sa. Siddhi Sthana 3/17] Local massage with oil and sudation is done over abdomen, low back, gluteal region and thighs of the patient. The enema mixture is prepared and filled into the basti apparatus (basti yantra). In current clinical practices, two types of basti apparatus are used to administer decoction enema.\n\nA basti bag attached with basti nozzle\n\nTransparent plastic enema pot with an attached tube and catheter\n\nThe enema formulation is filled in the basti bag or enema pot. Then the medicine is passed through catheter to remove air bubbles.\n\nPatient is advised to lie in left lateral position with left leg extended and flex the right leg at knee and hip. The anal orifice and the basti nozzle or catheter are lubricated with oil. Then the basti nozzle or catheter is inserted slowly and gently through the anal canal.\n\nThe basti bag is squeezed in uniform pressure to pass the basti medicine in rectum. It is not emptied totally in order to avoid passage of air through basti apparatus. Then the nozzle is removed slowly. [Cha.Sa. Siddhi Sthana 3/18-20]\n\nIn the enema pot method, the filled enema pot is kept at a certain height to allow passage of enema medicine. The flow and pressure can be regulated with a knob on the tube.\n\nAfter all enema medicine is in the rectum, the patient is advised to lie in supine position till he feels the urge for defecation. When the patient feels the urge, it shall pass. The time duration the administration of medicine and its evacuation is called as retention enema. The decoction enema is expected to come out within 48 minutes after administration. In a study, the retention time of enema with alkali (kshara basti) in maximum number of participants (60%) is reported to be 5 minutes. [8]\n\nAfter the evacuation of bowels patient is advised to take hot water bath and light to digest diet based on dominance of dosha as shown below. [Cha.Sa. Siddhi Sthana 3/27]\n\n[Cha.Sa. Siddhi Sthana 3/34]\n\nAssessment of purification\n\nThe assessment of therapeutic effect is based on observation of clinical features.\n\nSequential elimination of stool, pitta , kapha and vata , increased appetite, lightness in body, increase of strength and attainment of normalcy, passage of frothy and whitish mucous in stool are considered as features of optimal administration of niruha basti. [Cha.Sa. Siddhi Sthana 1/41] [Ka.Sa.Khila Sthana 8/75-77] [9]\n\nHeadache, pain in cardiac region, anus, urinary bladder and genital organs; edema, coryza, griping pain and nausea; retention of flatus and urine and dyspnea are features of inadequate administration of niruha basti. [Cha.Sa. Siddhi Sthana 1/42-43]\n\nAggravation of vata dosha due to diminution of kapha and pitta dosha , numbness, bodyache, mental fatigue, tremor, insomnia, debility, black outs, insanity and hiccups are features of excess administration of niruha basti. [Cha.Sa. Siddhi Sthana 1/19-20]\n\nThe features of inadequate and excess administration of niruha basti are treated with specific protocols.\n\nAnuvasana basti (enema with unctuous substance)\n\nAnuvasana basti is a type of medicated enema with unctuous substances like oils, ghee etc. It is also called as ‘sneha basti’. The term ‘anuvasana’ means that can be followed daily. Hence the unctuous enema can be administered daily (anu divasa) without any complications. [Su.Sa.Chikitsa Sthana 35/18] [3] Unlike niruha basti, this enema formulation contains unctuous substances only. Medicated oils are widely used in this therapy to produce unctuousness in the body. [A.S. Sutra Sthana 28/7] [2]\n\nTypes (based on the dose)\n\nSneha basti: Dose of oil is ¼th of the total dose of niruha basti i.e. maximum upto 288ml.[Su.Sa.Chikitsa Sthana 37/4] [3]\n\nAnuvasana basti: Dose of oil is ½ of snehabasti i.e. 144ml. [Su.Sa.Chikitsa Sthana 35/18] [3]\n\nMatra basti: Dose of oil is ¼th of sneha basti i.e. 72ml\n\nIndications\n\nAnuvasana basti is indicated in following conditions:\n\nIn cases of depletion of kapha and pitta dosha [Cha.Sa. Chikitsa Sthana 3/172]\n\nConditions due to aggravation of vata dosha [Cha.Sa. Siddhi Sthana 2/19]\n\nIf there is excess dryness and obstruction in the bowel due to feces [Cha.Sa. Chikitsa Sthana 3/173]\n\nIn case of the increased power of digestion or hypermetabolism [Cha.Sa. Chikitsa Sthana 3/172]\n\nContraindications\n\nUnctuous enema is contraindicated in diseases where purification is indicated like skin diseases ( kushtha ), obstinate urinary diseases including diabetes ( prameha ), obesity ( sthaulya )[Cha.Sa. Siddhi Sthana 1/36]; the diseases with ama (undigested state) like acute fever, anemia, rhinitis etc. It shall not be given to patients on empty stomach and those who have low digestive capacity. [Cha.Sa. Siddhi Sthana 2/18]\n\nDosage\n\nMaximum dose:288ml (6 pala)\n\nMedium dose :144ml (3 pala)\n\nMinimum dose :72ml (1 ½ pala) [Ka.Sa.Khila Sthana 8/109] [9]\n\nProcedure of administration\n\nUnctuous enema is administered immediately after meals. [Su.Sa.Chikitsa Sthana 37/54] [3] On the day of enema, the patient should take little quantity of food, ¼ part less than his regular diet quantity. The patient is advised to walk for few steps and to pass the natural urges if any. [Su.Sa.Chikitsa Sthana 37/57-58] [3] The lukewarm medicated oil or ghee is filled in the enema syringe attached with catheter. In some conditions, fine powders of Anethum sowa (shatapushpa) and rock salt are added to oil. [Su.Sa.Chikitsa Sthana 37/63] [3]\n\nThe procedure of administration of enema in anuvasana basti is same as mentioned above in context of of niruha basti. Enema syringe is used instead of enema pot.\n\nAfter administration of enema, patient is advised to lie down with well stretched body parts for 1-2 minutes(100 matra). Mild strokes over the gluteal region are given. Then both lower limbs are lifted slowly for three times to prevent the immediate evacuation of the medicine. [Cha.Sa. Siddhi Sthana 3/28] [Su.Sa.Chikitsa Sthana 37/60-62] [3] Patting  is done over palms and soles followed by gentle massage over calf and painful body parts in upward direction for 1 – 2minutes (100 matra).[A.S.Sutra Sthana 28/31] [2] The maximum retention time of medicine is about 9 hours. [Cha.Sa. Siddhi Sthana 1/46] In a study, the retention time for anuvasana basti is reported as 3 to 6 hours in maximum (62.22%) participants. [8]\n\nAssessment of therapeutic efficacy\n\nThe assessment of therapeutic efficacy is done on the basis of clinical features observed in patient.\n\nUnobstructed expulsion of fecal matter mixed with oil, feeling of lightness in the abdomen, clarity in sense organs, improved quality of body tissues like blood etc., sleep and proper manifestation of natural urges are observed after optimal administration of basti. [Cha.Sa. Siddhi Sthana 1/44] The features are similar to that of oral intake of unctuous substances (snehapana). [A.H. Sutra Sthana 19/53] [6] Proper movement/functioning of vata dosha and improved digestion are also observed in optimal anuvasana basti.\n\nObstruction in the functioning of vata dosha like obstruction in passage of stool, urine and flatus; pain in lower parts of body, abdomen, arms, back and sides of chest; dryness and roughness of body are observed due to inadequate administration of anuvasana basti. [Cha.Sa. Siddhi Sthana 1/45]\n\nExcessively administration of anuvasana basti causes nausea, unconsciousness, mental fatigue, exhaustion, fainting and griping pain. [Cha.Sa. Siddhi Sthana 1/46] Anemia and discharge through nose, mouth and anus are also observed. [A.H. Sutra Sthana 19/53] [6]\n\nNumber of anuvasana basti based on dosha vitiation\n\nGeneral indications for administration of anuvasana basti based on dosha vitiation is as below.\n\n[A.H. Sutra Sthana 19/54] [6]\n\nComplications\n\nComplications may occur during basti procedure due to a variety of reasons like improper administration of basti, improper selection of patient or drug, defects in basti apparatus etc.\n\nThe major complications during decoction enema are as follows\n\nInadequate expulsion\n\nExcessive  expulsion\n\nFatigue/exhaustion\n\nAbdominal distention\n\nHiccups\n\nChest congestion\n\nVomiting\n\nStrenuous defecation\n\nHeadache\n\nBodyache\n\nTearing pain in anus\n\nRectal discharge [Cha.Sa. Siddhi Sthana 7/5]\n\nThe major complications during unctuous enema are  caused due to obstruction of unctuous medication by vata , pitta , kapha or fecal matter. The obstruction may also happen due to excessive food intake prior to unctuous enema. If unctuous enema is performed in empty stomach it may also lead to complications.[Cha.Sa. Siddhi Sthana 4/25]\n\nSafety precautions\n\nPrecautions at the time of selection of patient and drug/medication\n\nAn improper selection of drug or patient may lead to complications. The highly potent drug to a delicate person or a less potent drug to a strong person will lead to complications. A proper knowledge about the patient’s nature of gut and digestive capacity is necessary. Educate the patient properly about the whole procedure, so that complete co-operation from patient’s side can be assured.\n\nPrecautions at the time of administration\n\nPractically most complications are observed by the improper administration of enema. Enema must be administered by a well trained physician. The patient should not be too much hungry at the time of administration of decoction enema. At the same time proper digestion is also required. Special care must be taken if the patient is having associated complaints like diabetes. After basti administration never allow the patient to withhold the urge. It is better to advice the patient not to close the toilet door from inside as fainting might happen during defecation. Advice the patient to take hot water bath followed by intake of moderate amount of food immediately after passing the bowels.\n\nImportance in preservation of health and prevention\n\nBasti provides nourishment and strength to the body. It helps to protect the health and improves longevity. [Su.Sa.Chikitsa Sthana35/4] [3] For the protection of vital structures in the body (marma), basti is considered as the best treatment. [Cha.Sa. Siddhi Sthana 9/7] The eighteen schedules of unctuous enema involving 18 sessions in each schedule gives maximum strength like an elephant and increases the longevity. [Su.Sa.Chikitsa Sthana 37/76] [3] Basti is administered in healthy individuals during pre-rainy and rainy season for management of naturally aggravated vata dosha and prevent its disorders to preserve health. [Cha.Sa. Sutra Sthana 7]\n\nImportance in management of disease\n\nBasti is the best treatment for aggravated vata dosha . [Cah.Sa. Siddhi Sthana 1/39] It can effectively manage the diseases due to associated doshas like pitta and kapha .[Su.Sa.Chikitsa Sthana 35/6] [3] It is considered as the major treatment in gouty arthritis (vatarakta), [Cha.Sa. Chikitsa Sthana 29/88 , abdominal lumps (gulma)[Cha.Sa. Chikitsa Sthana 5/100] etc. diseases. Basti shows its generalized action on all body parts.[Cha.Sa. Siddhi Sthana 7/64] The advantage of therapeutic enema over other purification procedures is that it can be administered in the most vulnerable age groups like old aged persons and young children.[Cha.Sa. Siddhi Sthana 11/36] Basti is considered as half of the entire treatment or as the complete treatment itself in a given treatment protocol.[Cha.Sa. Siddhi Sthana 1/38-39]\n\nMode of action\n\nThe medicines administered through rectal route act on the morbidities and appropriately eliminates them with ease. [Cha.Sa. Siddhi Sthana 1/40]\n\nCurrent researches\n\nThe rectal route of drug administration is an alternate route of drug delivery. Certain studies suggest that rectal route is more efficient than the intravenous route as it partially bypasses the first pass metabolism of liver. [10]\n\nA study showed that basti medicine reaches up to ileo-caecal junction [11] however the active principles of formulation may extend their action to systemic levels. In an experimental study, the presence of active principle of a drug used in medicated enema is found in the systemic circulation. Gallic acid, a marker compound of Triphala (a compound containing Terminalia chebula, Terminalia belerica and Emblica officinalis), is observed in serum after administration of basti with triphala. Moreover, the concentration of gallic acid in serum is more, when the basti is added with catalytic adjuvant (prakshepakadravya). The concentration and rate of absorption depends on property of constituents in basti. The adjuvants might have irritant property, which cause mild inflammation in the colon. This inflammation alters the capillary permeability, which may enhance drug absorption. [12]\n\nThe efficacy of a treatment procedure highly depends upon the standard operative method. The method of administration of basti is very important. Basti administered through enema instrument (basti yantra) by exerting uniform manual pressure shows that the contents reach upto ileo-caecal junction and more concentration of contents seen in the proximal colon. On the other hand, basti administered using enema-can which uses atmospheric pressure, also shows the same extent of reaching ileo-cecal junction, however the concentration of contents is less in proximal colon. Proximal colon has significant role in colonic motility and absorption. The interstitial cells of Cajal in sub-mucosal surface (ICC) of the circular muscle, are present only in the proximal colon. Loss of ICC correlates with loss of pace maker activity, defects in propagation, reduction in neurotransmission etc. Short chain fatty acids (SCFA) which play a major role in maintaining the colonic health are chiefly synthesized in proximal colon. Butyrate, one of the SCFA, promotes the absorption of water and electrolytes from the proximal colon. More concentration of basti medicine at proximal colon may stimulate the ICC thereby stimulating the propagation, neurotransmission etc. It may also facilitate greater absorption of water and electrolytes along with other active principles. [13]\n\nTherapeutic efficacy of basti\n\nEnema intended for removal of morbidity (lekhana basti) is found effective in hyperlipidemia by reducing the serum cholesterol, serum LDL, serum apolipoprotein B. Significant reduction in weight, body mass index (BMI), body fat percentage and skin fold thickness were also reported. [14] The hypersensitivity or hyper responsiveness of hypothalamo-pituitary adrenal (HPA) axis is the main reason for endocrine malfunction in human obesity. Serum cortisol levels are found to be decreased in obese patients after basti treatment. This suggests normalizing of HPA axis through basti. Medicated enema shows immuno-modulatory effect by regulating pro-inflammatory cytokines, immunoglobulins and functional properties of T-cells. [15]\n\nA study reported that low dose medicated oil enema (matra basti) is effective in reducing the signs and symptoms of osteoarthritis. There was significant reduction in pain and swelling in joints and reduction in pain during joint movements. [16] Erandamuladi yapana basti is found effective in reducing the pain, stiffness and tenderness related with lumbar spondylosis and improving the quality of life. [17]\n\nPanchamooladikaala basti is reported to be effective in reducing the symptoms of rheumatoid arthritis (amavata) especially  pain, stiffness, swelling and tenderness in the joints. It is also found effective in reducing the generalized symptoms like heaviness of body, fatigue, feverishness and anorexia. Basti acts over the prime seat of vata dosha i.e. large intestine (pakvashaya) and controls it. The alkali present in the kshara basti improves digestion and removes the accumulated toxins (ama). [18]\n\nUnctuous enema in minimum dose (matra basti) is found effective in 12 cases of anovulation. Ovulation occurred in the maximum number of participants (63.64%) and increased follicular size is also reported after matra basti. Basti shows its action on Enteric Nervous System (ENS). The endogenous opioids especially beta endorphins may get stimulated. This may affect the GnRH secretion and there by regularize hypothalamo pituitary ovarian (HPO) axis. HPO axis regulates the ovarian cycle and ovulation. By the action over ENS, basti may also stimulate CNS and thereby stimulates pituitary. This results in the secretion of FSH and LH which plays an important role in ovulation. [19] More studies are needed to study the effect of basti on specific pathways.\n\nList of theses done\n\nSavjani Rekha T (2001): A clinical study on the management of sthaulya by panchatikta and lekhana basti, Department of Kayachikitsa, IPGT&RA  Jamnagar\n\nBhatted Santosh (2002): A comparative study of the role of vajeekarana drugs administered orally and by basti in the management of klaibya with reference to erectile dysfunction. Department of Kayachikitsa, IPGT&RA  Jamnagar\n\nMangalasseri Prakash (2002): A clinical study of shukragatavata w.s.r to premature ejaculation & its management with Akarakarbhati yoga yapana basti, Department of Kayachikitsa, IPGT&RA  Jamnagar\n\nVarma S P (2002): Study of Vaitarana-Basti in the management of Kati-shoola. Department of Kayachikitsa, IPGT&RA  Jamnagar\n\nPawar Anand M (2003): A comparative study on the role of basti therapy and pramehaghna drugs in the management of madhumeha (Diabetes mellitus). Department of Kayachikitsa, IPGT&RA  Jamnagar\n\nChitte Srilekha (2004): A comparative study of Matra Basti and some indigenous compound drugs on Amavata (Rheumatoid arthritis). Department of Kayachikitsa, IPGT&RA  Jamnagar\n\nKhagram Rita V (2004): Comparative study of Kati Basti and Matra-Basti in the management of Gridhrasi (sciatica). Department of Kayachikitsa, IPGT&RA  Jamnagar\n\nBhatkoti Mayank (2005): A comparative clinical study of vaitaranabasti and virechana karma in the management of amavata. Department of Kayachikitsa, IPGT&RA  Jamnagar\n\nTejal Khunt (2005) :Comparitive study on the Virechana Karma and Lekhana Basti in the management of Sthaulya. Department of Kayachikitsa, IPGT&RA  Jamnagar\n\nAnamika Kumari (2006): A comparative study on the effect of some indigenous compound drug and matra basti in the management of Gridhrasi (Sciatica). Department of Kayachikitsa, IPGT&RA  Jamnagar\n\nMayuri Shah (2006): A comparative study of matra basti and some indigenous compound drug in the management of sandhigatavata (osteoarthritis). Department of Kayachikitsa, IPGT&RA  Jamnagar\n\nSanjay Gupta (2006): A clinical effect of Baladiyapana basti and vajikarana yoga in the management of sukradushti w.s.r to oligoasthenozoospermia. Department of Kayachikitsa, IPGT&RA  Jamnagar\n\nGajanan Kulkarni (2007): A comparative study of role of yapana basti and karma basti in the management of Pakshagata (CVA). Department of Panchakarma, IPGT&RA  Jamnagar\n\nVinay Chaudary (2007): A clinical study of standardization of Yapana basti in the management of Kampavata. Department of Panchakarma, IPGT&RA  Jamnagar\n\nJayadip Kumar P Shah (2008): Effect of Tiktakshira basti and patrapind sweda in the management of cervical spondylosis (Asthigatavata). Department of Panchakarma, IPGT&RA  Jamnagar\n\nVimal M Vekaria (2008): Comparative study of Virechana karma and kala basti in the management of Pakshaghata. Department of Panchakarma, IPGT&RA  Jamnagar\n\nGeeta Jatav (2008): A Comparative Study on the effect Of VidarikandadiVati and KshirabalaTaila Basti in the management of Karshya in Children. Department of Kaumarabrithya, IPGT&RA  Jamnagar\n\nJuneja Yaswant M (2009): Standardization of procedure of administration of basti w.s.r to Kshinashukra (oligozoospermia). Department of Panchakarma, IPGT&RA  Jamnagar\n\nGohil Jalpa H (2009): A comparative clinical study of Virechana karma and kala basti in management of Amavata. Department of Panchakarma, IPGT&RA  Jamnagar\n\nAjay K Gupta (2010): Effect of Majja basti and AsthiShrinkhala in the management of osteoporosis w.s.r to Asti Majjakshaya A clinical study. Department of Panchakarma, IPGT&RA  Jamnagar\n\nGyanendra D Shukla (2010): A Comparative Study of efficacy of Virechana and Basti Karma with Shamana therapy in the management of Essential Hypertension. Department of Panchakarma, IPGT&RA  Jamnagar\n\nDamayanthie Fernando (2011): Assessment of Clinical Efficacy of ErandamuladiYapana Basti and ErandaBijaKshiraPaka in the management of Kati Graha w.s.r. to Lumbar Spondylosis. Department of Panchakarma, IPGT&RA  Jamnagar\n\nSwapnil S Auti (2011): Assessment of Lekhana Basti in management of Hyperlipidaemia (A Randomised Controlled Clinico-Experimental Study). Department of Panchakarma, IPGT&RA  Jamnagar\n\nNikunj M (2012): A comparative study of vrishya basti and kulinga (Blepharis edulis) after virechana karma in the management of kshinashukra w.s.r to oligozoospermia. Department of Panchakarma, IPGT&RA  Jamnagar\n\nSaurabh R Bhuva (2012): A comparative study of matra basti and brimhanasnehana by asthishrinkhalaghrita in the management of asthi-majjakshaya w.s.r to osteopenia/osteoporosis. Department of Panchakarma, IPGT&RA  Jamnagar\n\nSiddharth Kumar J (2012): Role of matra basti as chemoprotective adjuvant in the management of cancer. Department of Panchakarma, IPGT&RA  Jamnagar\n\nHemal Kumar V Dodiya (2013): A comparative clinical study on the effect of Guduchi-Bhadramustadi yoga administered orally and by basti in the management of sthaulya w.s.r to obesity. Department of Panchakarma, IPGT&RA  Jamnagar\n\nChughdeepa surrender pal (2014): A comparative study of shwadanshtradi basti and chitrakadighrita management of sandhivata with special reference to osteoarthritis. Department of Panchakarma, IPGT&RA  Jamnagar\n\nJadav Hasmukh Bhavanbhai (2014): Management of premature ejaculation (shukragatavata) with erandamool basti and vanarikalpa- A clinical study. Department of Panchakarma, IPGT&RA  Jamnagar\n\nPaikrao Sumedh Narayanrao (2014): A clinical study on siravedha and vaitarana basti in the management of gridhrasi with special reference to sciatica. Department of Panchakarma, IPGT&RA  Jamnagar\n\nRani Sangeeta Ishwar Singh (2017): A randomized clinical trial on brihatyadiyapana basti and patrapinda sweda with aadityapakaguggulu in the management of cervical spondylosis w.s.r to asthigatavata. Department of Panchakarma, IPGT&RA  Jamnagar\n\nKumar Surendra Ganesh Ram (2017): Comparative efficacy of vajigandhaditailapana and basti in the management of gridhrasi (sciatica) – A randomized clinical trial. Department of Panchakarma, IPGT&RA  Jamnagar\n\nRam Poojan Verma (2018): Efficacy of erandamooladiniruha basti and shunthikwatha with erandataila in the management of katishoola (lumbar spondylosis): A open labeled, Randomised, comparative clinical trial. Department of Panchakarma, IPGT&RA  Jamnagar\n\nShiho Oikawa (2018): Virechana karma along with vaitarana basti followed by mahabhallatakaavaleha in the management of amavata wsr to rheumatoid arthritis-A compararive randomized controlled study. Department of Panchakarma, IPGT&RA  Jamnagar\n\nMore information\n\nBastisutriyam Siddhi , Panchakarmiya Siddhi , Kalpana Siddhi , Snehavyapat Siddhi , Netrabastivyapat Siddhi , Bastivyapat Siddhi , Prasrita Yogiyam Siddhi , Phalamatra Siddhi , Uttar Basti Siddhi , Basti Siddhi\n\nAbbreviations\n\nCha. = Charak, Su. = Sushruta, A. = Ashtanga, S. = Sangraha, Hr. = Hridayam, Sa. = Samhita, Sha. = Sharangadara, Ka. = Kashyapa\n\n and feedback on this page.\n\nReference\n\n↑ Monier-Williams, Monier-Williams Sanskrit- English Dictionary, 1st edition; Oxford University Press, Vasti, Page 933\n\n↑ 2.0 2.1 2.2 2.3 Vridha Vagbhata, Ashtanga Sangraha. Edited by Shivaprasad Sharma. 3rd ed. Varanasi: Chaukhamba sanskrit series office;2012.\n\n↑ 3.00 3.01 3.02 3.03 3.04 3.05 3.06 3.07 3.08 3.09 3.10 3.11 3.12 3.13 Sushruta. Sushruta Samhita. Edited by Jadavaji Trikamji Aacharya. 8th ed. Varanasi: Chaukhambha Orientalia;2005.\n\n↑ Sharangadhara. Sharangadhara Samhita. Translated from Sanskrit by K.R. Srikantha Murthy. Reprint ed. Varanasi: Chaukhambha orientalia;2016.\n\n↑ Singh Nita S. An open clinical trial to assess samyak nirooha lakshana of maadhutailika vasti administered with standardized aaturahastapramaana in kat’eegraha [MD Dissertation]. Kottakkkal: Kerala University of Health Sciences; 2015.\n\n↑ 6.0 6.1 6.2 6.3 Vagbhata. Ashtanga Hridayam. Edited by Harishastri Paradkar Vaidya. 1st ed. Varanasi: Krishnadas Academy;2000.\n\n↑ Savrikar SS, Lagad CE. Study of Preparation and Standardization of 'Maadhutailika Basti' with special reference to Emulsion Stability. Ayu. 2010 Jan;31(1):1-6. doi: 10.4103/0974-8520.68190. PMID: 22131675; PMCID: PMC3215309.\n\n↑ 8.0 8.1 Thanki K, Bhatt N, Shukla VD. Effect of kshara basti and nirgundi ghana vati on amavata (rheumatoid arthritis). Ayu. 2012 Jan;33(1):50-3. doi: 10.4103/0974-8520.100310. PMID: 23049184; PMCID: PMC3456864.\n\n↑ 9.0 9.1 Vrddhajivaka, Kasyapa Samhita. Edited by Tewari P V, Reprint edition. Varanasi: Chaukhambha visvabharati; 2008\n\n↑ Kadus PA, Vedpathak SM. Anuvasana Basti in escalating dose is an alternative for Snehapana before Vamana and Virechana: Trends from a pilot study. J Ayurveda Integr Med 2014;5:246-50.\n\n↑ Juneja Yashwant M, Thakar A. B. Standardization of procedure of administration of Basti w.s.r to Kshinashukra (oligozoospermia), MD Dissertation, IPGT& RA. Jamnagar: Gujarat Ayurved University; 2010\n\n↑ Swapnil SA, BK Ashok, Anup B Thakar et al. An experimental study to evaluate the pharmacokinetic aspect of Lekhana Basti (Emaciating/ Desiccating Medicated Enema).  Anc Sci Life. 2011 Oct;31(2):38-43.\n\n↑ Manohar SG, Ashwinikumar AR, Nitin MK. Basti: Does the equipment and method of administration matter? J Ayurveda Integr Med. 2013 Jan;4(1):9-12. doi: 10.4103/0975-9476.109543.\n\n↑ Swapnil SA, Anup B Thakar et al. Assessment of Lekhana Basti in the management of hyperlipidemia. Ayu. 2013 Oct;34(4):339-45. doi: 10.4103/0974-8520.127683.\n\n↑ Urmila T, Shubhada C et al. Immunological & metabolic responses to a therapeutic course of Basti in obesity. Indian J Med Res. 2015 Jul;142(1):53-62. doi: 10.4103/0971-5916.162099.\n\n↑ Mayuri RS, Charmi SM et al. A Clinical study of Matra Vasti and an ayurvedic indigenous compound drug in the management of Sandhigatavata (Osteoarthritis). Ayu. 2010 Apr;31(2):210-7. doi: 10.4103/0974-8520.72399.\n\n↑ Damayanthie Fernando, Anup B Thakar, VD Shukla. Clinical efficacy of Eranda Muladi Yapana Basti in the management of Kati Graha (Lumbar spondylosis). Ayu. 2013 Jan;34(1):36-41. doi: 10.4103/0974-8520.115444.\n\n↑ Baria R, Joshi N, Pandya D. Clinical efficacy of Panchamuladi Kaala Basti (enema) in the management of Amavata (Rheumatoid Arthritis). Ayu. 2011 Jan;32(1):90-4. doi: 10.4103/0974-8520.85737. PMID: 22131764; PMCID: PMC3215425.\n\n↑ Donga KR, Donga SB, Dei LP. Role of Nasya and Matra Basti with Narayana Taila on anovulatory factor. Ayu. 2013 Jan;34(1):81-5. doi: 10.4103/0974-8520.115453. PMID: 24049410; PMCID: PMC3764886."
   },
   {
-    "query": "What are the clinical signs and symptoms of a gum disease characterized by burning, bleeding, pain, swelling, loose teeth, discharge, and foul breath, and what doshas are implicated in its etiology?",
-    "expected_id": "6d6a3dac-179e-5bb1-8474-64790c768a42",
-    "evaluation_benchmark": "Upakusa, or suppurative gingivitis, is described by symptoms such as burning sensation, bleeding, mild pain on movement, gum inflammation, loose teeth, discharge of blood, and foetid breath. It is attributed to the vitiation of Pitta and Rakta doshas."
+    "query": "Considering the medicinal properties and preparation methods described for enhancing *grahaṇī* strength, what are the potential contraindications for its use in individuals suffering from severe dehydration due to acute diarrhea?",
+    "expected_id": "0529f658-d60d-51f6-8b56-305228e05437",
+    "samhita": "Charaka",
+    "strategy": "ADVERSARIAL",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "षड्ग्रन्थां मदनं मूर्वां पाठामारग्वधं तथा||१७९||\n\nगोमूत्रेण समांशानि कृत्वा चूर्णानि दाहयेत्|\n\nदग्ध्वा च तं पिबेत् क्षारं ग्रहणीबलवर्धनम्||१८०||\n\ndurālabhāṁ karañjau dvau saptaparṇaṁ savatsakam|\n\nṣaḍgranthāṁ madanaṁ mūrvāṁ pāṭhāmāragvadhaṁ tathā||179||\n\ngōmūtrēṇa samāṁśāni kr̥tvā cūrṇāni dāhayēt|\n\ndagdhvā ca taṁ pibēt kṣāraṁ Grahaṇī balavardhanam||180||\n\ndurAlabhAM kara~jjau dvau saptaparNaM savatsakam|\n\nShaDgranthAM madanaM mUrvAM pAThAmAragvadhaM tathA||179||\n\ngomUtreNa samAMshAni kRutvA cUrNAni dAhayet|\n\ndagdhvA ca taM pibet kShAraM grahaNIbalavardhanam||180||\n\nDuralabha , two types of karanja ( karanja, lata karanja ), saptaparna, vatsaka, sadgrantha ( vacha ), madanaphala, murva, patha and aragvadha should be mixed with equal quantity of gomutra and boiled and prepared as per kshara kalpana . This kshara increases bala of grahani i.e. of agni [179-180]"
   },
   {
-    "query": "What are the premonitary symptoms associated with urinary calculi, including the characteristics of the urine and associated pains?",
-    "expected_id": "a3280bb1-681f-5871-9942-04582a1105d9",
-    "evaluation_benchmark": "Premonitory symptoms of urinary calculi include fever, bladder region pain, loss of appetite, dysuria, pain in the bladder neck, scrotum, and penis, exhaustion from pain, and a goat-like urine odor. During the prodromal stage, patients experience difficult urination which is viscid, turbid, and accompanied by pains and colors indicative of vitiated dosas."
+    "query": "I've been feeling this awful, gnawing pain for weeks now, and it seems to just get worse. It started out of nowhere, I didn't even bump myself or anything. It feels like it's the pain that's *causing* all this other mess – my digestion is completely off, I'm so sluggish, and then I get these burning sensations too. I've been trying to eat healthier, cutting out all the fried stuff and spicy foods, but nothing seems to help the underlying feeling of being unwell. Is there something that could have brought this on so suddenly, and why does it feel like this pain is the root of all my other problems? What could be the reason for this from an ancient perspective?",
+    "expected_id": "02208174-40bd-577b-acf8-1151ba4f60bd",
+    "samhita": "Charaka",
+    "strategy": "CLINICAL_CASE",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "आगन्तुर्हि व्यथापूर्वं समुत्पन्नो जघन्यं वातपित्तश्लेष्मणां वैषम्यमापादयति; निजे तु वातपित्तश्लेष्माणः पूर्वं वैषम्यमापद्यन्तेजघन्यं व्यथामभिनिर्वर्तयन्ति||७||\n\nāganturhi vyathāpūrvaṁ samutpannō jaghanyaṁ vātapittaślēṣmaṇāṁ vaiṣamyamāpādayati; nijē tuvātapittaślēṣmāṇaḥ pūrvaṁ vaiṣamyamāpadyantē jaghanyaṁ vyathāmabhinirvartayanti||7||\n\nAganturhi vyathApUrvaM samutpanno jaghanyaM vAtapittashleShmaNAM vaiShamyamApAdayati; nije tuvAtapittashleShmANaH pUrvaM vaiShamyamApadyante jaghanyaM vyathAmabhinirvartayanti||7||\n\nExogenous diseases begin with pain and then bring about disturbances in the equilibrium of dosha . Endogenous diseases, on the other hand, begin with disturbances in the equilibrium of dosha and then cause pain. [7]"
   },
   {
-    "query": "What are the characteristic appearances and associated symptoms of 'vatika' type of piles as described in Ayurvedic texts, including changes in stool, urine, and skin color?",
-    "expected_id": "28b33b34-0119-5037-a429-746dc9d4acb1",
-    "evaluation_benchmark": "Vatika piles are described as dry, reddish, or discolored, with irregular centers resembling kadamba flowers or wild cotton. Associated symptoms include painful defecation, pain in the waist, back, sides, penis, rectum, and umbilical region, abdominal swelling, prostatic and splenic enlargements, and darkening of the skin, nails, eyes, teeth, face, urine, and stool."
+    "query": "What is the comparative efficacy of different botanical preparations in modulating vascular integrity and reducing abnormal vascular proliferation in the anorectal region?",
+    "expected_id": "19262ada-0331-5725-9cc0-420035f42ecc",
+    "samhita": "Charaka",
+    "strategy": "SYNONYM_TRAP",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "सपञ्चवल्कं बदरीत्वगुदुम्बरं धवपटोलम्| परिषेचने विदध्याद्वृषककुम यवास निम्बांश्च||२१४||\n\nmadhukaṃ sapañcavalkaṃ badarītvagudumbaraṃ dhavapaṭolam| pariṣecane vidadhyādvṛṣakakuma yavāsa nimbāṃśca||214||\n\nmadhukaM sapa~jcavalkaM badarItvagudumbaraM dhavapaTolam| pariShecane vidadhyAdvRuShakakumayavAsanimbAMshca||214||\n\nTo stop bleeding, hemorrhoids should be sprinkled with the decoctions of madhuka, panchavalka [barks of nyagrodha (ficus bengalensis), udumbara (ficus glomeruta), ashwatha (ficus religiosa), parisha (thespesia populnea)  and plaksha (ficus lacor)],  bark  of badar, udumbara (ficus glomeruta), dhava (Anogeissus latifolia) and patola (Tricosanthes dioica) or vasa (Adhatoda vasika), kakubha,Yavasaka (Alhagi camelorum) and nimba (Azadiracta indica). [214]"
   },
   {
-    "query": "What are the characteristics and etiological factors of facial boils resembling thorns, commonly seen in young individuals?",
-    "expected_id": "e142c42e-993a-59eb-ab3c-4c6e9a992b61",
-    "evaluation_benchmark": "Facial boils appearing in young people, resembling salmali thorns and caused by derangements of kapha, vata, and rakta, are termed mukhadusikäs."
+    "query": "Given the Charaka Samhita's detailed approach to managing vataja pinasa, particularly its mention of unctuous medicated smoke and specific herbal preparations for nasal administration, how would the Ashtanga Hridayam's principles regarding the treatment of weak individuals with circulating doshas, especially those requiring mild purgatives, inform the selection and administration of these nasal therapies to avoid potentially harmful complications?",
+    "expected_id": "0a85ece2-a1d0-52f3-bc6e-332712d7b00a",
+    "samhita": "Charaka",
+    "strategy": "CROSS_REFERENCE",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "वातात्सकासवैस्वर्येसक्षारंपीनसेवृतम्|\n\nपिबेद्रसंपयश्चोष्णंस्नैहिकंधूममेववा||१३४||\n\nशताह्वात्वग्बलामूलंस्योनाकैरण्डबिल्वजम्|\n\nसारग्वधंपिबेद्वर्तिंमधूच्छिष्टवसाघृतैः||१३५||\n\nअथवासघृतान्सक्तून्कृत्वामल्लकसम्पुटे|\n\nनवप्रतिश्यायवतांधूमंवैद्यःप्रयोजयेत्||१३६||\n\nशङ्खमूर्धललाटार्तौपाणिस्वेदोपनाहनम्|\n\nस्वभ्यक्तेक्षवथुस्रावरोधादौसङ्करादयः||१३७||\n\nघ्रेयाश्चरोहिषाजाजीवचातर्कारिचोरकाः|\n\nत्वक्पत्रमरिचैलानांचूर्णावासोपकुञ्चिकाः||१३८||\n\nस्रोतःशृङ्गाटनासाक्षिशोषेतैलंचनावनम्|\n\nप्रभाव्याजेतिलान्क्षीरेतेनपिष्टांस्तदुष्मणा||१३९||\n\nमन्दस्विन्नान्सयष्ट्याह्वचूर्णांस्तेनैवपीडयेत्|\n\nदशमूलस्यनिष्क्वाथेरास्नामधुककल्कवत्||१४०||\n\nसिद्धंससैन्धवंतैलंदशकृत्वोऽणुतत्स्मृतम्|\n\nस्निग्धस्यास्थापनैर्दोषंनिर्हरेद्वातपीनसे||१४१||\n\nस्निग्धाम्लोष्णैश्चलघ्वन्नंग्राम्यादीनांरसैर्हितम्|\n\nउष्णाम्बुनास्नानपानेनिवातोष्णप्रतिश्रयः||१४२||\n\nचिन्ताव्यायामवाक्चेष्टाव्यवायविरतोभवेत्|\n\nवातजेपीनसेधीमानिच्छन्नेवात्मनोहितम्||१४३||\n\nvātāt sakāsavaisvaryē sakṣāraṁ pīnasē vr̥tam|\n\npibēdrasaṁ payaścōṣṇaṁ snaihikaṁ dhūmamēva vā||134||\n\nśatāhvā tvagbalā mūlaṁ syōnākairaṇḍabilvajam|\n\nsāragvadhaṁ pibēdvartiṁ madhūcchiṣṭavasāghr̥taiḥ||135||\n\nathavā saghr̥tān saktūn kr̥tvā mallakasampuṭē|\n\nnavapratiśyāyavatāṁ dhūmaṁ vaidyaḥ prayōjayēt||136||\n\nśaṅkhamūrdhalalāṭārtau pāṇisvēdōpanāhanam|\n\nsvabhyaktē kṣavathusrāvarōdhādau saṅkarādayaḥ||137||\n\nghrēyāśca rōhiṣājājīvacātarkāricōrakāḥ|\n\ntvakpatramaricailānāṁ cūrṇā vā sōpakuñcikāḥ||138||\n\nsrōtaḥśr̥ṅgāṭanāsākṣiśōṣē tailaṁ ca nāvanam|\n\nprabhāvyājē tilān kṣīrē tēna piṣṭāṁstaduṣmaṇā||139||\n\nmandasvinnān sayaṣṭyāhvacūrṇāṁstēnaiva pīḍayēt|\n\ndaśamūlasya niṣkvāthē rāsnāmadhukakalkavat||140||\n\nsiddhaṁ sasaindhavaṁ tailaṁ daśakr̥tvō'ṇu tat smr̥tam|\n\nsnigdhasyāsthāpanairdōṣaṁ nirharēdvātapīnasē||141||\n\nsnigdhāmlōṣṇaiśca laghvannaṁ grāmyādīnāṁ rasairhitam|\n\nuṣṇāmbunā snānapānē nivātōṣṇapratiśrayaḥ||142||\n\ncintāvyāyāmavākcēṣṭāvyavāyaviratō bhavēt|\n\nvātajē pīnasē dhīmānicchannēvātmanō hitam||143||\n\nvAtAt sakAsavaisvarye sakShAraM pInase vRutam |\n\npibedrasaM payashcoShNaM snaihikaM dhUmameva vA ||134||\n\nshatAhvA tvagbalA mUlaM syonAkairaNDabilvajam |\n\nsAragvadhaM pibedvartiM madhUcchiShTavasAghRutaiH ||135||\n\nathavA saghRutAn saktUn kRutvA mallakasampuTe |\n\nnavapratishyAyavatAM dhUmaM vaidyaH prayojayet ||136||\n\nsha~gkhamUrdhalalATArtau pANisvedopanAhanam |\n\nsvabhyakte kShavathusrAvarodhAdau sa~gkarAdayaH ||137||\n\nghreyAshca rohiShAjAjIvacAtarkAricorakAH |\n\ntvakpatramaricailAnAM cUrNA vA sopaku~jcikAH ||138||\n\nsrotaHshRu~ggATanAsAkShishoShe tailaM ca nAvanam |\n\nprabhAvyAje tilAn kShIre tena piShTAMstaduShmaNA ||139||\n\nmandasvinnAn sayaShTyAhvacUrNAMstenaiva pIDayet |\n\ndashamUlasya niShkvAthe rAsnAmadhukakalkavat ||140||\n\nsiddhaM sasaindhavaM tailaM dashakRutvo~aNu tat smRutam |\n\nsnigdhasyAsthApanairdoShaM nirharedvAtapInase ||141||\n\nsnigdhAmloShNaishca laghvannaM grAmyAdInAM rasairhitam |\n\nuShNAmbunA snAnapAne nivAtoShNapratishrayaH ||142||\n\ncintAvyAyAmavAkceShTAvyavAyavirato bhavet |\n\nvAtaje pInase dhImAnicchannevAtmano hitam ||143||\n\nTreatment of vataja pinasa ( vata dominant chronic rhinitis) if associated with cough and abnormal voice (hoarseness of voice):\n\nConsume ghee and yavakshara\n\nDrink hot meat soup or warm milk\n\nInhalation of unctuous medicated smoke. [134]",
+    "secondary_expected_id": "470a27bf-455e-5845-931f-c9eb86094744"
   },
   {
-    "query": "What are the characteristics and causes of pidakas that resemble mudga and mãsa, are red, and are considered 'uttama' in nature?",
-    "expected_id": "fcdf783b-fb55-5f03-b6c2-b9696076e711",
-    "evaluation_benchmark": "Pidakas resembling mudga and mãsa, which are red and considered 'uttama', are caused by vitiated rakta and pitta and result from the prolonged use of süka."
+    "query": "I read somewhere in an old text about this concept of *uttara* in a debate, and it's a bit fuzzy in my mind, but it talks about saying something is *saadharmya* when it's really *vaidharmya* and vice versa, right? So, when they're talking about the *hetu* and the *karya* being *saadharmya*, like cold causing cold-related ailments, and then the opponent says the *karya* is *vaidharmya* to the *hetu*, like cold causing burning... I guess I'm wondering, is this *vaidharmya* response supposed to be like, a direct opposite in terms of properties, or is it more about the *effect* being unexpected given the cause? Like, is it about the intrinsic qualities being opposite, or the outcome being contrary to what you'd assume?",
+    "expected_id": "0897fb32-43d9-59b5-a54c-926398462750",
+    "samhita": "Charaka",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "उत्तरंनामसाधर्म्योपदिष्टेहेतौवैधर्म्यवचनं, वैधर्म्योपदिष्टेवाहेतौसाधर्म्यवचनम्| यथा- ‘हेतुसधर्माणोविकाराः, शीतकस्यहिव्याधेर्हेतुभिःसाधर्म्यंहिमशिशिरवातसंस्पर्शाः’, इतिब्रुवतःपरोब्रूयात्- हेतुविधर्माणोविकाराः, यथाशरीरावयवानांदाहौष्ण्यकोथप्रपचनेहेतुवैधर्म्यंहिमशिशिरवातसंस्पर्शाइति| एतत्सविपर्ययमुत्तरम्||३६||\n\nathōttaram- uttaraṁ nāma sādharmyōpadiṣṭē hētau vaidharmyavacanaṁ, vaidharmyōpadiṣṭē vā hētau sādharmyavacanam| yathā- ‘hētusadharmāṇō vikārāḥ, śītakasya hi vyādhērhētubhiḥ sādharmyaṁ himaśiśiravātasaṁsparśāḥ’, iti bruvataḥ parō brūyāt- hētuvidharmāṇō vikārāḥ, yathā śarīrāvayavānāṁ dāhauṣṇyakōthaprapacanē hētuvaidharmyaṁ himaśiśiravātasaṁsparśā iti| ētat saviparyayamuttaram||36||\n\nathottaram- uttaraM nAma sAdharmyopadiShTe hetau vaidharmyavacanaM, vaidharmyopadiShTe vAhetau sAdharmyavacanam| \nyathA- ‘hetusadharmANo vikArAH, shItakasya hi vyAdherhetubhiH sAdharmyaMhimashishiravAtasaMsparshAH’, iti bruvataH paro brUyAt- hetuvidharmANo vikArAH, yathAsharIrAvayavAnAM dAhauShNyakothaprapacane hetuvaidharmyaM [1] himashishiravAtasaMsparshA iti| \netat saviparyayamuttaram||36||\n\nUttara is the statement made in opposition (heterogeneous) to the homologous nature shown between hetu and karya and vice versa. For instance , if somebody says – disorders are similar to cause, as shitaka disease has similar causes like exposure to snow and cold wave, the opponent may say – disorders are dissimilar to cause as burning sensation, heat, sloughing and suppuration of body parts are caused by cold wave which is dissimilar. This is uttara (rejoinder) with contrary statements.[36]"
   },
   {
-    "query": "What are the factors that aggravate doshas leading to the formation of piles, and how do these swellings develop and grow?",
-    "expected_id": "455210fc-d125-5f7e-8c5b-c5ad1d04d993",
-    "evaluation_benchmark": "Piles are caused by aggravated doshas that spread to the rectum, forming fleshy excrescences. Factors like improper diet, excessive sexual intercourse, squatting, riding animals, and suppressing natural reflexes can contribute to this condition. The swellings grow when they come into contact with irritants such as straw, wood, stone, clay, or cold water."
+    "query": "How do the qualities of an individual with extreme essence differ from those with moderate essence when considering the impact of environmental influences on their inherent properties?",
+    "expected_id": "1941e082-883b-51c8-84ab-a6498bb9aaec",
+    "samhita": "Charaka",
+    "strategy": "ADVERSARIAL",
+    "level": "verse_block",
+    "method": "gemini_generation",
+    "ground_truth_context": "मध्यानांमध्यैःसारविशेषैर्गुणविशेषाव्याख्याताभवन्ति||११३||\n\nmadhyānāṁmadhyaiḥsāraviśēṣairguṇaviśēṣāvyākhyātābhavanti||113||\n\nmadhyAnAM madhyaiHsAravisheShairguNavisheShA vyAkhyAtA bhavanti||113||\n\nIndividual having moderate essence should be known by their respective qualities in moderate degrees. [113]"
   },
   {
-    "query": "What are the characteristics and progression of swellings in the neck and armpit caused by fat and kapha, often presenting with mild pain and itching?",
-    "expected_id": "3adb9517-4dd9-56af-adf4-1397f27b7cd4",
-    "evaluation_benchmark": "Swellings in the mandible, axilla, clavicle, shoulder, and cervical regions, caused by medas and kapha, are described as granthis. These are fixed, extensive, circular, smooth, and mildly painful, varying in size and color, progressively increasing, and are called apaci."
+    "query": "Doctor, I'm really worried. I've noticed these lumps, some small, some bigger, showing up around my neck, under my arms, and even near my collarbones and shoulders. They feel stuck in place, kind of round and smooth, and sometimes they ache a bit, but it's mostly this annoying itch that bothers me. They started small, like little seeds, and now they're growing, and honestly, it's terrifying. Some of them have even burst and drained, and then new ones pop up. This has been going on for years, and it just feels like it's never going to end. I've also been putting on a lot of weight lately, especially around my middle, and I just don't feel as energetic as I used to. Is there something deeper going on with this condition, and what’s the reasoning behind how it’s treated according to ancient wisdom?",
+    "expected_id": "71bfa9b8-80d1-5b02-9d5b-5e98107c93f2",
+    "samhita": "Susruta",
+    "strategy": "CLINICAL_CASE",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "## 10 -12. Apaci (Cervical and Axillary Lymphadenitis)\n\n\n\nThe medas and kapha collected in the regions of mandible, axilla, clavicle, shoulder joint, posterior and anterior cervical regions produce granthis which are fixed, extensive, circular in shape, smooth and associated with mild pain.\n\n\n\nSome of these swellings are of the size of kernel of amalaka while others are like the spawn of fish in shape. They are of the same colour (as skin) and are progressively increasing and because of the continuous growth they are called apaci.\n\n\n\nThey are associated with itching and mild pain; when burst they discharge, and disappear while others appear. This disease caused by medas and kapha is difficult to treat and lasts for several years.\n\n\n\n13-15/1."
   },
   {
-    "query": "What are the characteristics of skin eruptions caused by vata and pitta that are circular, raised, full of blood, and painful?",
-    "expected_id": "2ce18e88-ac4a-590a-966f-6f6eb4e27f96",
-    "evaluation_benchmark": "Eruptions known as gardabhiks are produced by vata and pitta. They are circular, raised spherically, full of blood, and cause pain."
+    "query": "What are the molecular pathways by which deranged bio-energetic processes and circulating pro-inflammatory mediators contribute to the development of acute joint distension and arthralgia in the tibial articulation?",
+    "expected_id": "56d8458f-9773-560c-9193-aca3b0c3ba82",
+    "samhita": "Susruta",
+    "strategy": "SYNONYM_TRAP",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "76. Krostukasirsa (Synovitis of Knee with Effusion)\n\n\n\nExcessively painful and big swelling in the knee like the head of jackal due to the vitiated vata and sonita is called krostukasirsa. I"
   },
   {
-    "query": "What are the clinical manifestations of an abscess located in the rectum, bladder, or umbilical region?",
-    "expected_id": "00976daf-a603-5551-90be-142fa353f1d9",
-    "evaluation_benchmark": "An internal abscess in the rectum causes obstruction to flatus. If located in the bladder, it leads to dysuria and oliguria. Abscesses in the umbilical region are associated with hiccough and borborygmi."
+    "query": "Considering the Susruta's assertion that itching in leucoderma is secondary, how does Charaka Samhita's description of \"elevated space between patches\" in curable *śvitra* potentially relate to or elaborate upon the *sādhya* (curable) versus *asādhya* (incurable) indicators, particularly when contrasted with the Susruta's mention of hair color and patch overlap as indicators of incurability?",
+    "expected_id": "c7921bb0-a5ef-50a6-84c9-e137c3a048dc",
+    "samhita": "Susruta",
+    "strategy": "CROSS_REFERENCE",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "1. Itching when present in leucoderma is only secondary.\n\n\n\nThese leucodermas in which the patches overlap each other and in which the hairs are red' at the terminal? parts of the body are incurable, as are also those which develop after burns.",
+    "secondary_expected_id": "80f6d623-b757-5332-b1e7-e50f843ffaf6"
   },
   {
-    "query": "What are the different prognoses for hemiplegia based on its underlying cause, according to Ayurvedic principles described in the Sushruta Samhita?",
-    "expected_id": "cffd692f-381e-5184-b864-4b5a8f756088",
-    "evaluation_benchmark": "Hemiplegia caused solely by aggravated vayu is difficult to cure. If it involves pitta and kapha, it is curable, and if it results from dhatu wasting, it is incurable."
+    "query": "I read somewhere that all the doshas together can cause a general abdominal enlargement, but what if it's just one or two of them, like maybe vata or pitta, causing their own specific types of udara? How does the body's internal pathways, the shrootas, get so messed up in these individual dosha-driven udaras compared to when all three are acting up together?",
+    "expected_id": "35082120-22d0-50d4-94e2-afd5c9b75d1c",
+    "samhita": "Susruta",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "4. The Eight Types of Abdominal Enlargements\n\n\n\nThere are eight types of abodominal enlargements : those that due to all the vitiated dosas together, plihodara, and due to the three dosas seperately (vatodara, pittodara, kaphodara), baddhaguda; agantuka is the seventh and dakodara is the eighth one."
   },
   {
-    "query": "What is the natural process of fetal expulsion from the uterus during labor, analogous to a ripe fruit falling from its stalk?",
-    "expected_id": "2e3450fd-75a8-517e-aee3-15622d808006",
-    "evaluation_benchmark": "The fetus naturally begins to exit the uterus for delivery when it has matured, similar to how a ripe fruit detaches from its stalk."
+    "query": "What are the documented therapeutic interventions for parivartika when it presents with itching and hardness, as described in the text?",
+    "expected_id": "ce3a7fec-e151-57db-9709-3f57c9ec0de3",
+    "samhita": "Susruta",
+    "strategy": "ADVERSARIAL",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "2. S. S. II. 2. 18-20.\n\n\n\n\"...\"\n\n\n\nDue to excessive rubbing and squeezing and also due to. excessive trauma, when the all pervading (yana) vayu comes to the skin of the penis, the vaju having got located there retracts the skin leaving the glans. below; and then the prepuce swells up like a gland. In some it is associated with pain, burning and suppuration. This is produced by vata and the external factors (such as trauma etc.) and is known as parivartika. If it is associated with itching and is hard, the same should be: known to have arisen due to kapha.\n\n\n\n50/2-52/1. Avapatika (Prepucial tears)\n\n\n\nWhen an excited man does sexual intercourse with an trauma, the foreskin gets forcibly retracted or due to rubbing,.\n\n\n\nadolescent girl having narrow vaginal orifice, or due to manual squeezing or also due to suppressing seminal discharge, penile skin gets torn; that is known as avapatika."
   },
   {
-    "query": "What are the ten types of urinary abnormalities caused by Kapha dosha, and what is their prognosis?",
-    "expected_id": "8b91e5a7-0efe-5249-8b8c-05eae7c037a7",
-    "evaluation_benchmark": "Ten urinary abnormalities, including Udakameha and iksuvalikameha, are caused by vitiated Kapha and are considered curable due to similar treatment approaches for both vitiated doshas and tissues."
+    "query": "Doctor, I'm so worried. For weeks now, I've been getting these awful shivers, like goosebumps that just won't go away, and my eyes look so dull, almost like I haven't slept in days. Lately, it's gotten worse. I feel this strange numbness creeping up my face, and sometimes it feels like pins and needles are pricking my skin. And the worst part is this stiffness in my neck, it's like I can barely turn my head, and then suddenly my jaw locks up! It's terrifying. What could be causing all this, and what does it mean according to the ancient healing ways?",
+    "expected_id": "a7a5a071-564d-5389-a266-ff4902736553",
+    "samhita": "Susruta",
+    "strategy": "CLINICAL_CASE",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "## Prodromal Symptoms\n\n\n\nIts prodromal symptoms are horripilation, tremors, and muddy eyes; and the vitiated vayu having gone upwards produces numbness of the skin locally as well as pins and needles in the skin and torticollis and lockjaw; this is called ardita disease by the specialists."
   },
   {
-    "query": "What are the modes of transmission for contagious diseases like leprosy, fever, and consumption?",
-    "expected_id": "4a454781-5104-5c93-bab7-a0e6f8e028f7",
-    "evaluation_benchmark": "Contagious diseases such as Kustha (leprosy), fever, and consumption can spread from person to person through sexual intercourse, physical touch, breath, eating together, sharing beds, and contact with clothing, garlands, or cosmetics."
+    "query": "What is the pathophysiological interplay between mediastinal masses, aberrant thyroid gland development, and compromised vocal cord innervation leading to inspiratory vocal cord dysfunction?",
+    "expected_id": "4ab184b9-2ea5-5369-a926-90a3a5a8975c",
+    "samhita": "Susruta",
+    "strategy": "SYNONYM_TRAP",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "1. Stridor as a pressure symptom from tracheal compression due to retrosternal or massive gortre.\n\n\n\n2. ? Myxoedematous.\n\n\n\n3. ? Thyrotoxicosis.\n\n\n\n4. ? Recurrent laryngeal nerve involvement due to carcinoma."
   },
   {
-    "query": "What are the clinical features of lip diseases caused by vitiated Vata, Pitta, and Kapha doshas?",
-    "expected_id": "86d69b2d-1ef1-5852-9f50-808a89a99438",
-    "evaluation_benchmark": "Lips afflicted by Vata are rough, hard, rigid, black, acutely painful, and have cracks. Pitta-afflicted lips present with mustard-like furuncles, burning, suppuration, discharge, and appear blue or yellow. Kapha-afflicted lips are painless, have vesicles of the same color as the lips, itching, edema, and are slimy, cold, and heavy."
+    "query": "Considering the descriptions of *Raktarbuda* and *Mamsarbuda* in Sushruta, and the entity described as *Raktagranthi* in Charaka, how does the Charaka Samhita's focus on vitiation by *Vata* and *Kapha* and the resulting urinary obstruction, in contrast to Sushruta's emphasis on *Rakta* vitiation and its association with hemorrhage or muscle trauma, potentially offer a complementary diagnostic or etiological perspective on these seemingly similar growths?",
+    "expected_id": "287a6bd4-4089-562d-9089-b88cf4068278",
+    "samhita": "Susruta",
+    "strategy": "CROSS_REFERENCE",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "## 15/2-17/1. Raktarbuda\n\n\n\nThe vitiated dosas compressing and contracting the sonita and vessels without undergoing suppuration and alongwith the discharge make the muscular lumps prominent. This is studded with fleshy buds and increases rapidly. This continuously discharges vitiated blood and is incurable and is known as rakterbuda. Becuase of the complication of haemor- rhage the patient with this tumour becomes anaemic.\n\n\n\n17/2-19.\n\n\n\nMamsarbuda\n\n\n\nDue to fist blows etc. the muscles of injured parts get vitiated and swollen. This is painless and smooth, is of the same colour (as skin), is non-suppurating, is like a stone and is fixed. This vitiated muscle increases much more in the non-vegetarian. This is mamsarbuda and is said to be incurable. Even out of those which are curable, those which discharge, those situated over the vital parts or over the srotasas and those which become fixed, should be discarded from treatment.",
+    "secondary_expected_id": "1ab7fc5f-20eb-5674-b28f-c15afa3362b0"
   },
   {
-    "query": "What are the diagnostic considerations for various diseases in ancient Indian surgery as presented in the Nidana Sthana of Susruta Samhita?",
-    "expected_id": "d2910e93-c7ed-5842-a690-1c31f17472f4",
-    "evaluation_benchmark": "This document, based on the Nidana Sthana of Susruta Samhita, outlines diagnostic considerations for a range of conditions in ancient Indian surgery. It details diagnostic approaches for diseases such as Vatika diseases, piles, urinary calculi, fistulas, skin diseases, and more."
+    "query": "I read somewhere about granthis being connected to meda dosha, and how they described them, but I was wondering if there's any specific shaarira pramaana or lakshana that the Sushrutacharya mentions to really differentiate between, like, a sebaceous cyst and a lipoma when it comes to these granthis? And also, when they talk about apachi in the neck and armpits, does the text give any hints about how the *moolas* of these apachi might relate to the other granthis or tumors mentioned?",
+    "expected_id": "8e08ad9b-0f88-504d-aa5c-944043eea072",
+    "samhita": "Susruta",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "This chapter deals with the etiology, pathogenesis and swellings, lymphadenitis, clinical features of glandular tumours and goitres.\n\n\n\nCircular knotted inflammatory swellings have been defined as granthis (3); five types of these have been described (4-9). The description of granthi caused by meda could be that of a sebaceous cyst or a lipoma (7). Swellings connected with the blood vessels have also been included (8, 9).\n\n\n\nLymphadenitis occuring in the cervical and axillary regions have been described as apaci (10-12). Matted character of lymph nodes has been aptly compared to spawn of the fish and its chronic course has been well emphasized (10-12).\n\n\n\nNon-suppurating, slow growing and circular swellings 15/1); six types of these have been described. Multiple tumour with little pain have been defined as arbuda (tumours) (13formation has been described as of bad prognostic sign (20).\n\n\n\nGoitres (22-29) have been described as swellings occuring in the neck with the bilobed shape of a scrotum. Three varieties of goitres have been described. Goitres causing dyspnoea, emaciation and hoarseness of voice (thyroid carcinoma) have been mentioned as incurable. Some features of myxoedema, retrosternal goitre and thyrotoxicosis have also been mentioned."
   },
   {
-    "query": "What are the therapeutic uses and indications for the Shyamadi Gana group of herbs in treating conditions like abdominal tumors, poisoning, anorexia, and specific types of pain?",
-    "expected_id": "9b5c2965-f3d1-5a0d-b467-501b69a7f1b9",
-    "evaluation_benchmark": "The Shyamadi Gana group of herbs is indicated for curing abdominal tumors, poison, anorexia, diseases of kapha, heart aches, and dysuria. These herbs can be formulated into various preparations for internal or external use to treat obstinate diseases."
+    "query": "Given the description of piles developing from aggravated dosas reaching the rectum, what are the potential long-term effects of these fleshy excrescences on an individual's ability to digest straw or wood?",
+    "expected_id": "55dd727f-59cb-563d-9f47-720f2a3f5e0b",
+    "samhita": "Susruta",
+    "strategy": "ADVERSARIAL",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "## Chapter Two\n\n\n\nNow, the various causes as described earlier which excite the dosas in those who are not self-possessed and in those who take contradictory foods, eat again before the last meal has been digested, do (excessive) sexual intercourse, (in those who are accustomed to) squatting posture, ride on the back of an ânimal and inhibit the natural evacuatory reflexes etc., aggravate one, two or all the dosas with or without the involvement of sonita.\n\n\n\nAs described earlier, the dosas spread, having entered the main artery, go down and having reached the rectum afflict its walls and produce fleshy excrescences specially in the dyspeptic. And by coming into contact with straw, wood, stone, Jump (of clay) and clothings etc. or with cold water, the swellings grow in size alround; and these are known as piles."
   },
   {
-    "query": "How many combinations of tastes are there, and how are they counted based on their usage?",
-    "expected_id": "0cb8eb12-a9d3-5bd3-89b7-9bfd353ae741",
-    "evaluation_benchmark": "The text states that the combination of tastes will be fifty-seven, but their actual counting will be sixty-three based on their usage. It also details the number of combinations for two and three tastes."
+    "query": "Doctor, I've been having this awful burning when I pee, and a sharp pain that shoots down my groin, sometimes even to my penis. It feels like my stream is all over the place, weak and scattered. And the worst part is, sometimes there's blood in my urine, and it looks cloudy, almost like sand. I'm so worried. What could be causing all this, and what's the reason behind these symptoms?",
+    "expected_id": "61d83299-95c3-5507-9a94-05f91e0f9145",
+    "samhita": "Susruta",
+    "strategy": "CLINICAL_CASE",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "## Clinical Features of Vesical Calculi.\n\n\n\nNow, when (calculi have) formed, pain during micturition perineal raphe and penis and there is obstruction to the flow of urine, haematuria, scattering of the urinary stream, and occurs in any of these regions- the umbilical region, bladder, passage of turbid, sandy urine shining like gomeda? jem."
   },
   {
-    "query": "What are the potential health consequences of suppressing belching, and what is the recommended treatment approach?",
-    "expected_id": "4c17200f-87ca-5ed7-adea-b21dda067af3",
-    "evaluation_benchmark": "Suppressing belching can lead to anorexia, tremors, constipation, chest stiffness, bloating, cough, and hiccups. The treatment for these conditions is the same as for the suppression of hiccups."
+    "query": "To what extent does the interplay between aberrant humoral regulation within cutaneous and muscular tissues, and aberrant circulating fluid constituents, contribute to the generalized and non-localized inflammatory manifestations observed in diffuse cutaneous infections?",
+    "expected_id": "4579a967-3f20-5dd6-8401-4dc71c4aa46a",
+    "samhita": "Susruta",
+    "strategy": "SYNONYM_TRAP",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "## Chapter Ten\n\n\n\nNow we would expound upon \"The Diagnosis of Spreading Cellulitis, Sinuses and Breast Diseases\"\n\n\n\n- 2.\n\n- 3.\n\n- As was described by Lord Dhanvantari.\n\n- Actiology of Cellulitis\n\n\n\nThe dosas located in the skin, muscles and blood getting vitiated, spread into all parts of the body without getting localised and produce characteristic symptoms. They quickly produce widespread and unelevated inflammation. Because of its (inflammation) spreading nature all over it is called visarpa (spreading cellulitis). I\n\n\n\n- Cellulitis of Väta Origin"
   },
   {
-    "query": "What factors contribute to the development of disease and the maintenance of health according to Ayurvedic principles?",
-    "expected_id": "5a5834ca-4367-5d07-a2c3-57c404ae2842",
-    "evaluation_benchmark": "Disease arises from the insufficient, excessive, or improper use of time, sensory input, and bodily functions. Conversely, health is achieved through the balanced and appropriate application of these three elements."
+    "query": "Considering the Susruta's descriptions of eight specific malpresentations (mudhagarbhas) and the Charaka Samhita's explanation of rakta pitta manifesting through two primary routes (upwards and downwards) due to vitiation of kapha, vata, or both, how can the differing modes of presentation described by Susruta be understood as potential *manifestations* or *outcomes* of the pathological processes of rakta pitta as elucidated by Charaka, particularly in cases where both routes are affected?",
+    "expected_id": "8c7be170-3d1e-570a-af96-3ccf4c868f83",
+    "samhita": "Susruta",
+    "strategy": "CROSS_REFERENCE",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "## The Eight Types of Mudhagarbhas.\n\n\n\nOut of them some present at the vaginal opening by the two lower limbs; some by one lower limb, the other one being flexed; some come out with both the lower limbs flexed over the body and the buttocks presenting obliquely; and some present by either chest, sides or back covering the vaginal exit.\n\n\n\nSome present by an arm only with the head flexed and turned to the sides; some present by both arms with the head bent; some present by the hands, feet and head with the trunk flexed; and some present at the opening of vagina by one lower limb and the other pointing towards (the mother's) anus. Thus the eight modes of presentations of müdhagarbhas have been described briefly.",
+    "secondary_expected_id": "7908caa0-d759-5c82-856f-850d4048e611"
   },
   {
-    "query": "What foods are recommended for habitual consumption to maintain health and prevent diseases, according to Ayurvedic principles?",
-    "expected_id": "ecbcd52d-f521-5818-abfc-cb7762369da3",
-    "evaluation_benchmark": "Foods recommended for habitual consumption include rice, wheat, barley, meat of desert animals, certain herbs like Jivanti, young radish, Haritaki, Indian gooseberry, dry grapes, green gram, sugar, ghee, pure water, milk, honey, pomegranate, and rock salt. Additionally, Triphala with honey and ghee is advised nightly for eye health, and any food beneficial for health and disease prevention can be consumed regularly."
+    "query": "I read somewhere that when the feet feel like they're burning, especially when walking, it's usually vata aggravated along with pitta and rakta... but I was wondering, does the *type* of walking, like on uneven ground versus smooth, make a difference in how this padadaha manifests, given the vitiated qualities involved?",
+    "expected_id": "8e4fea71-aa6e-5a6b-a6d0-2e72e7740bd8",
+    "samhita": "Susruta",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "80. Padadäha (Burning Feet Syndrome)\n\n\n\nWhen burning, is caused in both the feet, specially on walking, due to the vitiated vata alongwith pitta and rakta, that is known as padadaha."
   },
   {
-    "query": "What are the effects of consuming sweet taste on the body, particularly for children and the aged, and what are the potential negative consequences of excessive consumption?",
-    "expected_id": "ad27c613-1187-5e52-811b-2d8934ef4b89",
-    "evaluation_benchmark": "Sweet taste promotes strength, is beneficial for children, the aged, and the wounded, and improves bodily attributes like skin and sense organs. However, excessive consumption can lead to conditions such as obesity, asthma, diabetes, and glandular swellings."
+    "query": "Considering the slow increase and thick white discharge of a Kaphaja Granthi, what are the long-term implications for epidermal cell regeneration in surrounding tissues?",
+    "expected_id": "d04b95d8-3b50-56dd-bcac-7879e327acd5",
+    "samhita": "Susruta",
+    "strategy": "ADVERSARIAL",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "## Kaphaja Granthi\n\n\n\nThe (granthi) due to vitiation of kapha produces a cold swelling without any discolouration associated with mild pain and excessive itching having the consistency of a stone.\n\n\n\nIt increases slowly and when burst, white and thick pus is discharged."
   },
   {
-    "query": "What are the clinical signs indicating insufficient nasal lubrication with oil or ghee?",
-    "expected_id": "26cc3350-f221-5090-a220-38acbda8b968",
-    "evaluation_benchmark": "Inadequate nasal lubrication is indicated by stiffness in eye movement, emaciation and dryness of the nose and mouth, and a sensation of emptiness within the head."
+    "query": "Doctor, I'm so worried. For months now, I've been experiencing something strange with my urination. It's not just a little bit of discomfort; it feels like my urine is almost oily, sometimes thick like clarified butter, other times like viscous fat, and sometimes it's an overwhelming, sticky sweetness that coats everything. And the volume! It's like an elephant is drinking from me. I've tried to eat better, cut back on sweets, and manage my stress, but nothing seems to make a difference. It just keeps getting worse. What could be causing this, and what's the reasoning behind why it's so hard to fix?",
+    "expected_id": "4322853a-11fc-5a67-bcea-074495109313",
+    "samhita": "Susruta",
+    "strategy": "CLINICAL_CASE",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "## Urinary Abnormalities due to vata\n\n\n\nSarpirmeha, vasameha, ksaudrameha, and hastimeha; these four (urinary abnormalities) are due to (vitiated) vata and they are incurable because of their being extremely serious."
   },
   {
-    "query": "What are the eight branches of Ayurvedic medicine, including general medicine, pediatrics, psychiatry, head/ENT/eye diseases, surgery, toxicology, geriatrics, and aphrodisiac therapy?",
-    "expected_id": "29b67270-07b3-5ee0-bdd3-906816a3982a",
-    "evaluation_benchmark": "The eight branches of Ayurveda are Kaya Chikitsa (General medicine), Bala Chikitsa (Paediatrics), Graha Chikitsa (Psychiatry), Urdhvanga Chikitsa (diseases of the Ear, Nose, Throat, Eyes and Head), Shalya Chikitsa (Surgery), Damshrta Chikitsa (Toxicology), Jara Chikitsa (Geriatrics), and Vrushya Chikitsa (Aphrodisiac therapy)."
+    "query": "To what extent does inadequate reduction and subsequent mechanical instability of bone lesions influence the long-term regenerative capacity of osseous structures, even with ostensibly appropriate soft tissue management?",
+    "expected_id": "6961ab7c-58da-5c65-a0a2-e8d8b508994f",
+    "samhita": "Susruta",
+    "strategy": "SYNONYM_TRAP",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "1. Pathological fractures.\n\n\n\nthough reduced properly, have become complicated due to improper immobilisation and bandaging or due to movements should be discarded from treatment."
   },
   {
-    "query": "What is the recommended duration for holding gargle medication in the mouth and nose for Vata, Pitta, and Kapha imbalances, and how is this duration measured?",
-    "expected_id": "4b908ebf-d757-50b3-8396-2d4f6e07f472",
-    "evaluation_benchmark": "The medication should be held until fluid secretion appears in the mouth and nose. Specifically, it is recommended for 10,000 Matra Kala for Vata, 8,000 Matra Kala for Pitta, and 6,000 Matra Kala for Kapha, where 1 Matra Kala is the time taken to blink an eye once."
+    "query": "Considering the Sushruta Samhita's description of penile lesions resulting from unhygienic local applications of watermoss, and the Ashtanga Hridaya's detailed specifications for the size and shape of applicators used in caustic alkali therapy (which could potentially be applied locally), what is the implied prophylactic or therapeutic connection that necessitates the precise angula measurements and nail-like tips for instruments in procedures that might be associated with or preventative of the very lesions described by Sushruta?",
+    "expected_id": "6c41ff17-3a61-51a5-afda-6fe660539690",
+    "samhita": "Susruta",
+    "strategy": "CROSS_REFERENCE",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "Eighteen types of infective and traumatic lesions of the penis produced by the local applications of watermoss (suka) to elongate it have been described alongwith their dosika etiology and clinical features. Description of these lesions produced by the unhygeinic and improper medications possibly' included ulcerative and neoplastic lesions.\n\n\n\nHere des see enginen",
+    "secondary_expected_id": "6fda1d71-5269-510c-9d3c-79f6ad32168d"
   },
   {
-    "query": "What are the post-administration procedures and timings for administering an oil enema (Anuvasana Vasti) to ensure proper retention and efficacy?",
-    "expected_id": "ce7b5f89-6283-55b0-b0c5-f9a9e801c20f",
-    "evaluation_benchmark": "After administering the oil enema, the patient's buttocks should be gently beaten, the cot's foot lifted thrice, and the body massaged to prevent premature expulsion of the oil. The maximum retention time is nine hours, after which interventions may be considered if it hasn't come out."
+    "query": "I read somewhere that rakasa kustha, described as having itching and boils without discharge, is a subvariety of pama kustha, and I'm a bit confused because it's also hinted at being similar to scabies, so could you elaborate on how the specific manifestation of itching and non-discharging boils distinguishes it as a *rakasa* type within the broader *pama* category, or if the scabies connection implies a different underlying dousha imbalance that subtly alters the pustular presentation?",
+    "expected_id": "76b8a36e-d82f-515b-b47a-c3f0188d446a",
+    "samhita": "Susruta",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "4. A subvariety of pama kustha.\n\n\n\n5. ? Scabies.\n\n\n\nThat is called rakasa kustha in which there is itching in the body and boils are present without any discharge."
   },
   {
-    "query": "When is a mild, lubricating smoke inhalation indicated after specific bodily functions or activities?",
-    "expected_id": "a4fe9d05-3292-5a82-b7cc-96cf2556450d",
-    "evaluation_benchmark": "Mild, lubricating smoke inhalation is indicated after sneezing, yawning, defecation, urination, copulation, and surgical operations."
+    "query": "Considering the distribution of oral ailments across seven distinct locations, how does the text elucidate the synergistic interplay between diseases of the lips and those affecting the palate, and what specific pathological mechanisms link these two seemingly disparate sites of affliction?",
+    "expected_id": "64316175-1dd6-5e79-8d7e-16de4708afd4",
+    "samhita": "Susruta",
+    "strategy": "ADVERSARIAL",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "## Chapter Sixteen\n\n\n\nNow we would expound upon \"The Diagnosis of Oral\n\n\n\nDiseases\".\n\n\n\n- 2.\n\n\n\nAs was described by Lord Dhanvantari.\n\n\n\n- Classification of Oral Diseases\n\n\n\nThe diseases of oral cavity are sixty-five (in number) and they occur at seven sites. These sites are : the lips, gums, teeth, tongue, palate, throat, and the whole oral cavity. There are eight diseases of the lips, fifteen of the gums, eight of the teeth, five of the tongue, nine of the palate, seventeen of the throat and three affecting the whole oral cavity."
   },
   {
-    "query": "What are the recommended dimensions and materials for an instrument wallet used in Ayurvedic practice, and how should it be constructed to protect the instruments?",
-    "expected_id": "7866a872-a1fd-506f-a311-680e3ecc8714",
-    "evaluation_benchmark": "The instrument wallet should measure 9 Angula in width and 12 Angula in length. It should be constructed from materials such as jute, leaves, wood, silk, inner bark of trees, or soft leather, and be well-stitched with compartments to hold instruments wrapped in wool."
+    "query": "Doctor, I'm really worried. I've noticed this growing lump in my neck, it's not painful and it hasn't gotten any redness or swelling like an infection. It feels hard and just… stuck there. It's been there for a while now. My diet has been pretty rich lately, I haven't been as active as I should be, and honestly, I’ve been feeling a bit sluggish overall, like there’s a heaviness in my body. What do you think is causing this swelling and why isn't it responding like a typical infection would?",
+    "expected_id": "c52844f7-9b86-5072-800f-6b1e812d2f01",
+    "samhita": "Susruta",
+    "strategy": "CLINICAL_CASE",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "## Non-suppuration of Tumours\n\n\n\nAll tumours by nature do not undergo suppuration because of preponderance of kapha in them and specially because of the preponderance of medas and also because of the immobilization and knotting of the dosas in them.\n\n\n\n22.\n\n\n\nGoitre\n\n\n\nVata and kapha having aggravated in the neck and having accumulated in many and alongwith medas produce glandular enlargements with their characteristic symptoms. It is known as goitre (galaganda)."
   },
   {
-    "query": "What are the 15 possible combinations of two distinct tastes according to Ayurvedic principles?",
-    "expected_id": "d181e7e0-708f-5e97-892b-c98c12350793",
-    "evaluation_benchmark": "There are 15 possible combinations when two distinct tastes are combined. These combinations include pairings such as sweet with sour, sweet with bitter, sour with salty, and bitter with pungent."
+    "query": "To what extent does the early intrauterine environment, influenced by parental genetic predisposition to infectious dermatological conditions, correlate with the potential for offspring to manifest similar pathological processes affecting deep tissue layers and adipose tissue?",
+    "expected_id": "ae302714-bd10-51b6-8505-fe25e1ff057f",
+    "samhita": "Susruta",
+    "strategy": "SYNONYM_TRAP",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "28. Leprosy as a Hereditary Disease\n\n\n\nThe child born of a woman and a man with vitiated ovum and sperm due to leprosy should be regarded as leprotic.\n\n\n\n29.\n\n\n\nPrognosis of Leprosy\n\n\n\nLeprosy is curable in the prudent if it is located within toak, rakta and mamsa; it is relievable if it involves meda whereas it is incurable if it is located in the rest of the dhatus."
   },
   {
-    "query": "What are the adverse effects of consuming excessive salt taste, such as hair graying, wrinkles, and skin diseases?",
-    "expected_id": "4ef282be-2cf0-5ce4-a484-4a82f4796fb1",
-    "evaluation_benchmark": "Excessive consumption of salt taste can lead to vitiation of blood and Vata, causing baldness, graying of hair, skin wrinkles, increased thirst, skin diseases, and a decrease in bodily strength."
+    "query": "Given that valmika, as described by Sushruta, manifests with pricking pain, soddening, burning, and itching, and can arise in various bodily locations including extremities and joints, while Charaka describes upajivhika as a sudden swelling originating from vitiated kapha at the root of the tongue, what conceptual bridge or specific manifestation within Sushruta's valmika description might correlate to or explain the etiology of upajivhika, particularly concerning the involvement of kapha and localized swelling in a superficial region?",
+    "expected_id": "2957ea18-5f0e-5e88-bafb-84479947f461",
+    "samhita": "Susruta",
+    "strategy": "CROSS_REFERENCE",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "## 9, 10. Valmika:\n\n\n\nauschwang ai ranted way\n\n\n\nThat disease is valmika which is due to kapha, pitta and vãta, which arises on the surfaces of palms and soles, in the joints of neck, and in the regions above the clavicles, is knotted\n\n\n\n1. ? Actinomycosis, Madura Foot.\n\n\n\nlike an anthill, increases slowly and in which pricking pain; soddening, burning sensation and itching occur around the openings.",
+    "secondary_expected_id": "d1f61780-87cc-559f-a4c2-e22ccbda64e6"
   },
   {
-    "query": "What are the clinical manifestations and potential causes for the depletion of Ojas, a vital essence in Ayurvedic physiology?",
-    "expected_id": "cec542fc-a54b-5382-be50-d1b6da21d2f3",
-    "evaluation_benchmark": "Depletion of Ojas can lead to fretfulness, debilitation, repeated worry, discomfort in sense organs, bad complexion, negative thoughts, and dryness. Causes include excessive exercise, prolonged fasting, insufficient food intake, alcohol consumption, improper food combinations, fear, staying awake at night, injury, assault by microorganisms, depletion of tissues, excessive elimination of bodily substances, and poisoning."
+    "query": "I read somewhere that Susruta Samhita discusses different types of bony injuries like fractures and dislocations, and how some are harder to treat, especially in certain age groups or if the bones are already weak. But I was wondering, when it talks about these fractures and dislocations, does it also touch upon how the underlying subtle channels, you know, the shrootas, might be affected by such trauma and how that could influence the healing process or the manifestation of symptoms?",
+    "expected_id": "2c3648f5-2513-5e08-aae9-ea85bd9647d7",
+    "samhita": "Susruta",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "Various etiological and clinical features of fractures and dislocations have been dealt with in this chapter. Trauma, accidental or otherwise, has been mentioned as the cause of all bony injuries (3).\n\n\n\nSix types of dislocations and twelve types of fractures have been described (4).\n\n\n\nLoss of function of the joints and tenderness have bcen described as the general clinical features of dislocations (6). Description of the different types of dislocations includes displacements in all directions and also some fracture-dislocations (5, 7).\n\n\n\nFractures have been classified into twelve types. The description includes almost all types of bony injuries including greenstick and fissured fractures and subperiosteal hematomas (8).\n\n\n\nCrepitus, tenderness, and loss of function have been mentioned as general features of fractures (9).\n\n\n\nIndividual fractures were diagnosed on the type of injury and the deformity caused (10).\n\n\n\nComminuted, impacted and compound fractures have been considered difficult to treat. Very old or young and malnourished persons have been mentioned as bad risk patients (11).\n\n\n\nFurther, fractures involving head and neck, pelvis and chest were thought to be incurable (12, 13).\n\n\n\nPathological fractures occuring in congenitally diseased bones have also been mentioned as incurable (14).\n\n\n\nThe fractures have been said to heal better in young adults (15).\n\n\n\nThe different types of bones have been mentioned to sustain different types of fractures (16)."
   },
   {
-    "query": "What are the therapeutic uses and properties of Mardvika, a wine prepared from grapes, specifically regarding its effects on bodily functions, diseases like anemia and diabetes, and its impact on Pitta and Vata?",
-    "expected_id": "5c2f2b43-0d38-5ce1-9fa5-48e35071a8bb",
-    "evaluation_benchmark": "Mardvika, a grape wine, is described as scraping, heart-beneficial, not excessively hot in potency, and sweet. It promotes natural fluid movement, can slightly increase Pitta and Vata, and is beneficial for anemia, diabetes, hemorrhoids, and intestinal worms."
+    "query": "Given the detailed descriptions of sexual practices that can lead to various ailments, does the text offer any specific guidance on the optimal duration of sexual intercourse for maintaining penile health?",
+    "expected_id": "5e8a3a34-bd5d-52a6-a773-a5d6246c591f",
+    "samhita": "Susruta",
+    "strategy": "ADVERSARIAL",
+    "level": "section",
+    "method": "gemini_generation",
+    "ground_truth_context": "6. Inguinal hernia.\n\n\n\nDue to excessive sexual intercourse, or due to prolonged celibacy, intercourse with a woman observing excessive abstinencel or with one who has been discarded (by her folks) for a long time, or with a woman who is menstruating, who has long hairs?, rough hairs, dense hairs. or who has hairs in the internal parts, or with one whose vaginal orifice is too small or too large, or with one who is not loved or who does not like sex, or one who has washed the genitals with dirty water or one · who has not washed the genitals, or the one having genital. diseases and intercourse with the one usually having distorted and infected genitals and in those men who enjoy such women excessively and because of the injury due to nails, teeth, poison or suka\", due to tying (of the penis), due to injury during masturbation, intercourse 'with female quadrupeds, due to washing the penis with dirty water, squeezing it, due to suppressing the discharge at the end of the intercourse or not washing the penis (at the end of intercourse); vitiated dosas reaching the penis produce oedema with or without an ulcer; that is known as upadamsa."
   },
   {
-    "query": "What are the therapeutic uses and contraindications of Arista, a fermented decoction, in Ayurvedic medicine, particularly concerning digestive and skin ailments?",
-    "expected_id": "ce549f19-66a6-5e98-a1e5-ddc2f746b201",
-    "evaluation_benchmark": "Arista, a fermented decoction, is beneficial for duodenal diseases, anemia, skin diseases, hemorrhoids, dropsy, abdominal enlargement, fever, abdominal tumors, intestinal worms, and spleen disorders. It is astringent, pungent, and can aggravate Vata."
+    "query": "Lately, I’ve been feeling so drained. My skin, which used to have a nice glow, looks dull and sallow. Even simple things feel like a struggle – my senses seem dulled, I can’t quite grasp things the way I used to, and my appetite is all over the place. Some days I'm ravenous, and other days I can barely look at food. And this constant feeling of weakness, it’s like my body just doesn't have the strength it needs to fight off even the slightest chill. I used to enjoy my meals and feel nourished, but now I just feel… depleted. What could be going on, and what should I be doing to get back to feeling strong and vibrant again?",
+    "expected_id": "25793c7c-6814-5e3b-a333-22dd23614594",
+    "samhita": "Astanga",
+    "strategy": "CLINICAL_CASE",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "## सन वणियं इियाथा नछतमयाहत पतृवेगम् । सुखािवतं पुिटबलोपपनं वशुरतं पुषं वदित ॥५३॥\nExcellence of color and complexion, improved power of the sense organs, good perception of objects by sense organs, good digestive activity, enjoyment of comforts endowed with good nutrition and immunity- are the characteristics of the person having non vitiated blood. 53\n\nThus ends the chapter named Siravyadha Vidhi- the 27th chapter is Sutrasthana of Astanga Hrudaya."
   },
   {
-    "query": "What are the effects of consuming curd (Dadhi) on fat, semen, strength, Kapha, and bleeding disorders?",
-    "expected_id": "4cf59b3e-9c06-5628-a4ee-8074d1008494",
-    "evaluation_benchmark": "Consumption of Dadhi (curd) is noted to increase Meda (fat), Shukra (semen), Bala (strength), Kapha, and Raktapitta (bleeding disorders)."
+    "query": "What is the comparative efficacy of solid applicators of varying dimensions and material composition in facilitating transdermal delivery of potent medicinal agents and for cauterization procedures?",
+    "expected_id": "1e146c80-e5bc-546b-8739-2d614e9cf21c",
+    "samhita": "Astanga",
+    "strategy": "SYNONYM_TRAP",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "शलाकाजाबवौठानां ारे अनौ च थक् यम् युयात् थूलाणुदघाणां\n\nJambauvoshta- Cylindrical smooth stones- each three in number, thick, thin and long in shape be used for the application of caustic Alkalies and branding by fire - therapies."
   },
   {
-    "query": "What are the therapeutic uses of the Vatsakadi Gana group of herbs in treating conditions like fever, colic, and rhinitis?",
-    "expected_id": "ad1b38c3-3b2e-59ff-a7e8-10fa2b5e6da3",
-    "evaluation_benchmark": "The Vatsakadi Gana group of herbs is indicated for treating disorders of Vata, Kapha, and medas. It is also beneficial for conditions such as rhinitis, abdominal tumors, fever, colic, and hemorrhoids."
+    "query": "Considering the Astanga's categorization of age restrictions for various Panchakarma therapies and the Charaka Samhita's indication for Anuvasana Basti as a palliative measure for debilitated, aged, children, and delicate individuals unfit for Virechana, how does the *type* and *frequency* of Anuvasana Basti, as implied by the complementary details within both texts, inform its suitability for these specific patient groups, especially when compared to other Shodhana therapies mentioned in the Astanga?",
+    "expected_id": "1aea328c-33ce-5bdc-bfa4-e58455c3b27f",
+    "samhita": "Astanga",
+    "strategy": "CROSS_REFERENCE",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "न नयमूनसतादे नातीताशीतवसरे न चोनाटादशे धूमः , कवला नोनपचमे न शुनदशमे न चाितातसततौ\n\nNasya should not be administered to those who are less seven years and more than 80 years of age;\n\nDhuma- inhalation of smoke of drugs should not be administered for children below 18 years; Kavala- mouth gargling should not be administered for children below five years; Shodhana purification (Panchakarma) therapies like Vamana, Virechana etc. should not be administered below 10 years and above 70 years of age. 30-31\n\nआजममरणं शतः तमशतु बितवत् मशावच गुणान् क ु यास ह नयोपसेवनात् न चा यणा नाप यापयो मशवयम्\n\nPratimarsha - kind of nasal medication is good from birth to death just like basti treatment. It provides the benefits like Marsha Nasya (oil, high dose if used daily, it does not need any control - regarding food and activities nor it has any risks like Marsha Nasya. 32\n\nतैलमेव च नयाथ नयायासेन शयते ॥३३॥ शरस: लेमधामवात् नेहा: वथय नेतरे ।\n\nMedicated oil only is ideal for daily use of Nasya (Pratimarsha), because the head is the dwelling place of kapha and no fat other than oil, can keep it healthy. 33\n\nआशुकृ िचरकारवं गुणोकषापक ृ टता मश च तमश च वशेषो न भवेयाद को मश सपरहारं सापदं च भजेततः अछपानवचारायौ क ु टवातातपिथती अवासामााबती च तवदेव वनदशेत्\n\nImmediate and delayed action, more and less benefits are the results of Marsha and Pratimarsa respectively.\n\nIf there is no difference between then, who will resort to marsha which is associated with controls - regarding food and activities and risks?\n\nIn the same way,\n\nAcchapana - drinking of pure fat alone and Vicharana- intake of fat mixed with foods etc.\n\nSimilar is the case of\n\nKuti Pravesika - one kind of rejuvenation therapy where the person needs to stay in a house for\n\nweeks together, taking Chyawanprash etc. and Vatatapika- Rejuvenation treatment, wherein patient can do his routine work. Similar is the case of Anuvasana - fat enema and Matra basti - fat enema with very little oil 34-36",
+    "secondary_expected_id": "be0c3bf4-530b-500c-9bcb-02db178e0c1c"
   },
   {
-    "query": "What is the function of the Samiyantra instrument in Ayurvedic practice, particularly for conditions like piles?",
-    "expected_id": "7788b5bc-d35e-5932-8627-2592e37fcf7f",
-    "evaluation_benchmark": "The Samiyantra instrument is described as being similar to another instrument but lacking offices, and it is useful for squeezing pile masses."
+    "query": "I read somewhere about managing patients after they've been made to vomit, and this text mentions protecting them from \"rattamadaabhooyah\" and not using them again for seven days. I'm a little fuzzy on what \"rattamadaabhooyah\" specifically refers to in terms of its Ayurvedic pathology, and how the seven-day rest period relates to the complete resolution of any potential lingering effects from that condition.",
+    "expected_id": "3e526a0f-8176-5a96-969e-a5b9c41d9cb8",
+    "samhita": "Astanga",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "## रन् रतमदाभूयः सताहं  ता न पातयेत्\nAfter making them vomit they should be protected from blood intoxication and should not be used again for seven days."
+  },
+  {
+    "query": "Under what circumstances would the cotton wool capping on rod-like instruments be considered insufficient for the prevention of nasal irritations during sinus cleaning?",
+    "expected_id": "2aaa49c4-5c85-58b5-bf65-63a54416c78c",
+    "samhita": "Astanga",
+    "strategy": "ADVERSARIAL",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "## कापासवहतोणीषाः शालाकाः ष माजने\nThe rod- like instruments meant for clearing sinuses etc. shall have their tip covered with a cap of cotton wool.\n\n21,"
+  },
+  {
+    "query": "Doctor, I'm so worried. I've been sweating so much lately, it's like I can't stop. And with that, I've developed this terrible thirst that won't go away. I feel so weak, sometimes I even feel like I'm going to pass out. My voice is barely a whisper, and my whole body aches, especially my joints. It's like everything is spinning, and I'm having trouble thinking straight. And I've noticed these strange dark and red blotches appearing on my skin, and I've been throwing up a lot too. What could be causing all of this, and what do you think the underlying reason might be for these symptoms, and what kind of treatment would be best according to your traditional texts?",
+    "expected_id": "19ad82f6-9714-5f40-ac8a-8d7928448e8c",
+    "samhita": "Astanga",
+    "strategy": "CLINICAL_CASE",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "पताकोप तृमूछा वराग सदन माः संधपीडा वरः यावरत मडल दशनम् १६\n\nAggravation of Pitta and vitiation of blood, thirst, loss of consciousness, weakness of voice and body, Bhrama - Delusion, Dizziness Sandhipeeda -  pain in the joints , Jvara - fever, appearance of black- blue, red patches on the skin, and vomiting are produced by excess of Sweating therapy;\n\nFor that , Stambhana treatment should be done. It is the same procedure, useful in diarrhoea and bleeding disorders."
+  },
+  {
+    "query": "What is the influence of visceral adipose tissue and hematopoietic stem cell precursors on the physiological regulation of kinetic energy balance and the modulation of inflammatory and rheological bodily fluids?",
+    "expected_id": "2a7542a1-f24e-5476-b22c-20df001093b8",
+    "samhita": "Astanga",
+    "strategy": "SYNONYM_TRAP",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "वसा मजा च वातनौ बलपतकफदौ ६१ मांसानुगवपौ च वयामेदो अप तावव\n\nVasa (muscle-fat) and Majja (bone-marrow) and fat mitigate Vata, cause increase of strength, Pitta and Kapha and similar in properties with the meat of animals from which they are obtained."
+  },
+  {
+    "query": "Considering the potential adverse effects of excessive sour taste described in the Astanga, and the symptoms associated with a spider bite in Charaka Samhita, how might the presence of excessive sour taste influence the presentation or severity of the \"swelling, boils, fever, and burning sensation\" indicative of a spider bite?",
+    "expected_id": "333822d2-ae89-5f1d-ab8e-4523dc1b4fc5",
+    "samhita": "Astanga",
+    "strategy": "CROSS_REFERENCE",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "## सो अययततनोः कुयाशैथयं तमरं मम् कडु पाडुतव वसप शोफ  वफोट तृट वरान्\nSour taste if used in excess, causes looseness of the body, loss of strength, blindness, giddiness, itching (irritation), pallor (whitish yellow discoloration as in anaemia), Visarpa - Herpes, spreading skin disease, swellings, Visphota (small pox), thirst and fevers. 10 - 11½.",
+    "secondary_expected_id": "ed2ec5db-7598-5479-9375-d1ac86eaf113"
+  },
+  {
+    "query": "I read somewhere that the viskira group of birds, like the Lava and Tittiri, are described as scratching the ground, but I was wondering, in an Ayurvedic sense, is there any correlation between how they forage and their specific doshic qualities or potential therapeutic uses according to the shrootas?",
+    "expected_id": "0fc16c0d-c372-5ada-97c1-0768e20b35b5",
+    "samhita": "Astanga",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "लाववातकवतररतवमकक ु क ु भाः कपजलोपचायचकोरकु बाहवः वतको वतका चैव तितरः करः शखी तााचूडायबकरगोनदगरवतकाः तधा शारपरेाभवरटायाच विकराः\n\nLava (bustard quail), Vartika (bush quail), Vartira (rain quail), Raktavartma (red eyed owl), Kukkubha (wild cock), Kapinjala (black partridge), Upachakra (small greek pheasant), Chakora (greek pheasant), Kurubahava, Vartaka (button quail), Vartika( bush quail), Tittiri (grey partridge), krakara (black partridge), sikhi (peacock), tamracuda (domestic cock), bakara (small creane), gonarda (siberian crane), girivartika (mountain quail), Sharapada (a kind of sparrow), indrabha (hedge sparrow), varata (goose) etc. belong to the group known as viskira (birds which scratch the ground with their legs and picks up their food.) 44-45"
+  },
+  {
+    "query": "Considering the description of external disease pathways, what are the primary Ayurvedic treatments for internal blockages in the *srotas* (channels) related to the respiratory system?",
+    "expected_id": "10f2a4f7-5070-5299-b164-e3cd6b51269e",
+    "samhita": "Astanga",
+    "strategy": "ADVERSARIAL",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "शाखा रतादयः वक् च बायरोगायनं ह तत् तदाया मषयगगडालयबुदादयः बहभागाच दुनामगुमशोफादयो गदाः ४५\n\n४४\n\nRaktha- blood and others tissues (Blood, muscles, bone, fat, bone marrow and sex related secretions) and skin continue the Bahya Rogamarga - external pathway of disease. It is related with diseases such as moles, discolored patches on face, Gandalaji- goiter, glandular ulcer on the face, malignant tumors, hemorrhoids, abdominal tumor, swelling and other external diseases. 44 ½ -45"
+  },
+  {
+    "query": "Doctor, I'm really struggling. I've been feeling so bloated and my digestion is just awful. Even a small meal sits like a stone in my stomach, and I just have no appetite. It's like my stomach is completely shut down. I've tried to push myself to eat, but it just makes things worse. The worst part is, I'm so thirsty all the time, but I'm terrified to drink anything. Even just water feels like too much, and I'm avoiding all liquids. I also feel so drained, like I have no energy for anything. I try to go for walks, but I just feel weak. Honestly, I've been stuck inside a lot lately, not getting much sun or fresh air. What could be causing all of this, and how would the ancient principles explain how to fix it?",
+    "expected_id": "3b829f61-a0d6-583d-8bd4-daaf2c90cd9f",
+    "samhita": "Astanga",
+    "strategy": "CLINICAL_CASE",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "Pachana - digestive, carminatives,\n\nDeepana\n\n- hunger producing, stomachic,\n\nKshut - withstanding hunger,  avoidance of food, fasting\n\nTrut -  withstanding thirst/avoidance of water drinking, avoiding liquid food intake\n\nVyayama\n\n- physical activity,\n\nAatapa\n\n- exposure to sunlight and\n\nMaruta - exposure of breeze. 6-6 ½"
+  },
+  {
+    "query": "How do variations in the body's endogenous energetic processes, influenced by different external thermoregulatory modalities and the administration of specific internal oleaginous preparations, impact the efficacy of physiological cleansing procedures designed to modulate gastrointestinal motility and the assimilation of nutrient-derived substrates?",
+    "expected_id": "105d1732-7214-51f1-bbba-177ce2cb913a",
+    "samhita": "Astanga",
+    "strategy": "SYNONYM_TRAP",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "वाततोपमः नेहःवेदः संशोधनं मृदु वादललवणोणान भोयान अयग मदनम् १ वेटनं ासनं सेको मयं षैिटकगौडकम् िनधोणबतयो बितनयमः सुखशीलता २ दपनैः पाचनैः साः नेहाचः अनेकयोनयः वशेषामेय पशतरस तैलानुवासनम् ३"
+  },
+  {
+    "query": "Considering the Astanga's description of Udana Vayu's functions as initiation of speech, effort, enthusiasm, strength, color, complexion, and memory, and the Charaka Samhita's account of Udana's pathological manifestation involving obstruction, upward movement, filling head cavities, causing convulsive movements of the body, jaws, neck, and eyes, and ultimately leading to *kasa* (cough), what subtle physiological or pathological mechanism might explain how Udana Vayu, when obstructed and moving erratically, could simultaneously affect gross motor functions like body convulsions and fine sensory and cognitive functions like memory and complexion?",
+    "expected_id": "3bd9bc16-4a91-558a-82a7-9d31a1cee8f5",
+    "samhita": "Astanga",
+    "strategy": "CROSS_REFERENCE",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "## उरः थानमुदानय नासानाभगलांचरेत् वावृितयनोजाबलवणमृतयः\nThe chest is the seat of Udana, it moves in the nose, umbilicus and throat; its functions are initiation of speech (vak), effort (Prayatna), enthusiasm (Urja), strength (bala) , color, complexion (varna) and memory (smruti) 5",
+    "secondary_expected_id": "701730ef-4710-508e-a5b5-9bac68ef98c2"
+  },
+  {
+    "query": "I read somewhere that there's this special time, Ashvayuja maasa, when the seawater is okay to drink because of this Agastya nakshatra thing, and I was wondering, if this star is supposed to be cleaning up the Earth's poisons, does that mean all water sources become purified and safe to consume during that specific period, or is it just a general blessing for seawaters and what not?",
+    "expected_id": "31e167ad-f7e6-5f50-9ade-c998db00bb8a",
+    "samhita": "Astanga",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "## अयथा सामुं , तन पातयं मासादावयुजावना\nSeawater should not be used for drinking expect during Ashvayuja month. (September. October/autumn season). 3\n\nNotes:During Ashvayuja month  there will be  the appearance of Agastya nakshatra (the star Canopus) which is said to remove the poisonous properties of water and other things of the earth, hence permission to use other kinds of water for drinking during this month."
+  },
+  {
+    "query": "Given the description of cane varieties, how does the sweetness of the juice correlate with the impact of a cane's effect on the body's thermoregulation?",
+    "expected_id": "1414e321-ba63-5a21-8bb0-f3d9fdd9ef1d",
+    "samhita": "Astanga",
+    "strategy": "ADVERSARIAL",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "## शैयसादमाधुयवरतमनु वांशकः\nThe Poundraka variety of cane is best in view of its coolant, effect, thinness and more sweetness of its juice; next to it is the Vamsika variety. 45."
+  },
+  {
+    "query": "Doctor, I'm really struggling. For weeks now, I've been dealing with this constant nausea, like I'm about to throw up, but it never quite happens. And then, on top of that, I've had these fevers that just keep coming and going, never really clearing up. It's exhausting. I also just feel so... sluggish. Like my digestion is completely off. Nothing sits right, and I feel so heavy all the time. Given all this, what could be going on, and what's the reasoning behind any treatments you might suggest, keeping in mind how unsettled my whole system seems?",
+    "expected_id": "130ca9ac-e778-5ccd-8dc1-6f04d020a153",
+    "samhita": "Astanga",
+    "strategy": "CLINICAL_CASE",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "## सतवमथोः पूव ायेणामवरो अप च धूमातैः कमभवयाः , सवरेव वजीणनः\nThose persons enumerated earlier to praskta vamathu and persons who are suffering from recent fevers are generally to be rejected for therapies ending with dhuma, and those suffering from indigestion from all therapies."
+  },
+  {
+    "query": "What are the biomechanical considerations for designing minimally invasive instruments to dislodge solid particulate matter obstructing the pharyngeal lumen, thereby inducing emesis?",
+    "expected_id": "130b5d14-30a8-5df4-a5e7-c40f453c2572",
+    "samhita": "Astanga",
+    "strategy": "SYNONYM_TRAP",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "## के शोदुक े न पीतेन वैः कटकमापेत् सहसा सूबेन वमतः तेन चेतरेत्\nThorn like, hook like bodies - which are in the throat should be removed by inserting a ball of hair fastened with a thread, making the patient vomit the water which he has been made to drink earlier, the foreign body sticking to the ball of hair during vomiting is removed by pulling the thread quickly .\n\nIn the same way hair and other foreign bodies should be removed by making use of the hook. 37"
+  },
+  {
+    "query": "Considering the Astanga's suggestion of using thin bamboo poles for fragile arrow tail ends and Charaka's detailed description of soft plant stalks for probing, under what specific wound conditions, beyond mere fragility, would the Astanga's recommendation be considered a more appropriate, albeit less described, form of 'eshanā' (probing) as per Charaka's principles?",
+    "expected_id": "23162824-7a16-5a66-8d8b-54007c17181e",
+    "samhita": "Astanga",
+    "strategy": "CROSS_REFERENCE",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "## एवं वा शाखायां कपयेतरो बवा दुबलवारगं क ु शाभः शयमाहरेत्\nLikewise, the branches of trees may be made use of; in case of arrows with thin or fragile tail ends, thin bamboo poles can be made use. 31",
+    "secondary_expected_id": "d7cf2f34-d49e-529c-b630-2faee19cd0fc"
+  },
+  {
+    "query": "I read somewhere about preparing a basti, and this text seems to be talking about the specific proportions for a decoction enema, but I'm a bit fuzzy on the exact order of adding things. It mentions honey, salt, fat, Kalkapaste, and decoction... is there a really important reason why the text emphasizes mixing them in successive order, one after the other, and what happens if you don't follow that sequence for the Sneha Basti or Anuvasana Basti preparation?",
+    "expected_id": "3393a25b-05bb-50d6-8285-338bdaad9b88",
+    "samhita": "Astanga",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "## सव तदेकतः\nउणाबुक ु भीबापेण ततं खजसमाहतम् य बतौ णयेपायौ नायुणशीतलम् नातिनधं न वा ं नाततीणं न वा मृदु नातछसां नोनातमां नापटु नात च लवणं तवदलं च\n\nAll these are then mixed together, churned well with a churner and made warm by keeping its container either in hot water or by steam from a pot.\n\nIt should then be filled into the enema bag in that condition, which is neither too hot nor too cold, neither too fatty nor too dry, neither too strong nor mild, neither too thick nor too thin, neither too much nor too less in quantity, neither with too much of salt nor with it is then pushed into the rectum. 41-43\n\nपठयये तु तवदः माां पलकां क ु यानेहमाकयोः पृथक् कषां माणमथय वथे ककपलवयम् सववाणां शेषाणां पलान दश कपयेत्\n\nSome other experts of enema therapy say that the quantity of fats- oil, ghee and honey should be three pala (144 g) individually;\n\nQuantity of Manimantha (Saindhava salt) for healthy will be half a Karsha - 6 grams, the Kalkapaste of drugs be two Pala 96 g and of all the other liquids put together shall be 10Pala- 480  g. 44-44 ½\n\nमाकं लवणं नेहं कक ं  काथमत मात् ॥४५॥ यावपेत नहाणामेष संयोजने वधः।\n\nHoney, salt, fat, paste and decoction are to be mixed in successive order, one after the other; This shall be the method of mixing the materials for decoction enema. 45 ½"
+  },
+  {
+    "query": "How does the seasonal variation in a person's physical strength, as described, correlate with the nutritional content of crops harvested during those same periods?",
+    "expected_id": "036a0dee-fd2f-51c7-832f-b541c89b31d5",
+    "samhita": "Astanga",
+    "strategy": "ADVERSARIAL",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "## शीते अयं , वृ ित घम अपं बलं ,\nमयं तु शेषयो: ।\n\nśīte agryaṃ, vṛṣti gharme alpaṃ balaṃ, madhyaṃ tu śeṣayo: |\n\nWinter - Hemantha and Shishira - mid November - mid March - Highest strength Summer and rainy seasons -  mid May - mid September - Lowest strength Spring and Autumn -  Medium strength."
+  },
+  {
+    "query": "Doctor, I've been having this awful, persistent discomfort. It feels like a constant pressure, almost like something is being pushed or held back internally, making it hard to... well, to relax. And it's not just that. I'm experiencing a strange dryness, a kind of tickling, in my nose, almost like there's something I need to clear out but can't. And my ears... they feel blocked, sometimes with a dull ache, and there's this persistent ringing. It’s affecting my sleep, my mood, everything. I’ve tried so many things, different foods, trying to relax, but nothing seems to touch the root of this. What could be causing all these interconnected issues, this feeling of being constricted and irritated from within? Is there a deeper imbalance causing this?",
+    "expected_id": "44978479-edc2-538e-a042-5dfbbc6f8bc7",
+    "samhita": "Astanga",
+    "strategy": "CLINICAL_CASE",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "## पायावासनदुराथ वे दशावादशागुले\nTwo others Nadi yantra (rod like instruments)- one of 10 and other of12 Angula- in length meant for drawing the rectum near - by closing the things and extending it farther. 34\n\nवे षसतागुले ाणे , वे कण अटनवागुले\n\nTwo other instruments , of six and seven Angula respectively for use in the nose; two of eight and nine Angula for use in the ears."
+  },
+  {
+    "query": "What are the specific biomechanical and physiological manipulations of superficial venous structures that are hypothesized to influence circulatory dynamics and potentially promote therapeutic bloodletting in a pre-existing debilitated state?",
+    "expected_id": "3fc8e2c5-2638-5cfd-9c84-9bb210c03f87",
+    "samhita": "Astanga",
+    "strategy": "SYNONYM_TRAP",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "अथ िनधतनु सजसवपकरणो बल कृ तवययनः िनधरसानभोिजतः अिनतापातपिवनो जानूचासनसंिथतः मृदुपातक े शातो जानुथापतक ू परः मृिटयां वगभायां मये गाढं नपीडयेत् दतपीडनोकास गडामानान चाचरेत् पृ ठतो ययेचैनं वमावेटयनरः कधरायां परय ययातवामतजनीम् एषो अतमुखवयानां सराणां यणे वधः\n\nThe patient who should undergo Snehana procedure. All the necessary equipments should be kept ready. The person should be strong, should perform Auspicious rites and consume meat-juice and boiled rice mixed with ghee, The person should be exposed to sunlight or fire for sweating. He is asked to sit on a stool of the height  of the knee. A band of soft cloth should be tied around his head at the lower border of the hairs; He should keep elbows on his knees, His neck massaged briskly with fists in which pad of cloth is healed; Grinding the teeth, coughing, inflating the mouth to enlarge the cheeks, should also be done his body Trunk should be wound with a band of cloth, controlled - by knots at the  back;\n\nHis neck should also be tied with a band of cloth and  tightened This is the mode of raising the deep seated veins.18-22\n\nततो मयमया अगुया वैयो अगुठवमुतया ताडयेत ्  उिथतां ावा पशावा अगुठपीडनैः कु ठाया लयेमये वामहतगृहतया फलोेशे सुनकपं सरां , तवच मोयेत् ताडयन् पीयंचैनां\n\nThen the physician should tap the raised vein with his middle finger tripped off by the thumb; noticing the elevation, or raising it, once again by kneading it with the thumb; then holding the axe with his left hand, place its edge on the middle portion of the vein and give up in the Axe without Shaking.\n\nAxe should be lifted up in the same way, tapping and kneading the vein for making more blood to come out. 23-24"
+  },
+  {
+    "query": "Considering the Astanga text's emphasis on an elevated neck and face during gargling for Kapha expulsion, and Charaka's directive to cover the eyes during sudation, what specific rationale, if any, underpins the Astanga's implicit omission of eye protection during *gandusha* if symptoms of nasal and ocular secretions are the endpoint, and how does this contrast with Charaka's precautionary approach to the sensitive ocular region during a less externally invasive procedure?",
+    "expected_id": "321a7cd0-d412-59d8-b927-7ead2141cb1a",
+    "samhita": "Astanga",
+    "strategy": "CROSS_REFERENCE",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "नवाते सातपे िवन मृदत कधकधरः १० गडूषमपबन् किजत् उनतायो वधारयेत् गडूषमपबिवधारयेत्\n\nThe person should sit in a place devoid of breeze (Nivata) but in sunlight (Sa Aatapa). His shoulders and neck should be massaged and fomented; Keeping his face slightly lifted up,\n\nकफपूणायता याववाणाताअथवा\n\nhe should hold the liquid in his mouth till the mouth gets filled with Kapha or till the nose and eyes start secreting liquid. 10 - 11.",
+    "secondary_expected_id": "6a963281-0f37-50fc-a0af-578d51b3fd8c"
+  },
+  {
+    "query": "I read somewhere that this Roganutpadaniya Adhyaya talks about aligning with nature's rhythms to prevent vish-like build-up... but I'm trying to recall, does it specifically mention how one might go about noticing and then adapting to, say, subtle atmospheric shifts, or is it more about, like, general daily routines and the seasons and stuff like that, and if it is the latter, does it give any tips on how to discern what *exactly* in those routines might be causing the toxic material accumulation if one feels off?",
+    "expected_id": "4781ae74-17a1-5612-b0f7-bf6f48520961",
+    "samhita": "Astanga",
+    "strategy": "IMPERFECT_SCHOLAR",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "The fourth chapter of Astanga Hridaya is called as Roganutpadaniya Adhyaya - Preventive healthcare tips. it explains the method of adjusting the body to the natural signs so as to avoid toxic material accumulation and onset of disease process."
+  },
+  {
+    "query": "How does the Drava quality of liquid elements contribute to the Prahlada quality of Apya Dravya, and what are the implications for dietary choices during warmer seasons?",
+    "expected_id": "15133f7d-99b6-55e2-89fb-4ccf5bdddbc7",
+    "samhita": "Astanga",
+    "strategy": "ADVERSARIAL",
+    "level": "verse",
+    "method": "gemini_generation",
+    "ground_truth_context": "## व शीत गु िनध मद सा रसोबणम् ६ आयं नेहन वयद लेद लाद बधकृत्\nLiquid element has Drava (liquidity), Sheeta (cold), Guru (Heavy to digest), Snigdha (unctuous, oily, moisture), Manda (dull), Sandra (thickness, dense) and rasa (taste) qualities. Substances containing liquid as predominant element (Apya Dravya) have Snehana (lubrication, moistness), Avishyanda (secretion, moisture, production), Kleda (wetness), Prahlada (satiation, contentment, satisfaction) and Bandhakrut (cohesion, binding, holding together) qualities. 6.\n\nAgneya Dravya Laksana - (qualities of Agneya substances) :-"
   }
 ]

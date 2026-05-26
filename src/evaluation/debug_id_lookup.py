@@ -1,4 +1,5 @@
 import os
+import sys
 from qdrant_client import QdrantClient
 from rich.console import Console
 from rich.panel import Panel
@@ -9,8 +10,6 @@ COLLECTION_NAME = "ayurveda_rag"
 
 console = Console()
 client = QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)
-
-TARGET_ID = "3981f3cd-c950-574d-a1c8-b321db690504"
 
 def find_chunk_and_context(chunk_id: str):
     console.print(f"[cyan]Retrieving chunk {chunk_id}...")
@@ -62,4 +61,9 @@ def find_chunk_and_context(chunk_id: str):
             console.print(f"  [dim]{snippet}...[/]")
 
 if __name__ == "__main__":
-    find_chunk_and_context(TARGET_ID)
+    if len(sys.argv) < 2:
+        console.print("[bold red]Usage: python debug_id_lookup.py <source_id>[/]")
+        sys.exit(1)
+        
+    target_id = sys.argv[1]
+    find_chunk_and_context(target_id)

@@ -49,16 +49,39 @@ class LocalEmbeddingsWrapper(Embeddings):
 class RobustGeminiLLM(_LangchainLLMWrapper):
     """Wrapper to catch and repair common Gemini output parsing errors."""
     def generate_text(self, prompt: Any, n: int = 1, temperature: float = 1e-8) -> Any:
-        try:
-            # Try standard generation
-            return super().generate_text(prompt, n, temperature)
-        except Exception as e:
-            err_msg = str(e).lower()
-            if "text" in err_msg or "outputparserexception" in err_msg:
-                logger.warning(f"Repairing LLM judge output for parsing error: {e}")
-                # Fallback: Retry with slightly higher temperature
-                return super().generate_text(prompt, n, temperature=0.2)
-            raise e
+        import time
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                res = super().generate_text(prompt, n, temperature)
+                
+                # REPAIR LOGIC: Clean response text for Pydantic
+                if hasattr(res, 'generations') and res.generations:
+                    for gen_list in res.generations:
+                        for gen in gen_list:
+                            # Remove markdown code blocks if present
+                            text = gen.text.strip()
+                            if text.startswith("```json"):
+                                text = text[7:]
+                            if text.endswith("```"):
+                                text = text[:-3]
+                            gen.text = text.strip()
+                return res
+                
+            except Exception as e:
+                err_msg = str(e).lower()
+                if "503" in err_msg or "rate_limit" in err_msg or "overloaded" in err_msg:
+                    wait_time = (attempt + 1) * 5
+                    logger.warning(f"Gemini API Overloaded (503). Retrying in {wait_time}s... (Attempt {attempt+1}/{max_retries})")
+                    time.sleep(wait_time)
+                    continue
+                    
+                if "text" in err_msg or "outputparserexception" in err_msg:
+                    logger.warning(f"Repairing LLM judge output for parsing error: {e}")
+                    temperature = 0.1 # Slight jitter to force fresh JSON structure
+                    continue
+                raise e
+        return super().generate_text(prompt, n, temperature)
 
 def run_ragas_evaluation(engine, gold_dataset_path: str):
     """Runs Ragas evaluation (Context Precision/Recall) using Gemini 2.5-flash-lite."""
@@ -95,24 +118,31 @@ def run_ragas_evaluation(engine, gold_dataset_path: str):
         
         for item in gold_data:
             query = item.get("query")
-            ground_truth = item.get("evaluation_benchmark", "") 
+            # FIX: dataset.json uses 'ground_truth_context'
+            ground_truth = item.get("ground_truth_context", "") 
             
             progress.update(task, description=f"[cyan]Ragas Loop:[/] [dim]{query[:50]}...[/]")
             
             try:
-                # Perform full agentic search (returns (hit_dicts, answer))
-                results, answer = engine.search(query, top_k=5)
+                # Perform full agentic search
+                search_output = engine.search(query, top_n=5)
                 
-                # Robust extraction
+                if isinstance(search_output, tuple):
+                    results, answer = search_output
+                else:
+                    results, answer = search_output, "NO_ANSWER_PROVIDED"
+                
+                # Context Formatting: Pure text for string matching metrics
                 contexts = []
                 for res in results:
                     text = res.get('text') or res.get('metadata', {}).get('content') or str(res)
-                    contexts.append(text)
+                    contexts.append(text.strip())
                 
-                data_samples["question"].append(query)
-                data_samples["contexts"].append(contexts)
-                data_samples["answer"].append(answer or "NO_ANSWER_GENERATED")
-                data_samples["ground_truth"].append(ground_truth)
+                if contexts:
+                    data_samples["question"].append(query)
+                    data_samples["contexts"].append(contexts)
+                    data_samples["answer"].append(answer or "NO_ANSWER_GENERATED")
+                    data_samples["ground_truth"].append(ground_truth)
             except Exception as e:
                 logger.error(f"Error gathering agent response for query '{query}': {e}")
             
@@ -122,7 +152,6 @@ def run_ragas_evaluation(engine, gold_dataset_path: str):
         logger.warning("No samples gathered for Ragas evaluation.")
         return
 
-    # Convert to HuggingFace Dataset
     dataset = Dataset.from_dict(data_samples)
 
     console.print("[bold blue]▶ Sending to Ragas (LLM-as-a-Judge)...[/] [dim](Evaluating Context + Synthesis)[/]")
@@ -139,7 +168,7 @@ def run_ragas_evaluation(engine, gold_dataset_path: str):
             model="gemini-2.5-flash-lite",
             google_api_key=api_key,
             temperature=0,
-            max_retries=10
+            max_retries=15 # Aggressive retries for 503 errors
         )
         
         # Wrap for Ragas
