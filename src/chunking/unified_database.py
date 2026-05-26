@@ -146,6 +146,29 @@ class AyurvedaDatabaseManager:
         
         print(f"✔ Successfully uploaded {len(chunks)} chunks from {source_treatise}.")
 
+if __name__ == "__main__":
+    import json
+    
+    manager = AyurvedaDatabaseManager()
+    
+    books = ["charak_samhita", "shusrut_samhita", "astanga_hridaya"]
+    
+    for book in books:
+        jsonl_path = os.path.join("processed-books", book, "vectors.jsonl")
+        if not os.path.exists(jsonl_path):
+            print(f"Skipping {book}: {jsonl_path} not found.")
+            continue
+            
+        print(f"Loading chunks for {book}...")
+        chunks = []
+        with open(jsonl_path, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    chunks.append(json.loads(line))
+        
+        if chunks:
+            manager.upload_chunks(chunks, book)
+
 def upload_to_qdrant(chunks: List[Dict[str, Any]], source_treatise: str, model: Any = None):
     manager = AyurvedaDatabaseManager(dense_model=model)
     manager.upload_chunks(chunks, source_treatise)
