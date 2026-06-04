@@ -16,14 +16,24 @@
                              v
               +------------------------------+
               |     AyurvedaRetriever        |
-              |  (LLM Agent w/ Routing Hint) |
-              +------------------------------+
+              |  (Vaidya Agent w/ Mandate)   |
+              | - Query Decomposition        |
+              | - Quote Sanskrit Verbatim    |
+              +--------------+---------------+
                              |
-                             v
-              +------------------------------+
-              |  AyurvedaSearchEngine        |
-              |  hybrid_search(text_query)   |
-              +------------------------------+
+              +--------------+---------------+
+              |              |               |
+              v              v               v
+     +----------------+ +----------------+ +------------------+
+     | Neo4jGraphTool | | lookup_glossary| | search_treatises |
+     | (Clinical Fact)| | (Term Map)     | | (Text Search)    |
+     +----------------+ +----------------+ +--------+---------+
+                                                    |
+                                                    v
+                                      +------------------------------+
+                                      |  AyurvedaSearchEngine        |
+                                      |  hybrid_search(text_query)   |
+                                      +------------------------------+
                              |
               +--------------+---------------+
               |              |               |
@@ -91,7 +101,7 @@ Before hitting the vector database, the query is pre-processed by `AyurvedaRoute
    - `technical_terms`: Core Sanskrit terms.
    - `treatise_preference`: Implied Samhita preference.
 
-The Router generates "Routing Advice" which is injected into the Vaidya Agent's system prompt. The Agent then uses these parameters when calling the `search_treatises` tool to apply strict Qdrant `models.Filter` conditions (e.g., locking search to `source_treatise="shusrut_samhita"`).
+The Router generates "Routing Advice" which is injected into the Vaidya Agent's system prompt. The Agent then uses these parameters when calling the `search_treatises` tool to apply strict Qdrant `models.Filter` conditions (e.g., locking search to `source="shusrut_samhita"`).
 
 ## Hybrid Search Construction
 
@@ -148,7 +158,7 @@ candidate_texts = [f"[Source: {p.payload.get('source')}] Content: {p.payload.get
 rerank_scores = self.model.rerank(text_query, candidate_texts)
 ```
 
-The reranker is **BAAI/bge-reranker-base** running on the GPU sidecar. Cross-encoders process the query and chunk *together*, scoring their exact logical relationship, dramatically boosting Context Precision.
+The reranker is **BAAI/bge-reranker-base** running on the GPU sidecar. It reranks the full pool of 400 candidates to maximize the chance of finding specific verse IDs.
 
 ### Scoring and MMR
 
@@ -156,7 +166,7 @@ The reranker is **BAAI/bge-reranker-base** running on the GPU sidecar. Cross-enc
 boosted_score = np.exp(raw_score * 3.0)
 ```
 The raw cross-encoder score is exponentially boosted to widen the margins for the LLM agent. 
-An MMR (Maximal Marginal Relevance) diversity filter (`lambda=0.7`) is then applied to ensure the Top 5 results are not mathematically redundant (e.g., heavily penalizing chunks from the exact same chapter if they overlap too much).
+An MMR (Maximal Marginal Relevance) diversity filter (`lambda=0.8`) is then applied to ensure the Top 5 results are not redundant while prioritizing raw similarity for scholarly accuracy.
 
 ## Agent's Use of Retrieval Results
 

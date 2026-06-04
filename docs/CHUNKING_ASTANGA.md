@@ -38,6 +38,11 @@ The file is structured as a Markdown document with `##` headings:
 
 ### Line Processing Rules
 
+**Rule 0 — specialized Cleaning**:
+Every line is passed through `AshtangaCleaner` which:
+- Restores phonemes: `Vaata` -> `Vata`, `vitiation` -> `vitiation (dosa-vaishamya)`.
+- Strips noise: Removes bracketed notes `[...]`, `astanga-hridaya.md` filename leakage, and `(English Translation)` labels.
+
 **Rule 1 — Chapter Boundary**:
 Regex: `r'^## Chapter (\d+)[ :]*(.*)'`
 When matched:
@@ -52,6 +57,7 @@ If a `##` heading is Devanagari (detected by `is_devanagari()` with threshold > 
 
 **Rule 3 — English Section Headings**:
 If a `##` heading is NOT Devanagari (i.e., Roman/Latin script):
+- **Bilingual Pairing Logic**: Before starting a new section, the parser checks if the previous chunk was a Sanskrit-only verse. If so, and the current buffer is English, it merges them into a single `bilingual` chunk instead of creating a new one.
 - Flush the current section buffer.
 - Start a new section with `id = generate_stable_id(f"ch_{num}_{title}")`.
 - Generate a **virtual glossary stub** (see below).
@@ -80,6 +86,7 @@ Created by `create_section_chunk()`:
 | `metadata.verse_start` | float or None — extracted from section title via `extract_verse_numbers()` |
 | `metadata.verse_end` | float or None |
 | `metadata.has_sanskrit` | bool — `is_devanagari(content)` |
+| `metadata.linguistic_type` | `"sanskrit_only"`, `"english_only"`, or `"bilingual"` |
 | `metadata.word_count` | int |
 
 ### Virtual Glossary (Header Promotion)

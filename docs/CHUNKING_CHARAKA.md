@@ -34,6 +34,7 @@ The parser receives individual JSON files from `books/charak_samhita/`. Each fil
 
 `CharakaParser.__init__()` calls `self.hierarchy.pre_scan()` which:
 
+0. **Administrative Filtering**: Skips 12+ administrative/meta files (e.g., `Donate.json`, `Guidelines for writing.json`, `Main Page.json`).
 1. Reads `*Abstracts*` JSON files to build `toc_map` — maps normalized page titles to sthana IDs.
 2. Reads ALL JSON files to build `affinity_map` using link-affinity scoring:
    - **Admin keywords** (`Contributors`, `Project`, `Guidelines`, etc.) → mapped to `meta_hub_id`.
@@ -81,8 +82,9 @@ Then `main.py::main()` calls `registry.register(data["title"], data["url"])` for
 
 **Chapter pages** (`parse_chapter`):
 - Creates a **chapter root chunk** with either the Abstract content (between "Abstract\n\n" and "\n\nKeywords") or a placeholder.
-- Extracts **verse chunks** using regex `([\u0900-\u097F]{10,}.*?\[(\d+[-–\d,\s]*)\])(?=\n\n|$)`.
-- Each verse chunk has `TYPE_VERSE` with metadata: `verse_ref`, `sanskrit_count` (number of Sanskrit blocks), `is_tripartite` (if contains both `||` and `[`).
+- Extracts **verse chunks** using regex `([\u0900-\u097F]{10,}.*?\[(\d+[-–\d,\s]*)\](.*?))(?=\n\n[\u0900-\u097F]|$)`.
+- **Bilingual Pairing**: The regex now captures the subsequent English translation block immediately following the Sanskrit shloka to prevent fragmentation.
+- Each verse chunk has `TYPE_VERSE` with metadata: `verse_ref`, `sanskrit_count`, `is_tripartite`, and `linguistic_type: "bilingual"`.
 
 ### Chunk Metadata Fields
 

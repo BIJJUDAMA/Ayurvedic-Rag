@@ -3,17 +3,22 @@
 ## 1. Document Ingestion Flow (Raw Text to Stored Vector Point)
 
 ```
+Step 0  Phase 0: Knowledge Graph Ingestion (src/pre_processing/graph_ingest.py)
+          - Executes cypher-shell inside Neo4j container.
+          - Ingests graph_nodes.csv and graph_edges.csv into Neo4j.
+          - Establishes clinical relationships (INGREDIENT_OF, TREATMENT_FOR).
+
 Step 1  src/chunking/<samhita>/main.py::main()
           Opens raw source file from books/<treatise>/ directory.
           For Charaka: iterates over *.json files, loads each.
           For Susruta/Astanga: opens .md file, reads lines.
 
 Step 2  Parser class/function
-          Charaka:  CharakaParser.parse(data)
+          Charaka:  CharakaParser.parse(data) [Bilingual Pairing]
           Susruta:  parse_shusrut_samhita(file_path)
-          Astanga:  parse_astanga_hridaya(file_path)
+          Astanga:  parse_astanga_hridaya(file_path) [Bilingual Pairing]
           Returns List[Dict] with keys: id, level, parent_id, content, 
-          metadata, prev_id, next_id.
+          metadata (linguistic_type, adhikarana), prev_id, next_id.
 
 Step 3  main.py calls book workers (Phase 1-3)
           Generates artifacts in processed-books/<treatise>/
@@ -22,10 +27,11 @@ Step 3  main.py calls book workers (Phase 1-3)
 
 Step 4  Phase 4: Semantic Cross-Linking (src/chunking/cross_linker.py)
           a) Loads all vectors.jsonl files.
-          b) Extracts technical terms from glossary stubs and metadata.
-          c) Builds inverted index: term -> [node_ids].
-          d) Injects 'related_nodes' into chunk metadata sharing the same terms.
-          e) Overwrites vectors.jsonl with enriched metadata.
+          b) Loads graph entities from graph/data/graph_nodes.csv.
+          c) Internal Linking: term-to-id inverted index.
+          d) Neo4j Linking: Scans content/titles for clinical entity names.
+          e) Injects 'related_nodes' AND 'neo4j_entities' (IDs) into metadata.
+          f) Overwrites vectors.jsonl with enriched metadata.
 
 Step 5  Phase 5: Unified Upload (src/chunking/uploader.py)
           AyurvedaUploader.upload_book(book_dir):
@@ -57,15 +63,16 @@ Step 1  src/retriever/vaidya_engine.py::AyurvedaRetriever.generate_answer(query)
           Calls AyurvedaRouter.route(query) to analyze query intent.
 
 Step 2  AyurvedaRouter Analysis
-          a) Extracts direct citations (e.g. CS Su 1.1)
+          a) Extracts direct citations.
           b) Uses LLM (gemini-2.5-flash-lite) to extract intent (Chikitsa, Nidana, etc.)
           c) Extracts technical_terms (Sanskrit core concepts)
-          d) Determines treatise_preference
-          e) Returns structured routing advice.
+          d) Detects clinical_entities (MANDATORY_GRAPH_LOOKUP trigger).
 
-Step 3  Agent receives routing advice, calls search_treatises(query, intent, treatise)
-          Inside AyurvedaRetriever.search_treatises():
-            Calls AyurvedaSearchEngine.hybrid_search(original_query, ...)
+Step 3  Agentic Execution (Siddhanta-Pramana Handshake)
+          a) MANDATORY: Call query_knowledge_graph(entity_name) to get Canonical ID.
+          b) SEARCH: Call search_treatises(query) using canonical terms.
+          c) PIVOT: Cross-reference 'metadata.neo4j_entities' with Graph ID.
+             - Match = Signal; No-Match = Linguistic Noise.
 
 Step 4  AyurvedaSearchEngine.hybrid_search(text_query):
           a) query_prefix = "query: "
@@ -82,17 +89,16 @@ Step 5  Qdrant client.query_points():
             (query=sparse_vec, using="sparse_splade", limit=50)
           ]
           query = FusionQuery(fusion=RRF)
-          limit = 400 (broad candidate pool for reranker)
-          (treatise_filter and intent filters applied to all prefetches if provided)
+          limit = 400 (Full candidate pool for expert reranking)
 
 Step 6  Reranking via RemoteEmbedder.rerank(text_query, candidate_texts):
           candidate_texts = ["[Source: X] Content: Y" for each candidate]
-          scores = BGE CrossEncoder predict
+          scores = BGE CrossEncoder (reranks all 400 candidates)
 
 Step 7  Score Boosting & Filtering
           boosted_score = np.exp(raw_score * 3.0)
-          Sort descending, take top_k * 2
-          Apply MMR (Maximal Marginal Relevance) diversity filter -> Top 5
+          Sort descending, take top_k * 4
+          Apply MMR (Maximal Marginal Relevance) lambda=0.8 (Precision-biased) -> Top 5
 ```
 
 ## 3. Agent Reasoning Flow (Retrieved Chunks to Final Answer)
@@ -100,23 +106,20 @@ Step 7  Score Boosting & Filtering
 ```
 Step 1  AyurvedaRetriever.generate_answer(query):
           Creates chat with Gemini, exposes tools
-          system_instruction = "Vaidya - senior Ayurvedic scholar, Tikakara..." + routing_advice
+          system_instruction = "Vaidya - Siddhanta-Pramana Workflow..."
 
 Step 2  Gemini 2.5-flash-lite agentic loop:
-          a) Reads routing advice (e.g. "Focus on Chikitsa contexts", "DIRECT CITATION DETECTED")
-          b) If query is descriptive English -> MUST call lookup_glossary first
-          c) Once Sanskrit term resolved -> call search_treatises with intent/treatise filters
-          d) Check HIERARCHICAL_PATH and VERSE_CONTENT of results
-          e) If anaphoric verses -> call get_verse_context
-          f) After tool returns, agent decides if sufficient or needs more search
+          a) Establish Siddhanta: call query_knowledge_graph.
+          b) Find Pramana: call search_treatises using Graph facts.
+          c) Use 'stub_glossary' as Definition Anchors (Final Heading).
+          d) Graph-Verse Validation: Flag "Textual Gaps" if Graph fact isn't in Verse.
+          e) Relational Hopping: Traverses INGREDIENT_OF links to find related verses.
 
-Step 3  Synthesis into Siddhanta format:
-          - PRIMARY VERSE: Sanskrit + English
-          - CORE PRINCIPLE: Grounded answer
-          - CITATION: Treatise.Sthana.Chapter/Verse
-          - CLASSICAL CONTEXT: Adhikarana explanation
-          - CROSS-SAMHITA VIEW: Contrast if multiple treatises
-          - LIMITATIONS: Parts not found in texts
+Step 3  Synthesis into Scholarly Siddhanta format:
+          - HEADING: Canonical Definition from stub_glossary
+          - SIDDHANTA: Validated facts from Neo4j (Dosage, Ingredients)
+          - PRAMANA: Sanskrit Shloka + English Translation (Matching IDs)
+          - VALIDATION: Explicit "Siddhanta-Pramana Samyoga" statement.
 
 Step 4  Return (sorted_hits, answer_text)
 

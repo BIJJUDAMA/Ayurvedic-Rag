@@ -52,7 +52,10 @@ States:
 
 1. **FRONTMATTER**: Collects all lines until a `CHAPTER` header is detected. The `intro_buffer` accumulates introductory text.
 
-2. **CHAPTER_HEADER** → **CHAPTER_PREAMBLE**: Triggered when a line matches `CHAPTER [WORD] NIDÃNA-STHANA` or `CHAPTER [WORD] NIDANA STHANA`. The chapter number is extracted from the word (e.g., "One"→1, "Two"→2, etc. via `num_map`) or digits. `"THUS ENDS"` lines are skipped. State becomes `CHAPTER_HEADER`, then immediately checks for transitions.
+2. **CHAPTER_HEADER** → **CHAPTER_PREAMBLE**: Triggered when a line matches `CHAPTER [WORD] NIDÃNA-STHANA` or `CHAPTER [WORD] NIDANA STHANA`.
+   - **Image Metadata Extraction**: If `base64` image strings are detected, their surrounding captions/alt-text are extracted into chapter metadata before stripping.
+   - **Keyword Preservation**: Keywords from the "SUGGESTED RESEARCH PROBLEMS" section are extracted and tagged to the chapter as `research_keywords` for query expansion.
+   - The chapter number is extracted from the word (e.g., "One"→1, "Two"→2, etc. via `num_map`) or digits. `"THUS ENDS"` lines are skipped. State becomes `CHAPTER_HEADER`, then immediately checks for transitions.
 
 3. **CHAPTER_PREAMBLE**: Triggered by `## SUMMARY`. Lines are collected in `summary_buffer`. Transition to `CHAPTER_BODY` occurs when a section heading or `## Chapter` line is detected.
 
