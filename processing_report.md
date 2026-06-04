@@ -8,7 +8,6 @@ This report summarizes the cleaning process and measures information retention u
 | Charaka | Abhava.json | 0.9746 | 9.79% | OK |
 | Charaka | Abhaya.json | 0.9757 | 5.9% | OK |
 | Charaka | Abhyanga.json | 1.0 | 0.0% | OK |
-| Charaka | About the Project.json | 0.9771 | 3.07% | OK |
 | Charaka | Abstinence.json | 1.0 | 0.0% | OK |
 | Charaka | Abstracts - Sutra Sthana.json | 0.9994 | 1.65% | OK |
 | Charaka | Abstracts - Vimana Sthana.json | 0.9933 | 5.92% | OK |
@@ -146,7 +145,6 @@ This report summarizes the cleaning process and measures information retention u
 | Charaka | Contents under development.json | 1.0 | 0.0% | OK |
 | Charaka | Contraceptives.json | **0.6172** | 35.84% | OK |
 | Charaka | Contribute to the Charak Samhita New Edition Project.json | 0.9926 | 2.14% | OK |
-| Charaka | Contributors.json | 0.9825 | 7.18% | OK |
 | Charaka | Dadhi.json | 1.0 | 0.0% | OK |
 | Charaka | Dadima.json | 0.9755 | 5.88% | OK |
 | Charaka | Dakshinayana.json | 1.0 | 0.0% | OK |
@@ -172,7 +170,6 @@ This report summarizes the cleaning process and measures information retention u
 | Charaka | Dinacharya.json | 0.9462 | 18.11% | OK |
 | Charaka | Disha.json | 0.9695 | 15.76% | OK |
 | Charaka | Dnyana.json | 1.0 | 0.0% | OK |
-| Charaka | Donate.json | 0.9495 | 8.54% | OK |
 | Charaka | Doota.json | 1.0 | 0.0% | OK |
 | Charaka | Dosha.json | 0.9772 | 14.27% | OK |
 | Charaka | Draksha.json | 0.9757 | 5.88% | OK |
@@ -206,7 +203,6 @@ This report summarizes the cleaning process and measures information retention u
 | Charaka | Guda.json | 1.0 | 0.0% | OK |
 | Charaka | Guduchi.json | 0.9984 | 1.05% | OK |
 | Charaka | Guggulu.json | 0.9773 | 5.16% | OK |
-| Charaka | Guidelines for writing.json | 0.9997 | 0.3% | OK |
 | Charaka | Gulma Chikitsa.json | 1.0 | 0.22% | OK |
 | Charaka | Gulma Nidana Adhyaya.json | 1.0 | 0.0% | OK |
 | Charaka | Gulma Nidana.json | 0.9996 | 1.84% | OK |
@@ -308,7 +304,6 @@ This report summarizes the cleaning process and measures information retention u
 | Charaka | Mahasneha.json | 1.0 | 0.0% | OK |
 | Charaka | Mahat.json | 1.0 | 0.0% | OK |
 | Charaka | Mahatigarbhavakranti Sharira.json | 1.0 | 0.11% | OK |
-| Charaka | Main Page.json | 0.9847 | 7.51% | OK |
 | Charaka | Majja dhatu.json | 0.9842 | 12.83% | OK |
 | Charaka | Majja.json | 1.0 | 0.0% | OK |
 | Charaka | Mala.json | 0.9763 | 10.29% | OK |
@@ -411,7 +406,6 @@ This report summarizes the cleaning process and measures information retention u
 | Charaka | Prashamana.json | 1.0 | 0.0% | OK |
 | Charaka | Prasrita Yogiyam Siddhi.json | 0.9327 | 10.27% | OK |
 | Charaka | Pratyaksha pramana.json | 0.9668 | 11.26% | OK |
-| Charaka | Preface- Charak Samhita New Edition.json | 0.998 | 0.74% | OK |
 | Charaka | Prenatal care _garbhini paricharya_.json | 0.9692 | 14.14% | OK |
 | Charaka | Prithvi mahabhuta.json | **0.8904** | 25.44% | OK |
 | Charaka | Psychiatric diseases.json | 0.9965 | 1.87% | OK |
@@ -439,7 +433,6 @@ This report summarizes the cleaning process and measures information retention u
 | Charaka | Rashi.json | 1.0 | 0.0% | OK |
 | Charaka | Rashipurusha.json | 1.0 | 0.0% | OK |
 | Charaka | Rasna.json | 0.9764 | 5.46% | OK |
-| Charaka | Referencing guidelines.json | 0.9991 | 1.45% | OK |
 | Charaka | Rheumatic diseases.json | 0.9845 | 4.37% | OK |
 | Charaka | Rishbhaka.json | 0.9745 | 6.28% | OK |
 | Charaka | Ritu.json | 1.0 | 0.0% | OK |
@@ -642,8 +635,7 @@ This report summarizes the cleaning process and measures information retention u
 | Charaka | Yashtimadhu.json | 0.9755 | 5.76% | OK |
 | Charaka | Yasyashyavanimittiyam Indriyam Adhyaya.json | 0.9978 | 4.44% | OK |
 | Charaka | Yava.json | 0.9755 | 6.07% | OK |
-| Charaka | Yogesh Deole.json | 1.0 | 0.0% | OK |
 | Charaka | Yonivyapat Chikitsa.json | 1.0 | 0.67% | OK |
 | Charaka | Yukti pramana.json | 0.9703 | 17.47% | OK |
 | shusrut_samhita | Shusrut_Samhita.md | **0.2422** | 98.21% | OK |
-| astanga_hridaya | astanga-hridaya.md | 0.9999 | 33.43% | OK |
+| astanga_hridaya | astanga-hridaya.md | 0.9999 | 35.47% | OK |

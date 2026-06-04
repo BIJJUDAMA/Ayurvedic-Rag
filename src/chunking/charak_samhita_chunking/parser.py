@@ -302,8 +302,8 @@ class CharakaParser:
             chunks.append(self.create_chunk(cid, TYPE_CHAPTER, title, f"Chapter: {title}", data, parent_id=sthana_parent_id))
             chapter_root_id = chunks[-1]["id"]
 
-        # Parse verses (Devanagari blocks with bracketed numbers)
-        verse_pattern = re.compile(r'([\u0900-\u097F]{10,}.*?\[(\d+[-–\d,\s]*)\])(?=\n\n|$)', re.DOTALL)
+        # Parse verses (Bilingual chunks: Sanskrit + English translation)
+        verse_pattern = re.compile(r'([\u0900-\u097F]{10,}.*?\[(\d+[-–\d,\s]*)\](.*?))(?=\n\n[\u0900-\u097F]|$)', re.DOTALL)
         matches = list(verse_pattern.finditer(text))
         for match in matches:
             verse_content = match.group(1).strip()
@@ -319,7 +319,8 @@ class CharakaParser:
                 {
                     "verse_ref": verse_ref,
                     "sanskrit_count": len(sanskrit_parts),
-                    "is_tripartite": "||" in verse_content and "[" in verse_content
+                    "is_tripartite": "||" in verse_content and "[" in verse_content,
+                    "linguistic_type": "bilingual"
                 },
                 parent_id=chapter_root_id
             ))

@@ -1,13 +1,13 @@
 import json
 import os
 from .parser import parse_astanga_hridaya
-from .config import FILE_PATH, SOURCE_TREATISE
+from .config import FILE_PATH, SOURCE
 
 def main(model=None):
     print("Starting Astanga Hridaya worker...")
     chunks = parse_astanga_hridaya(FILE_PATH)
     
-    output_dir = os.path.join("processed-books", SOURCE_TREATISE)
+    output_dir = os.path.join("processed-books", SOURCE)
     os.makedirs(output_dir, exist_ok=True)
     
     # 1. Write Canonical Markdown

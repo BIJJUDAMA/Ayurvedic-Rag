@@ -3,7 +3,7 @@ import os
 # --- Configuration ---
 FILE_PATH = "books/astanga_hridaya/astanga-hridaya.md"
 COLLECTION_NAME = "ayurveda_samhitas"
-SOURCE_TREATISE = "astanga_hridaya"
+SOURCE = "astanga_hridaya"
 QDRANT_HOST = "localhost"
 QDRANT_PORT = 6333
 

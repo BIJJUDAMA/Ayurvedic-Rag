@@ -28,14 +28,26 @@ class AyurvedaUploader:
                 self.client.create_collection(
                     collection_name=self.collection_name,
                     vectors_config={
-                        "dense_english": models.VectorParams(size=1024, distance=models.Distance.COSINE),
-                        "dense_sanskrit": models.VectorParams(size=1024, distance=models.Distance.COSINE),
+                        "dense_english": models.VectorParams(
+                            size=1024, 
+                            distance=models.Distance.COSINE,
+                            on_disk=True # Enable Memory Mapping for RAM efficiency
+                        ),
+                        "dense_sanskrit": models.VectorParams(
+                            size=1024, 
+                            distance=models.Distance.COSINE,
+                            on_disk=True
+                        ),
                     },
                     sparse_vectors_config={
-                        "sparse_splade": models.SparseVectorParams()
+                        "sparse_splade": models.SparseVectorParams(
+                            index=models.SparseIndexParams(
+                                on_disk=True
+                            )
+                        )
                     }
                 )
-                print(f" [OK] Collection '{self.collection_name}' created.")
+                print(f" [OK] Collection '{self.collection_name}' created with On-Disk Memmap enabled.")
             else:
                 print(f"Collection '{self.collection_name}' already exists.")
             

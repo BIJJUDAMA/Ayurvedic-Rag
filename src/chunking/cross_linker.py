@@ -1,5 +1,6 @@
 import json
 import os
+import csv
 from typing import List, Dict, Any
 
 def load_jsonl(path: str) -> List[Dict[str, Any]]:
@@ -11,10 +12,31 @@ def save_jsonl(path: str, data: List[Dict[str, Any]]):
         for item in data:
             f.write(json.dumps(item) + "\n")
 
+def load_graph_entities() -> Dict[str, str]:
+    """Loads entities from Neo4j CSV for cross-referencing."""
+    nodes_path = os.path.join("graph", "data", "graph_nodes.csv")
+    if not os.path.exists(nodes_path):
+        print(f"Warning: Graph nodes not found at {nodes_path}")
+        return {}
+    
+    entities = {} # name.lower() -> id
+    try:
+        with open(nodes_path, mode='r', encoding='utf-8-sig') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                name = row['name'].lower()
+                entities[name] = row['id']
+    except Exception as e:
+        print(f"Error loading graph entities: {e}")
+    return entities
+
 def cross_link():
     books = ["charak_samhita", "shusrut_samhita", "astanga_hridaya"]
     all_data = {}
     term_to_ids = {}
+
+    graph_entities = load_graph_entities()
+    print(f"Loaded {len(graph_entities)} clinical entities from knowledge graph.")
 
     print("Loading data and indexing terms...")
     for book in books:
@@ -48,7 +70,7 @@ def cross_link():
             node_id = chunk["id"]
             related = set()
             
-            # Find terms associated with this chunk
+            # 1. Internal Cross-Linker (Term-based)
             chunk_terms = set()
             if chunk.get("level") in ["stub_glossary", "stub_botanical"]:
                 chunk_terms.add(chunk["title"].lower())
@@ -58,15 +80,34 @@ def cross_link():
                 chunk_terms.add(t.lower())
                 
             for term in chunk_terms:
-                # Add all other nodes sharing this term
                 for other_id in term_to_ids.get(term, []):
                     if other_id != node_id:
                         related.add(other_id)
             
             if related:
-                if "metadata" not in chunk:
-                    chunk["metadata"] = {}
+                if "metadata" not in chunk: chunk["metadata"] = {}
                 chunk["metadata"]["related_nodes"] = list(related)
+
+            # 2. Knowledge Graph Linker (Entity-based)
+            neo4j_links = []
+            content_lower = chunk.get("content", "").lower()
+            title_lower = chunk.get("title", "").lower()
+            
+            # Check tech terms first (high precision)
+            for t in meta_terms:
+                t_low = t.lower()
+                if t_low in graph_entities:
+                    neo4j_links.append(graph_entities[t_low])
+            
+            # Scan content (high recall)
+            for ent_name, ent_id in graph_entities.items():
+                if len(ent_name) > 5: # Only scan longer names to avoid false positives in text
+                    if ent_name in content_lower or ent_name in title_lower:
+                        neo4j_links.append(ent_id)
+            
+            if neo4j_links:
+                if "metadata" not in chunk: chunk["metadata"] = {}
+                chunk["metadata"]["neo4j_entities"] = list(set(neo4j_links))
 
     print("Saving enriched artifacts...")
     for book, chunks in all_data.items():

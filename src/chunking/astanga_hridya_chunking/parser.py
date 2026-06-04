@@ -18,6 +18,7 @@ def create_verse_chunk(section_id, chapter_id, ch_num, ch_title, sec_title, buff
     if not content: return None
     
     verse_id = generate_stable_id(f"verse_{section_id}_{verse_idx}")
+    has_sanskrit = is_devanagari(content)
     return {
         "id": verse_id,
         "level": "verse",
@@ -28,7 +29,8 @@ def create_verse_chunk(section_id, chapter_id, ch_num, ch_title, sec_title, buff
             "chapter_number": ch_num,
             "chapter_title": ch_title,
             "section_title": sec_title,
-            "has_sanskrit": is_devanagari(content),
+            "has_sanskrit": has_sanskrit,
+            "linguistic_type": "sanskrit_only" if has_sanskrit else "english_only",
             "word_count": len(content.split())
         }
     }
@@ -99,9 +101,37 @@ def parse_astanga_hridaya(file_path: str) -> List[Dict[str, Any]]:
                 current_chapter_num, current_chapter_title, 
                 current_section_title, current_verse_buffer, verse_count
             )
-            if v_chunk:
-                chunks.append(v_chunk)
-                verse_count += 1
+            
+            if not v_chunk:
+                current_verse_buffer.clear()
+                return False
+
+            # Bilingual Pairing Logic: Pair Sanskrit shloka with subsequent English translation
+            # We look back for the last verse, possibly skipping section headers, glossary stubs, etc.
+            target_prev_chunk = None
+            for i in range(len(chunks) - 1, -1, -1):
+                if chunks[i]["level"] == "verse":
+                    target_prev_chunk = chunks[i]
+                    break
+                # Only skip metadata/structure levels
+                if chunks[i]["level"] not in ["section", "stub_glossary", "chapter", "sthana_index", "book"]:
+                    break
+
+            if target_prev_chunk:
+                prev_has_sanskrit = target_prev_chunk["metadata"].get("has_sanskrit", False)
+                curr_has_sanskrit = v_chunk["metadata"].get("has_sanskrit", False)
+                
+                # If prev was Sanskrit (shloka) and current is English (translation), merge them
+                if prev_has_sanskrit and not curr_has_sanskrit:
+                    if len(target_prev_chunk["content"]) + len(v_chunk["content"]) < 2000:
+                        target_prev_chunk["content"] += "\n\n" + v_chunk["content"]
+                        target_prev_chunk["metadata"]["linguistic_type"] = "bilingual"
+                        target_prev_chunk["metadata"]["word_count"] = len(target_prev_chunk["content"].split())
+                        current_verse_buffer.clear()
+                        return True
+
+            chunks.append(v_chunk)
+            verse_count += 1
             current_verse_buffer.clear()
             return True
         return False

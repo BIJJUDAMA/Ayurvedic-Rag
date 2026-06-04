@@ -80,9 +80,9 @@ class AyurvedaDatabaseManager:
         except Exception as e:
             return text
 
-    def upload_chunks(self, chunks: List[Dict[str, Any]], source_treatise: str):
+    def upload_chunks(self, chunks: List[Dict[str, Any]], source: str):
         from qdrant_client.http import models
-        print(f"Preparing Ayurveda 2026 Double-E5 + SPLADE payload for {len(chunks)} chunks from {source_treatise}...")
+        print(f"Preparing Ayurveda 2026 Double-E5 + SPLADE payload for {len(chunks)} chunks from {source}...")
         
         points = []
         for i, chunk in enumerate(chunks):
@@ -119,7 +119,7 @@ class AyurvedaDatabaseManager:
 
             # 4. Payload
             payload = {
-                "source_treatise": source_treatise,
+                "source": source,
                 "level": chunk["level"],
                 "content": content,
                 "parent_id": chunk.get("parent_id"),
@@ -144,7 +144,7 @@ class AyurvedaDatabaseManager:
                 points=batch
             )
         
-        print(f"✔ Successfully uploaded {len(chunks)} chunks from {source_treatise}.")
+        print(f"✔ Successfully uploaded {len(chunks)} chunks from {source}.")
 
 if __name__ == "__main__":
     import json
@@ -169,6 +169,6 @@ if __name__ == "__main__":
         if chunks:
             manager.upload_chunks(chunks, book)
 
-def upload_to_qdrant(chunks: List[Dict[str, Any]], source_treatise: str, model: Any = None):
+def upload_to_qdrant(chunks: List[Dict[str, Any]], source: str, model: Any = None):
     manager = AyurvedaDatabaseManager(dense_model=model)
-    manager.upload_chunks(chunks, source_treatise)
+    manager.upload_chunks(chunks, source)

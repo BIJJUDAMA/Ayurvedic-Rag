@@ -61,7 +61,7 @@ class AyurvedaAccordion:
                             "source_id": point.id,
                             "target_id": next_id,
                             "similarity": sim,
-                            "treatise": point.payload.get("source_treatise"),
+                            "treatise": point.payload.get("source"),
                             "level": point.payload.get("level")
                         })
         

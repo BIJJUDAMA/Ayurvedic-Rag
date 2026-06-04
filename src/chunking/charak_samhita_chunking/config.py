@@ -3,7 +3,7 @@ import os
 
 BOOKS_DIR = "books/charak_samhita"
 COLLECTION_NAME = "ayurveda_samhitas"
-SOURCE_TREATISE = "charak_samhita"
+SOURCE = "charak_samhita"
 QDRANT_HOST = "localhost"
 QDRANT_PORT = 6333
 

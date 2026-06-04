@@ -25,3 +25,4 @@ transformers
 torch
 uvicorn
 fastapi
+neo4j

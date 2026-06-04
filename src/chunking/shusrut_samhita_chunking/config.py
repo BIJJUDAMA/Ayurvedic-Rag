@@ -3,7 +3,7 @@ import os
 # --- Configuration for Susruta Samhita ---
 FILE_PATH = "books/shusrut_samhita/Shusrut_Samhita.md"
 COLLECTION_NAME = "ayurveda_samhitas"
-SOURCE_TREATISE = "shusrut_samhita"
+SOURCE = "shusrut_samhita"
 QDRANT_HOST = "localhost"
 QDRANT_PORT = 6333
 

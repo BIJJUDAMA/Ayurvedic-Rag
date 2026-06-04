@@ -278,7 +278,7 @@ def main():
     for p in all_points:
         node_id = str(p.id)
         payload = p.payload
-        source = payload.get("source", payload.get("source_treatise", "unknown"))
+        source = payload.get("source", "unknown")
         level = payload.get("level", "unknown")
         
         label = payload.get("section_title") or payload.get("title") or node_id[:8]

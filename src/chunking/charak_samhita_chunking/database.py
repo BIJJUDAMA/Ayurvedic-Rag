@@ -2,7 +2,7 @@ from typing import List, Dict, Any
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
 from sentence_transformers import SentenceTransformer
-from .config import QDRANT_HOST, QDRANT_PORT, COLLECTION_NAME, EMBEDDING_MODEL, VECTOR_SIZE, SOURCE_TREATISE
+from .config import QDRANT_HOST, QDRANT_PORT, COLLECTION_NAME, EMBEDDING_MODEL, VECTOR_SIZE, SOURCE
 
 def upload_to_qdrant(chunks: List[Dict[str, Any]], model: SentenceTransformer = None):
     if model is None:
@@ -30,7 +30,7 @@ def upload_to_qdrant(chunks: List[Dict[str, Any]], model: SentenceTransformer = 
         embedding = model.encode(chunk["content"]).tolist()
         
         payload = {
-            "source_treatise": SOURCE_TREATISE,
+            "source": SOURCE,
             "canonical_id": chunk.get("canonical_id", "root"),
             "parent_id": chunk.get("parent_id"),
             "prev_id": chunk.get("prev_id"),

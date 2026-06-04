@@ -13,6 +13,7 @@ import numpy as np
 from src.chunking.remote_embedder import RemoteEmbedder
 from src.chunking.cross_linker import cross_link
 from src.chunking.uploader import AyurvedaUploader
+from src.pre_processing.graph_ingest import ingest_graph
 
 def check_environment():
     """Verify basic connectivity."""
@@ -41,9 +42,12 @@ def check_environment():
     return True
 
 def run_all(shared_model=None):
-    """Execute all three pipelines sequentially with a shared model instance."""
+    """Execute all four pipelines sequentially with a shared model instance."""
     print("\n>>> Starting Full Pipeline (Unified) ...")
     
+    # Phase 0: Knowledge Graph Ingestion
+    ingest_graph()
+
     if shared_model is None:
         shared_model = RemoteEmbedder()
         if not shared_model.is_available():
@@ -105,6 +109,7 @@ def menu():
 
     while True:
         print("\n=== Ayurveda Unified Chunking Suite ===")
+        print("0. Ingest Knowledge Graph (Neo4j)")
         print("1. Run Charaka Samhita Pipeline")
         print("2. Run Susruta Samhita Pipeline")
         print("3. Run Astanga Hridaya Pipeline")
@@ -115,12 +120,14 @@ def menu():
         sys.stdout.flush()
         
         try:
-            choice = input("\nSelect an option (1-7): ").strip()
+            choice = input("\nSelect an option (0-7): ").strip()
         except EOFError:
             print("\nNon-interactive mode detected. Use '--all' flag for background runs.")
             break
 
-        if choice in ["1", "2", "3"]:
+        if choice == "0":
+            ingest_graph()
+        elif choice in ["1", "2", "3"]:
             if shared_model is None:
                 shared_model = RemoteEmbedder()
             
