@@ -13,6 +13,7 @@ from src.chunking.remote_embedder import RemoteEmbedder
 from src.retriever.search_engine import AyurvedaSearchEngine
 from src.retriever.context_manager import AyurvedaContextManager
 from src.retriever.router import AyurvedaRouter
+from src.retriever.graph_tool import Neo4jGraphTool
 
 # Global console for logging (can be overridden)
 _console = Console()
@@ -73,6 +74,7 @@ class AyurvedaRetriever:
         self.search_engine = AyurvedaSearchEngine(self.client, collection_name, self.model)
         self.context_manager = AyurvedaContextManager(self.client, collection_name)
         self.router = AyurvedaRouter(self.llm_client)
+        self.graph_tool = Neo4jGraphTool(console=self.console)
 
 
     # --- Tool Definitions with Verbose & Strict Instructions ---
@@ -154,13 +156,13 @@ class AyurvedaRetriever:
             
             res_str = f"SOURCE_ID: {doc_id}\n"
             res_str += f"RELEVANCE_SCORE: {score:.2f}\n"
-            res_str += f"HIERARCHICAL_PATH: {payload.get('source_treatise')} > {breadcrumb}\n"
+            res_str += f"HIERARCHICAL_PATH: {payload.get('source')} > {breadcrumb}\n"
             res_str += f"EXPANDED_CONTEXT: {full_context}\n"
             res_str += "-" * 20 + "\n"
             formatted_results.append(res_str)
             
             # For terminal visualization
-            terminal_summary.append(f"[bold gold3]{payload.get('source_treatise')}[/]: {payload.get('content')[:150]}...")
+            terminal_summary.append(f"[bold gold3]{payload.get('source')}[/]: {payload.get('content')[:150]}...")
 
         if terminal_summary:
             self.console.print(Panel(
@@ -211,7 +213,7 @@ class AyurvedaRetriever:
         ctx = self.context_manager.expand_context(verse_id, payload)
         breadcrumb = " > ".join([str(b.get("title") or "Untitled") for b in ctx["breadcrumb"]])
         
-        context_str = f"PATHWAY: {payload.get('source_treatise')} > {breadcrumb}\n"
+        context_str = f"PATHWAY: {payload.get('source')} > {breadcrumb}\n"
         context_str += "SEQUENTIAL_CHAIN:\n"
         for p in ctx["neighbors"]["prev"]:
             context_str += f"  [PRECEDING_VERSE]: {p.get('content')}\n"
@@ -338,30 +340,44 @@ class AyurvedaRetriever:
         if route_info['mode'] == "DIRECT":
             routing_advice += "[STRICT] DIRECT CITATION DETECTED. You MUST prioritize finding and quoting the exact verse specified above.\n"
 
-        tools = [self.search_treatises, self.get_verse_context, self.lookup_glossary]
+        tools = [
+            self.search_treatises, 
+            self.get_verse_context, 
+            self.lookup_glossary,
+            self.graph_tool.query_knowledge_graph
+        ]
         
         system_instruction = f"""
         ROLE:
         You are Vaidya — a senior Ayurvedic scholar. Your task is to perform 'SIDDHANTA' (Canonical Conclusion).
-        You provide high-precision answers strictly grounded in classical Samhitas.
+        You provide high-precision answers strictly grounded in classical Samhitas by bridging clinical facts (Siddhanta) with textual evidence (Pramana).
 
         {routing_advice}
 
-        CRITICAL MANDATE:
-        1. TOOL FIRST: You MUST call 'search_treatises' BEFORE answering. 
-        2. NO HALLUCINATION: Use ONLY information from the 'EXPANDED_CONTEXT'.
-        3. STRICT GROUNDING: Every claim in your answer MUST be supported by a retrieved chunk. 
+        UNIFIED SCHOLARLY WORKFLOW (Graph-Vector Handshake):
+        1. PHASE A: SIDDHANTA (Graph Tool)
+           - If a clinical entity (Disease/Plant/Formulation) is detected, you MUST call 'query_knowledge_graph' FIRST.
+           - This establishes the "Siddhanta" (Canonical Fact). Identify the precise ID (e.g., PLANT-042).
+        2. PHASE B: PRAMANA (Vector Store)
+           - Use the canonical names and relational facts from the Graph to formulate a high-precision 'search_treatises' query.
+           - You will receive mixed results: Evidence Chunks (Verses) and Anchor Chunks (Stubs).
+        3. PHASE C: METADATA HANDSHAKE & NOISE SEPARATION
+           - Inspect 'metadata.neo4j_entities' in the returned verses.
+           - SIGNAL: If the verse contains the matching Neo4j ID, it is 100% Clinical Evidence.
+           - NOISE: If a verse mentions a term but lacks the matching ID, it is a "Linguistic Mention" (Noise).
+           - STUB ANCHOR: If you retrieve a 'stub_glossary', use it as a Definition Anchor, not as proof. Use it to extract the canonical name to re-weight other verse chunks.
+        4. PHASE D: GRAPH HOPPING (Relational Traversal)
+           - If a verse mentions a new term or relationship not in your initial lookup, "hop" back to the 'graph_tool' to verify the new relationship.
+           - Voluntarily initiate a second 'search_treatises' call if a new formulation is discovered via the graph.
 
         SCHOLARLY OUTPUT PROTOCOL:
-        - SIDDHANTA (Final Conclusion):
-          - Provide a direct, concise answer to the user's question.
-          - Use the English translations from the retrieved context for the main explanation to ensure clarity.
-        - PRIMARY EVIDENCE:
-          - You MUST quote the original Sanskrit verse (Devanagari or IAST) verbatim from the context.
-          - Follow the Sanskrit quote with the exact English translation provided in the context.
-          - Include the Source ID and Citation (Treatise.Sthana.Chapter/Verse).
-        - ADHIKARANA: State the primary subject matter of the evidence.
-        - LIMITATIONS: If information is missing, explicitly say: "The manuscripts do not contain details regarding [X]."
+        - STRUCTURAL TEMPLATE:
+          - If a 'stub_glossary' is found, the final answer MUST begin with the Canonical Definition from that stub as a Heading.
+          - SIDDHANTA: Summarize the validated relationships (Dosage, Ingredients, Targets) from the Graph.
+          - PRAMANA: Quote the original Sanskrit and English translation from matching verses (The Body).
+        - GRAPH-VERSE COHESION (Validator):
+          - If Neo4j claims a relationship that the retrieved verses do not mention, explicitly flag this as a "Textual Gap."
+        - VALIDATION: State: "Siddhanta (Neo4j) confirms this treatment, and Pramana (Qdrant Verse ID: [X]) provides the textual authority."
         """
 
         chat = self.llm_client.chats.create(

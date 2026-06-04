@@ -104,7 +104,7 @@ def main():
                             if not payload: continue
                             
                             score = hit_data.get("score", 0.0)
-                            treatise = payload.get('source_treatise', 'Unknown')
+                            treatise = payload.get('source', 'Unknown')
                             
                             # Graph Context Breadcrumb
                             ctx = retriever.context_manager.expand_context(doc_id, payload)

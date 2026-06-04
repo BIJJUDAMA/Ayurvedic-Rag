@@ -157,7 +157,7 @@ class AyurvedaSearchEngine:
         
         if citation_params:
             if citation_params.get("treatise"):
-                must_conditions.append(models.FieldCondition(key="source_treatise", match=models.MatchValue(value=citation_params["treatise"])))
+                must_conditions.append(models.FieldCondition(key="source", match=models.MatchValue(value=citation_params["treatise"])))
             if citation_params.get("chapter"):
                 must_conditions.append(models.FieldCondition(key="chapter_number", match=models.MatchValue(value=citation_params["chapter"])))
             if citation_params.get("verse"):
@@ -210,7 +210,7 @@ class AyurvedaSearchEngine:
 
         # 4. Expert Reranking
         candidate_points = search_result.points
-        candidate_texts = [f"[Source: {p.payload.get('source_treatise')}] Content: {p.payload.get('content')}" for p in candidate_points]
+        candidate_texts = [f"[Source: {p.payload.get('source')}] Content: {p.payload.get('content')}" for p in candidate_points]
         
         # Cleanest, most comprehensive query is the best for reranking
         rerank_query = original_user_query if original_user_query else text_query
@@ -229,12 +229,12 @@ class AyurvedaSearchEngine:
                 "score": boosted_score,
                 "title": point.payload.get("section_title") or point.payload.get("chapter_title") or point.payload.get("content", "")[:80],
                 "text": point.payload.get("content", ""),
-                "source": point.payload.get("source_treatise", ""),
+                "source": point.payload.get("source", ""),
                 "metadata": point.payload
             })
         
-        results = sorted(final_results, key=lambda x: x["score"], reverse=True)[:top_k * 2] # Fetch more for diversity
-        diverse_results = self._apply_mmr(results, lambda_param=0.7)[:top_k]
+        results = sorted(final_results, key=lambda x: x["score"], reverse=True)[:top_k * 4] # Fetch even more for diversity
+        diverse_results = self._apply_mmr(results, lambda_param=0.8)[:top_k] # Less aggressive MMR
         return self._expand_context(diverse_results)
 
     def search(self, 

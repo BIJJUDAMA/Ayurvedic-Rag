@@ -70,21 +70,21 @@ class AyurvedaRouter:
         return "General"
 
     def classify_intent_llm(self, query: str) -> Dict[str, Any]:
-        """Uses Gemini to perform high-precision query analysis."""
+        """Uses Gemini to perform high-precision query analysis and clinical entity detection."""
         if not self.llm_client:
             return {"intent": self.classify_intent_heuristic(query), "technical_terms": []}
 
         prompt = f"""
-        Analyze this Ayurveda query for retrieval routing: "{query}"
+        Analyze this Ayurveda query for high-precision retrieval routing: "{query}"
         
         Return a JSON object with:
         1. "intent": One of [Sutra, Nidana, Sharira, Chikitsa, Sloka, General].
-        2. "technical_terms": List of 1-2 CORE Sanskrit technical terms (e.g., "Jvara", "Srotas", "Pitta").
-           - DO NOT include generic English words (e.g., "fever", "body", "treatment").
-           - Only include terms that likely exist in a Sanskrit-English glossary.
-        3. "treatise_preference": "charak_samhita", "shusrut_samhita", "astanga_hridaya", or null.
+        2. "clinical_entities": List of specific Diseases, Plants, or Formulations found in the query (e.g., ["Arsha", "Haritaki"]).
+        3. "routing_directive": If specific clinical entities are present, output "MANDATORY_GRAPH_LOOKUP". Otherwise "VECTOR_SEARCH".
+        4. "technical_terms": List of 1-2 CORE Sanskrit technical terms for search expansion.
+        5. "treatise_preference": "charak_samhita", "shusrut_samhita", "astanga_hridaya", or null.
         
-        Example: "How to treat fever?" -> {{"intent": "Chikitsa", "technical_terms": ["Jvara"], "treatise_preference": null}}
+        Example: "How to treat fever?" -> {{"intent": "Chikitsa", "clinical_entities": ["Jvara"], "routing_directive": "MANDATORY_GRAPH_LOOKUP", "technical_terms": ["Jvara"], "treatise_preference": null}}
         """
         
         try:
@@ -107,6 +107,8 @@ class AyurvedaRouter:
         intent = llm_analysis.get("intent", "General")
         technical_terms = llm_analysis.get("technical_terms", [])
         treatise_hint = llm_analysis.get("treatise_preference")
+        clinical_entities = llm_analysis.get("clinical_entities", [])
+        routing_directive = llm_analysis.get("routing_directive", "VECTOR_SEARCH")
 
         # Heuristic fallback for treatise if LLM missed it
         if not treatise_hint:
@@ -122,6 +124,9 @@ class AyurvedaRouter:
             mode = "DIRECT"
             treatise_hint = citation["treatise"]
             hints = f"DIRECT MANUSCRIPT MATCH: Priority access to {treatise_hint} ({citation['sthana_abbr']} {citation['chapter']})."
+        elif routing_directive == "MANDATORY_GRAPH_LOOKUP":
+            mode = "GUIDED"
+            hints = f"CLINICAL GUIDED SEARCH: Mandatory Graph Lookup for {', '.join(clinical_entities)}. Focus on {intent} contexts."
         elif intent != "General" or language == "sanskrit" or treatise_hint or technical_terms:
             mode = "GUIDED"
             hints = f"GUIDED SCHOLARLY SEARCH: Focus on {intent} contexts. Potential technical mappings: {', '.join(technical_terms)}."
@@ -133,6 +138,8 @@ class AyurvedaRouter:
             "treatise_hint": treatise_hint,
             "citation_params": citation,
             "technical_terms": technical_terms,
+            "clinical_entities": clinical_entities,
+            "routing_directive": routing_directive,
             "hints": hints
         }
 
