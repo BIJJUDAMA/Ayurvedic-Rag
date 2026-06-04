@@ -4,6 +4,7 @@ import glob
 from pathlib import Path
 from .strategies.charaka import CharakaCleaner
 from .strategies.susruta import SusrutaCleaner
+from .strategies.astanga import AshtangaCleaner
 from .strategies.markdown_base import MarkdownCleaner
 from .integrity import IntegrityMonitor
 
@@ -18,6 +19,7 @@ def main():
     try:
         charaka_cleaner = CharakaCleaner()
         susruta_cleaner = SusrutaCleaner()
+        astanga_cleaner = AshtangaCleaner()
         generic_md_cleaner = MarkdownCleaner()
         monitor = IntegrityMonitor()
         
@@ -34,7 +36,31 @@ def main():
         print(f"Found {len(json_files)} Charaka JSON files.")
         sys.stdout.flush()
         
+        charaka_blacklist = {
+            "About the Project.json",
+            "Contributors.json",
+            "Donate.json",
+            "Governance.json",
+            "Guidelines for writing.json",
+            "Help.json",
+            "Disclaimer.json",
+            "Main Page.json",
+            "Preface- Charak Samhita New Edition.json",
+            "Referencing guidelines.json",
+            "Technical Support.json",
+            "Yogesh Deole.json",
+            "Main_Page.json"
+        }
+        
         for json_file in json_files:
+            filename = os.path.basename(json_file)
+            # Robust check: normalize underscores to spaces for blacklist comparison
+            normalized_filename = filename.replace('_', ' ')
+            if (filename in charaka_blacklist or 
+                normalized_filename in charaka_blacklist or 
+                filename.startswith("Special:")):
+                continue
+
             with open(json_file, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             
@@ -45,7 +71,6 @@ def main():
             stats = monitor.measure_loss(raw_text, proc_text)
             deva_warning = monitor.check_devanagari_loss(raw_text, proc_text)
             
-            filename = os.path.basename(json_file)
             report.append({
                 "file": filename,
                 "treatise": "Charaka",
@@ -59,7 +84,7 @@ def main():
         # Process Susruta and Astanga (Markdown Files)
         treatises = [
             ("shusrut_samhita", "Shusrut_Samhita.md", susruta_cleaner),
-            ("astanga_hridaya", "astanga-hridaya.md", generic_md_cleaner)
+            ("astanga_hridaya", "astanga-hridaya.md", astanga_cleaner)
         ]
         
         for folder, filename, cleaner in treatises:
