@@ -61,7 +61,7 @@ class SyntheticDatasetGenerator:
             collection_name=COLLECTION_NAME,
             scroll_filter=models.Filter(
                 must=[
-                    models.FieldCondition(key="source_treatise", match=models.MatchAny(any=source_values)),
+                    models.FieldCondition(key="source", match=models.MatchAny(any=source_values)),
                     models.FieldCondition(key="level", match=models.MatchAny(any=["verse", "verse_block", "section", "chapter"]))
                 ]
             ),
@@ -93,7 +93,7 @@ class SyntheticDatasetGenerator:
                 using="dense_english",
                 query_filter=models.Filter(
                     must=[
-                        models.FieldCondition(key="source_treatise", match=models.MatchAny(any=exclude_treatises)),
+                        models.FieldCondition(key="source", match=models.MatchAny(any=exclude_treatises)),
                         models.FieldCondition(key="level", match=models.MatchAny(any=["verse", "verse_block", "section"]))
                     ],
                     must_not=[
@@ -107,7 +107,7 @@ class SyntheticDatasetGenerator:
                 return {
                     "id": str(hits.points[0].id),
                     "content": hits.points[0].payload.get("content", ""),
-                    "treatise": hits.points[0].payload.get("source_treatise")
+                    "treatise": hits.points[0].payload.get("source")
                 }
         except Exception as e:
             console.print(f"[red]Error finding related chunk: {e}[/]")

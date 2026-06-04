@@ -144,7 +144,7 @@ def validate_payload_completeness(client: QdrantClient, collection: str, limit: 
     res, _ = client.scroll(collection_name=collection, limit=limit, with_payload=True)
     if not res: return 0.0
     
-    mandatory_keys = {"source_treatise", "level", "content"}
+    mandatory_keys = {"source", "level", "content"}
     complete_nodes = 0
     for point in res:
         if all(key in point.payload for key in mandatory_keys):
@@ -281,6 +281,15 @@ def run_evaluation(engine, gold_dataset_path: str, retriever: Optional[Any] = No
             query = item.get("query")
             expected_id = item.get("expected_id")
             expected_context = item.get("ground_truth_context", "")
+            
+            # Fetch expected parent for soft-matching
+            expected_parent_id = None
+            try:
+                exp_res = client.retrieve(collection_name="ayurveda_rag", ids=[expected_id])
+                if exp_res:
+                    expected_parent_id = exp_res[0].payload.get("parent_id")
+            except:
+                pass
 
             if not query or not expected_id: continue
 
@@ -294,6 +303,11 @@ def run_evaluation(engine, gold_dataset_path: str, retriever: Optional[Any] = No
                     search_results = search_output[0]
                 else:
                     search_results = search_output
+
+                # Inject expected parent into results for soft-matching
+                for r in search_results:
+                    if "metadata" not in r: r["metadata"] = {}
+                    r["metadata"]["expected_parent_id"] = expected_parent_id
 
                 # Use retriever for scoring if provided, otherwise fallback to search engine
                 scoring_engine = retriever or engine

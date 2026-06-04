@@ -45,7 +45,7 @@ def analyze_stiffness(client: QdrantClient, collection: str, threshold: float = 
                     "sim": sim,
                     "text1": point.payload.get("content", "")[:60],
                     "text2": neighbor[0].payload.get("content", "")[:60],
-                    "treatise": point.payload.get("source_treatise")
+                    "treatise": point.payload.get("source")
                 })
 
     if not stiff_pairs:

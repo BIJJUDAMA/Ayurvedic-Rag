@@ -30,7 +30,7 @@ def find_chunk_and_context(chunk_id: str):
     
     console.print(Panel(
         f"[bold cyan]Content:[/]\n{payload.get('content')}\n\n"
-        f"[bold cyan]Source:[/]\n{payload.get('source_treatise')}\n"
+        f"[bold cyan]Source:[/]\n{payload.get('source')}\n"
         f"[bold cyan]Title:[/]\n{payload.get('title')}\n"
         f"[bold cyan]Level:[/]\n{payload.get('level')}\n"
         f"[bold cyan]Parent ID:[/]\n{payload.get('parent_id')}",

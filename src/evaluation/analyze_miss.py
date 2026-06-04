@@ -67,7 +67,7 @@ def analyze_miss():
             limit=200
         )
         
-        candidate_texts = [f"[Source: {p.payload.get('source_treatise')}] Content: {p.payload.get('content')}" for p in fusion_res.points]
+        candidate_texts = [f"[Source: {p.payload.get('source')}] Content: {p.payload.get('content')}" for p in fusion_res.points]
         rerank_scores = model.rerank(query, candidate_texts)
         
         # Zip and sort
